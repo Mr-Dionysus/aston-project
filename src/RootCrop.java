@@ -3,10 +3,10 @@ public class RootCrop {
     private double weight = 0.0;
     private String color;
 
-    public RootCrop(String type, double weight, String color) {
-        this.type = type;
-        this.weight = weight;
-        this.color = color;
+    public RootCrop(RootCropBuilder rootCropBuilder) {
+        type = rootCropBuilder.type;
+        weight = rootCropBuilder.weight;
+        color = rootCropBuilder.color;
     }
 
     public String getType() {
@@ -31,5 +31,21 @@ public class RootCrop {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public static class RootCropBuilder {
+        private String type;
+        private double weight = 0.0;
+        private String color;
+
+        public RootCropBuilder(String type, double weight, String color) {
+            this.type = type;
+            this.weight = weight;
+            this.color = color;
+        }
+
+        public RootCrop build() {
+            return new RootCrop(this);
+        }
     }
 }

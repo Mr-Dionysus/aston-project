@@ -3,10 +3,8 @@ public class Book {
     private String name;
     private int pages = 0;
 
-    public Book(String author, String name, int pages) {
-        this.author = author;
-        this.name = name;
-        this.pages = pages;
+    public Book(BookBuilder bookBuilder) {
+        author = bookBuilder.author;
     }
 
     public String getAuthor() {
@@ -31,5 +29,22 @@ public class Book {
 
     public void setPages(int pages) {
         this.pages = pages;
+    }
+
+    public static class BookBuilder {
+        private String author;
+        private String name;
+        private int pages = 0;
+
+        public BookBuilder(String author, String name, int pages)
+        {
+            this.author = author;
+            this.name = name;
+            this.pages = pages;
+        }
+
+        public Book build() {
+            return new Book(this);
+        }
     }
 }

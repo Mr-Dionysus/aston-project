@@ -3,10 +3,10 @@ public class Car {
     private String model;
     private int year;
 
-    public Car(int power, String model, int year) {
-        this.power = power;
-        this.model = model;
-        this.year = year;
+    public Car(CarBuilder carBuilder) {
+        power = carBuilder.power;
+        model = carBuilder.model;
+        year = carBuilder.year;
     }
 
     public int getPower() {
@@ -31,5 +31,22 @@ public class Car {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    public static class CarBuilder {
+        private int power = 0;
+        private String model;
+        private int year;
+
+        public CarBuilder(int power, String model, int year) {
+            this.power = power;
+            this.model = model;
+            this.year = year;
+
+        }
+
+        public Car build() {
+            return new Car(this);
+        }
     }
 }
