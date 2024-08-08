@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Test");
+
         while (true) {
             System.out.println("What class's objects do you want to use? Write 'stop' to stop");
             String classObjects = scanner.nextLine();
@@ -22,7 +22,6 @@ public class Main {
             if (addDataOptions == "stop") {
                 break;
             }
-            System.out.println("Test 3");
         }
     }
 }
