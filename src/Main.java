@@ -22,6 +22,7 @@ public class Main {
             if (addDataOptions == "stop") {
                 break;
             }
+            System.out.println("Test 3");
         }
     }
 }
