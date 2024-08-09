@@ -1,7 +1,6 @@
 package strategy;
 
 import models.Car;
-import models.Models;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -12,7 +11,7 @@ import java.util.List;
 
 public class CarReadFile implements ReadFileStrategy{
     @Override
-    public List<Car> readFile() {
+    public List<Car> ReadFile() {
         List<Car> carList = new ArrayList<>();
         String line;
         try (BufferedReader reader = new BufferedReader(new FileReader("resources/cars.txt"))) {

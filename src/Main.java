@@ -1,3 +1,4 @@
+import models.Book;
 import models.Car;
 
 import java.util.List;
@@ -9,6 +10,10 @@ public class Main {
         Car car = null;
         List<Car> carList = car.ReadFile();
         carList.forEach(System.out::println);
+
+        Book book = null;
+        List<Book> bookList = book.ReadFile();
+        bookList.forEach(System.out::println);
 
 //        Scanner scanner = new Scanner(System.in);
 //

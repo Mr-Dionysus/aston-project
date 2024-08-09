@@ -1,9 +1,16 @@
 package models;
 
+import strategy.BookReadFile;
+import strategy.ReadFileStrategy;
+
+import java.util.List;
+
 public class Book {
     private String author;
     private String name;
     private int pages = 0;
+
+    private static final ReadFileStrategy readFileStrategy = new BookReadFile();
 
     public Book(BookBuilder bookBuilder) {
         author = bookBuilder.author;
@@ -48,5 +55,18 @@ public class Book {
         public Book build() {
             return new Book(this);
         }
+    }
+
+    public static List<Book> ReadFile(){
+        return readFileStrategy.ReadFile();
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "author='" + author + '\'' +
+                ", name='" + name + '\'' +
+                ", pages=" + pages +
+                '}';
     }
 }

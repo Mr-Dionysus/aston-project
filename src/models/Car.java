@@ -10,7 +10,7 @@ public class Car {
     private String model;
     private int year;
 
-    private static ReadFileStrategy readFileStrategy = new CarReadFile();
+    private static final ReadFileStrategy readFileStrategy = new CarReadFile();
 
     public Car(CarBuilder carBuilder) {
         power = carBuilder.power;
@@ -59,7 +59,7 @@ public class Car {
     }
 
     public static List<Car> ReadFile () {
-        return readFileStrategy.readFile();
+        return readFileStrategy.ReadFile();
     }
 
     @Override
