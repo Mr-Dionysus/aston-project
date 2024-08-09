@@ -1,5 +1,6 @@
 import models.Book;
 import models.Car;
+import models.RootCrop;
 
 import java.util.List;
 import java.util.Scanner;
@@ -14,6 +15,10 @@ public class Main {
         Book book = null;
         List<Book> bookList = book.ReadFile();
         bookList.forEach(System.out::println);
+
+        RootCrop rootCrop = null;
+        List<RootCrop> rootCropList = rootCrop.ReadFile();
+        rootCropList.forEach(System.out::println);
 
 //        Scanner scanner = new Scanner(System.in);
 //
