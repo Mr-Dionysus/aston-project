@@ -34,11 +34,7 @@ public class RootCrop {
 
     @Override
     public String toString() {
-        return "RootCrop{" +
-                "Тип = '" + type + '\'' +
-                ", Масса = " + weight +
-                ", Цвет = '" + color + '\'' +
-                '}';
+        return "Type: " + this.type + ", Weight: " + this.weight + ", Color: " + this.color;
     }
 
     public static class RootCropBuilder {

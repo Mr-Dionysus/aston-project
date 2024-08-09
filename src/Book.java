@@ -33,11 +33,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "Автор = '" + author + '\'' +
-                ", Название = '" + name + '\'' +
-                ", Страниц = " + pages +
-                '}';
+       return "Author: " + this.author + ", Name: " + this.name + ", Pages: " + this.pages;
     }
 
     public static class BookBuilder {
