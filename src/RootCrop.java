@@ -32,6 +32,11 @@ public class RootCrop {
         this.color = color;
     }
 
+    @Override
+    public String toString() {
+        return "Type: " + this.type + ", Weight: " + this.weight + ", Color: " + this.color;
+    }
+
     public static class RootCropBuilder {
         private String type;
         private double weight = 0.0;
