@@ -34,6 +34,7 @@ public class Main {
             if (addDataOptions.equals("stop")) {
                 break;
             }
+
             /*
             Console writing realization
 
