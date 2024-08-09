@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-       
+
         Car testCar = new Car.CarBuilder(100, "Audi", 2010).build();
         Car testCar2 = new Car.CarBuilder(500, "BMW", 2015).build();
         Car testCar3 = new Car.CarBuilder(100, "Mercedes", 2005).build();
@@ -54,12 +54,11 @@ public class Main {
                     String searchType = searchArr[0];
                     String searchParam = searchArr[1];
 
-                    BinarySearch binarySearch = new BinarySearch();
-                    SearchingContext searchingContext = new SearchingContext(binarySearch);
-                    searchingContext.performSearch(searchType, searchParam, cars);
+                    SearchingContext searchingContext = new SearchingContext(new BinarySearch());
+                    int index = searchingContext.performSearch(searchType, searchParam, cars);
 
                     try {
-                        System.out.println(cars.get(Integer.parseInt(binarySearch.toString())) + "\n--------------");
+                        System.out.println(cars.get(index) + "\n--------------");
                     } catch (IndexOutOfBoundsException e) {
                         System.out.println("Error: " + e.getMessage() + "\n");
                     }
