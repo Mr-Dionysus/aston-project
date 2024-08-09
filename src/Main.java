@@ -19,7 +19,7 @@ public class Main {
 
             System.out.println("Do you want to add new data in array via file, by random, or via console? Write 'stop' to stop");
             String addDataOptions = scanner.nextLine();
-            if (addDataOptions == "stop") {
+            if (addDataOptions.equals("stop")) {
                 break;
             }
         }
