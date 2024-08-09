@@ -3,10 +3,9 @@ import java.util.Comparator;
 import java.util.List;
 
 public class BinarySearch implements SearchingStrategy {
-    int index = 0;
-
     @Override
-    public void sort(String searchType, String searchParam, ArrayList list) {
+    public int search(String searchType, String searchParam, ArrayList list) {
+        int index = 0;
         Comparator<Car> carComparator;
         Comparator<Book> bookComparator;
         Comparator<RootCrop> rootCropComparator;
@@ -52,6 +51,7 @@ public class BinarySearch implements SearchingStrategy {
                 index = indexedBinarySearch(list, new RootCrop.RootCropBuilder(null, 0, searchParam).build(), rootCropComparator);
                 break;
         }
+        return index;
     }
 
 
@@ -72,10 +72,5 @@ public class BinarySearch implements SearchingStrategy {
                 return mid;
         }
         return -(low + 1);
-    }
-
-    @Override
-    public String toString() {
-        return String.valueOf(index);
     }
 }

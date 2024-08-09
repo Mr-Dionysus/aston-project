@@ -11,7 +11,7 @@ public class SearchingContext {
         this.searchingStrategy = searchingStrategy;
     }
 
-    public void performSearch(String searchType, String searchParam, ArrayList list) {
-        searchingStrategy.sort(searchType, searchParam, list);
+    public int performSearch(String searchType, String searchParam, ArrayList list) {
+        return searchingStrategy.search(searchType, searchParam, list);
     }
 }
