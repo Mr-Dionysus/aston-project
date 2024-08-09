@@ -34,6 +34,7 @@ public class Main {
             if (addDataOptions.equals("stop")) {
                 break;
             }
+
             /*
             Console writing realization
 
@@ -41,6 +42,7 @@ public class Main {
 
             }
             */
+
             while (true) {
                 System.out.println("Do you want to find an object with specific information? Write Y or N.");
                 String searchOption = scanner.nextLine();
