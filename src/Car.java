@@ -33,6 +33,11 @@ public class Car {
         this.year = year;
     }
 
+    @Override
+    public String toString() {
+        return "Power: " + this.power + "\nModel: " + this.model + "\nYear: " + this.year;
+    }
+
     public static class CarBuilder {
         private int power = 0;
         private String model;

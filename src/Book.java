@@ -31,6 +31,11 @@ public class Book {
         this.pages = pages;
     }
 
+    @Override
+    public String toString() {
+       return "Author: " + this.author + ", Name: " + this.name + ", Pages: " + this.pages;
+    }
+
     public static class BookBuilder {
         private String author;
         private String name;
