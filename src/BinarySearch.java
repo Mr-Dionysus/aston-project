@@ -2,14 +2,17 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class BinarySearch {
-    public BinarySearch(String searchType, String searchParam, ArrayList list) {
+public class BinarySearch implements SearchingStrategy {
+    int index = 0;
+
+    @Override
+    public void sort(String searchType, String searchParam, ArrayList list) {
         Comparator<Car> carComparator;
         Comparator<Book> bookComparator;
         Comparator<RootCrop> rootCropComparator;
-        int index = 0;
 
         switch (searchType) {
+            // Searching the Car
             case "power":
                 carComparator = Comparator.comparingInt(Car::getPower);
                 index = indexedBinarySearch(list, new Car.CarBuilder(Integer.parseInt(searchParam), null, 0).build(), carComparator);
@@ -22,6 +25,7 @@ public class BinarySearch {
                 carComparator = Comparator.comparingInt(Car::getYear);
                 index = indexedBinarySearch(list, new Car.CarBuilder(0, null, Integer.parseInt(searchParam)).build(), carComparator);
                 break;
+            // Searching the Book
             case "author":
                 bookComparator = Comparator.comparing(Book::getAuthor);
                 index = indexedBinarySearch(list, new Book.BookBuilder(searchParam, null, 0).build(), bookComparator);
@@ -34,6 +38,7 @@ public class BinarySearch {
                 bookComparator = Comparator.comparingInt(Book::getPages);
                 index = indexedBinarySearch(list, new Book.BookBuilder(null, null, Integer.parseInt(searchParam)).build(), bookComparator);
                 break;
+            // Searching the RootCrop
             case "type":
                 rootCropComparator = Comparator.comparing(RootCrop::getType);
                 index = indexedBinarySearch(list, new RootCrop.RootCropBuilder(searchParam, 0, null).build(), rootCropComparator);
@@ -47,13 +52,8 @@ public class BinarySearch {
                 index = indexedBinarySearch(list, new RootCrop.RootCropBuilder(null, 0, searchParam).build(), rootCropComparator);
                 break;
         }
-
-        try {
-            System.out.println(list.get(index) + "\n--------------");
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Error: " + e.getMessage() + "\n");
-        }
     }
+
 
     private static <T> int indexedBinarySearch(List<? extends T> list, T key, Comparator<? super T> comparator) {
         int low = 0;
@@ -72,5 +72,10 @@ public class BinarySearch {
                 return mid;
         }
         return -(low + 1);
+    }
+
+    @Override
+    public String toString() {
+        return String.valueOf(index);
     }
 }
