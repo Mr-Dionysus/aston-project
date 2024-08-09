@@ -1,9 +1,11 @@
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        MergeSort mergeSort = new MergeSort();
 
         Car testCar = new Car.CarBuilder(100, "Audi", 2010).build();
         Car testCar2 = new Car.CarBuilder(500, "BMW", 2015).build();
@@ -15,6 +17,18 @@ public class Main {
         cars.add(testCar2);
         cars.add(testCar3);
         cars.add(testCar4);
+
+        System.out.println("До сортировки по мощнсоти: " + cars);
+        mergeSort.mergeSort(cars, Comparator.comparingInt(Car::getPower));
+        System.out.println("После сортировки по мощности: " + cars);
+
+        System.out.println("До сортировки по названию: " + cars);
+        mergeSort.mergeSort(cars, Comparator.comparing(Car::getModel));
+        System.out.println("После сортировки по названию: " + cars);
+
+        System.out.println("До сортировки по году: " + cars);
+        mergeSort.mergeSort(cars, Comparator.comparingInt(Car::getYear));
+        System.out.println("После сортировки по году: " + cars);
 
         while (true) {
             System.out.println("What class's objects do you want to use? Write 'stop' to stop");
