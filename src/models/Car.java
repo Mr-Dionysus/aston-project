@@ -1,7 +1,16 @@
+package models;
+
+import strategy.CarReadFile;
+import strategy.ReadFileStrategy;
+
+import java.util.List;
+
 public class Car {
     private int power = 0;
     private String model;
     private int year;
+
+    private static ReadFileStrategy readFileStrategy = new CarReadFile();
 
     public Car(CarBuilder carBuilder) {
         power = carBuilder.power;
@@ -42,11 +51,23 @@ public class Car {
             this.power = power;
             this.model = model;
             this.year = year;
-
         }
 
         public Car build() {
             return new Car(this);
         }
+    }
+
+    public static List<Car> ReadFile () {
+        return readFileStrategy.readFile();
+    }
+
+    @Override
+    public String toString() {
+        return "Car{" +
+                "power=" + power +
+                ", model='" + model + '\'' +
+                ", year=" + year +
+                '}';
     }
 }
