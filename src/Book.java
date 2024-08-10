@@ -1,10 +1,12 @@
 public class Book {
     private String author;
     private String name;
-    private int pages = 0;
+    private int pages;
 
     public Book(BookBuilder bookBuilder) {
         author = bookBuilder.author;
+        name = bookBuilder.name;
+        pages = bookBuilder.pages;
     }
 
     public String getAuthor() {
@@ -33,7 +35,7 @@ public class Book {
 
     @Override
     public String toString() {
-       return "Author: " + this.author + ", Name: " + this.name + ", Pages: " + this.pages;
+        return "\nAuthor: " + this.author + "\nName:   " + this.name + "\nPages:  " + this.pages;
     }
 
     public static class BookBuilder {
@@ -41,8 +43,7 @@ public class Book {
         private String name;
         private int pages = 0;
 
-        public BookBuilder(String author, String name, int pages)
-        {
+        public BookBuilder(String author, String name, int pages) {
             this.author = author;
             this.name = name;
             this.pages = pages;

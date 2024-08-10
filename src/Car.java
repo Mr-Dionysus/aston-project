@@ -1,5 +1,5 @@
 public class Car {
-    private int power = 0;
+    private int power;
     private String model;
     private int year;
 
@@ -35,11 +35,11 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Power: " + this.power + "\nModel: " + this.model + "\nYear: " + this.year;
+        return "Power: " + this.power + "\nModel: " + this.model + "\nYear:  " + this.year;
     }
 
     public static class CarBuilder {
-        private int power = 0;
+        private int power;
         private String model;
         private int year;
 

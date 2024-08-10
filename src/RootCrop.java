@@ -1,6 +1,6 @@
 public class RootCrop {
     private String type;
-    private double weight = 0.0;
+    private double weight;
     private String color;
 
     public RootCrop(RootCropBuilder rootCropBuilder) {
@@ -12,6 +12,7 @@ public class RootCrop {
     public String getType() {
         return type;
     }
+
     public void setType(String type) {
         this.type = type;
     }
@@ -34,7 +35,7 @@ public class RootCrop {
 
     @Override
     public String toString() {
-        return "Type: " + this.type + ", Weight: " + this.weight + ", Color: " + this.color;
+        return "\nType:   " + this.type + "\nWeight: " + this.weight + "\nColor:  " + this.color;
     }
 
     public static class RootCropBuilder {

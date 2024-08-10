@@ -1,5 +1,5 @@
 import java.util.ArrayList;
 
-public interface SearchingStrategy {
-    int search(String searchType, String searchParam, ArrayList list);
+public interface SearchingStrategy<T> {
+    int search(String searchType, String searchParam, ArrayList<T> list);
 }
