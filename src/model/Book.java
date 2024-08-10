@@ -1,3 +1,5 @@
+package model;
+
 public class Book {
     private final String author;
     private final String name;

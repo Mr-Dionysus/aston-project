@@ -1,3 +1,5 @@
+package model;
+
 public class Car {
     private final int power;
     private final String model;

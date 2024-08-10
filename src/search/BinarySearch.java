@@ -1,3 +1,9 @@
+package search;
+
+import model.Book;
+import model.Car;
+import model.RootCrop;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 
@@ -121,6 +127,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
             System.out.println("--------------\n" + list.get(index));
         } catch (IndexOutOfBoundsException e) {
             System.out.println("--------------\n" + "Error: " + e.getMessage());
+            System.out.println("That array don't have element with that information.");
         }
     }
 }

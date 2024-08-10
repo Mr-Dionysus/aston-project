@@ -1,3 +1,10 @@
+import model.Book;
+import model.Car;
+import model.RootCrop;
+import search.BinarySearch;
+import sort.MergeSort;
+import sort.SortingContext;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Scanner;
@@ -7,43 +14,47 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         MergeSort mergeSort = new MergeSort();
 
+        ArrayList<Car> cars = new ArrayList<>();
+        ArrayList<Book> books = new ArrayList<>();
+        ArrayList<RootCrop> rootCrops = new ArrayList<>();
+
         Car car1 = new Car.Builder().power(100).model("Audi").year(2010).build();
         Car car2 = new Car.Builder().power(500).model("BMW").year(2015).build();
         Car car3 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
         Car car4 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
 
-        RootCrop rootCrop = new RootCrop.Builder().type("test").weight(0.0).color("test").build();
-        RootCrop rootCrop2 = new RootCrop.Builder().type("test").weight(0.0).color("test").build();
-
-        ArrayList<Car> cars = new ArrayList<>();
-        ArrayList<Book> books = new ArrayList<>();
-        ArrayList<RootCrop> rootCrops = new ArrayList<>();
         cars.add(car1);
         cars.add(car2);
         cars.add(car3);
         cars.add(car4);
 
-        System.out.println("До сортировки по мощнсоти: " + cars);
-        mergeSort.mergeSort(cars, Comparator.comparingInt(Car::getPower));
-        System.out.println("После сортировки по мощности: " + cars);
-
-        System.out.println("До сортировки по названию: " + cars);
-        mergeSort.mergeSort(cars, Comparator.comparing(Car::getModel));
-        System.out.println("После сортировки по названию: " + cars);
-
-        System.out.println("До сортировки по году: " + cars);
-        mergeSort.mergeSort(cars, Comparator.comparingInt(Car::getYear));
-        System.out.println("После сортировки по году: " + cars);
+        RootCrop rootCrop = new RootCrop.Builder().type("test").weight(0.0).color("test").build();
+        RootCrop rootCrop2 = new RootCrop.Builder().type("test").weight(0.0).color("test").build();
 
         rootCrops.add(rootCrop);
         rootCrops.add(rootCrop2);
+
+        SortingContext sortingContext = new SortingContext<>(new MergeSort<>());
+
+        System.out.println("До сортировки по мощности: " + cars);
+        sortingContext.performSort(cars, Comparator.comparingInt(Car::getPower));
+        System.out.println("После сортировки по мощности: " + cars);
+
+
+        System.out.println("До сортировки по названию: " + cars);
+        sortingContext.performSort(cars, Comparator.comparing(Car::getModel));
+        System.out.println("После сортировки по названию: " + cars);
+
+        System.out.println("До сортировки по году: " + cars);
+        sortingContext.performSort(cars, Comparator.comparingInt(Car::getYear));
+        System.out.println("После сортировки по году: " + cars);
 
         stopProgram:
         while (true) {
             while (true) {
                 System.out.println("""
                         --------------
-                        What class's objects do you want to use - Car, Book or RootCrop? Write 'stop' to stop.
+                        What class's objects do you want to use - 'car', 'book' or 'rootcrop'? Write 'stop' to stop.
                         --------------""");
                 String classObjects = scanner.nextLine().toLowerCase();
 
@@ -52,7 +63,7 @@ public class Main {
                 } else if (classObjects.isEmpty() || (!classObjects.equals("car") && !classObjects.equals("book") && !classObjects.equals("rootcrop"))) {
                     System.out.println("""
                             --------------
-                            You wrote empty String. Please, write class that you want - Car, Book or RootCrop. Write 'stop' to stop.""");
+                            You wrote empty String. Please, write class that you want - 'car', 'book' or 'rootcrop'. Write 'stop' to stop.""");
                 } else {
                     break;
                 }
@@ -68,7 +79,7 @@ public class Main {
                 try {
                     arrLength = Integer.parseInt(scanner.nextLine());
                 } catch (NumberFormatException e) {
-                    System.out.println("--------------\n" + "Error: " + e.getMessage() + ". Please, write 0 or a positive number.");
+                    System.out.println("--------------\n" + "Error: " + e.getMessage() + ". Please, write '0' or a positive number.");
                     continue;
                 }
 
@@ -77,7 +88,7 @@ public class Main {
                 } else if (arrLength < 0) {
                     System.out.println("""
                             --------------
-                            You wrote negative number. Please, write 0 or a positive number.""");
+                            You wrote negative number. Please, write '0' or a positive number.""");
                 } else {
                     break;
                 }
@@ -124,7 +135,7 @@ public class Main {
                     System.out.println("""
                             --------------
                             Write specific information that you want to find with comma like that - 'power,100'.
-                            You have next options: Car (power, model, year), Book (author, name, pages), RootCrop (type, weight (Format: 0 or 0.0), color).
+                            You have next options: Car ('power', 'model', 'year'), Book ('author', 'name', 'pages'), RootCrop ('type', 'weight' (Format: 0 or 0.0), 'color').
                             --------------""");
                     String searchString = scanner.nextLine().toLowerCase();
                     String[] searchArr = searchString.split(",");

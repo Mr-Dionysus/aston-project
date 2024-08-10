@@ -1,3 +1,5 @@
+package model;
+
 public class RootCrop {
     private final String type;
     private final double weight;
