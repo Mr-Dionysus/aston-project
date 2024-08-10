@@ -21,7 +21,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
     }
 
     private int searchInCars(String searchType, String searchParam, ArrayList<Car> list) {
-        int index = -1;
+        int index;
         Comparator<Car> carComparator;
 
         switch (searchType) {
@@ -37,12 +37,15 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 carComparator = Comparator.comparingInt(Car::getYear);
                 index = indexedBinarySearch(list, new Car.CarBuilder(0, null, Integer.parseInt(searchParam)).build(), carComparator);
                 break;
+            default:
+                index = -1;
+                break;
         }
         return index;
     }
 
     private int searchInBooks(String searchType, String searchParam, ArrayList<Book> list) {
-        int index = -1;
+        int index;
         Comparator<Book> bookComparator;
 
         switch (searchType) {
@@ -58,13 +61,17 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 bookComparator = Comparator.comparingInt(Book::getPages);
                 index = indexedBinarySearch(list, new Book.BookBuilder(null, null, Integer.parseInt(searchParam)).build(), bookComparator);
                 break;
+            default:
+                index = -1;
+                break;
         }
         return index;
     }
 
     private int searchInRootCrops(String searchType, String searchParam, ArrayList<RootCrop> list) {
-        int index = -1;
+        int index;
         Comparator<RootCrop> rootCropComparator;
+
         switch (searchType) {
             case "type":
                 rootCropComparator = Comparator.comparing(RootCrop::getType);
@@ -78,10 +85,14 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 rootCropComparator = Comparator.comparing(RootCrop::getColor);
                 index = indexedBinarySearch(list, new RootCrop.RootCropBuilder(null, 0, searchParam).build(), rootCropComparator);
                 break;
+            default:
+                index = -1;
+                break;
         }
         return index;
     }
 
+    @SuppressWarnings("ReassignedVariable")
     private static <T> int indexedBinarySearch(ArrayList<? extends T> list, T key, Comparator<? super T> comparator) {
         int low = 0;
         int high = list.size() - 1;
@@ -105,7 +116,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         SearchingContext<T> searchingContext = new SearchingContext<>(new BinarySearch<>());
 
         int index = searchingContext.performSearch(searchType, searchParam, list);
-       
+
         try {
             System.out.println(list.get(index) + "\n--------------");
         } catch (IndexOutOfBoundsException e) {
