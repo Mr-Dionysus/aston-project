@@ -1,36 +1,24 @@
 public class Car {
-    private int power;
-    private String model;
-    private int year;
+    private final int power;
+    private final String model;
+    private final int year;
 
-    public Car(CarBuilder carBuilder) {
-        power = carBuilder.power;
-        model = carBuilder.model;
-        year = carBuilder.year;
+    Car(Builder builder) {
+        this.power = builder.power;
+        this.model = builder.model;
+        this.year = builder.year;
     }
 
     public int getPower() {
         return power;
     }
 
-    public void setPower(int power) {
-        this.power = power;
-    }
-
     public String getModel() {
         return model;
     }
 
-    public void setModel(String model) {
-        this.model = model;
-    }
-
     public int getYear() {
         return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
     }
 
     @Override
@@ -38,16 +26,24 @@ public class Car {
         return "Power: " + this.power + "\nModel: " + this.model + "\nYear:  " + this.year;
     }
 
-    public static class CarBuilder {
+    public static class Builder {
         private int power;
         private String model;
         private int year;
 
-        public CarBuilder(int power, String model, int year) {
+        public Builder power(int power) {
             this.power = power;
-            this.model = model;
-            this.year = year;
+            return this;
+        }
 
+        public Builder model(String model) {
+            this.model = model;
+            return this;
+        }
+
+        public Builder year(int year) {
+            this.year = year;
+            return this;
         }
 
         public Car build() {
