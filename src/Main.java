@@ -12,7 +12,6 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        MergeSort mergeSort = new MergeSort();
 
         ArrayList<Car> cars = new ArrayList<>();
         ArrayList<Book> books = new ArrayList<>();
