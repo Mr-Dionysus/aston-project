@@ -63,7 +63,6 @@ public class Main {
         sortingContext.performSort(cars, Comparator.comparingInt(Car::getPower));
         System.out.println("После сортировки по мощности: " + cars);
 
-
         System.out.println("До сортировки по названию: " + cars);
         sortingContext.performSort(cars, Comparator.comparing(Car::getModel));
         System.out.println("После сортировки по названию: " + cars);
@@ -86,7 +85,7 @@ public class Main {
                 } else if (classObjects.isEmpty() || (!classObjects.equals("car") && !classObjects.equals("book") && !classObjects.equals("rootcrop"))) {
                     System.out.println("""
                             --------------
-                            You wrote empty String. Please, write class that you want - 'car', 'book' or 'rootcrop'. Write 'stop' to stop.""");
+                            You wrote class name wrong. Please, write class that you want - 'car', 'book' or 'rootcrop'. Write 'stop' to stop.""");
                 } else {
                     break;
                 }
@@ -135,6 +134,11 @@ public class Main {
                 case "console":
                     //code realization
                     break;
+                default:
+                    System.out.println("""
+                            --------------
+                            You wrote something wrong. Please, choose option to add new data in array: 'file', 'random', or 'console'. Write 'stop' to stop.""");
+                    break;
             }
 
             /*
@@ -157,13 +161,13 @@ public class Main {
                 } else if (doSearch.equals("y")) {
                     System.out.println("""
                             --------------
-                            Write specific information that you want to find with comma like that - 'power,100'.
-                            You have next options: Car ('power', 'model', 'year'), Book ('author', 'name', 'pages'), RootCrop ('type', 'weight' (Format: 0 or 0.0), 'color').
+                            Write specific information that you want to find with comma like that - 'car,power,100'.
+                            You have next options: 'car' ('power', 'model', 'year'), 'book' ('author', 'name', 'pages'), 'rootcrop' ('type', 'weight' (Format: 0 or 0.0), 'color').
                             --------------""");
                     String searchString = scanner.nextLine().toLowerCase();
                     String[] searchArr = searchString.split(",");
-
-                    String searchType = searchArr[0];
+                    String searchClass = searchArr[0];
+                    String searchType = searchArr[1];
 
                     if (searchArr[0].equals(searchString)) {
                         System.out.println("""
@@ -172,23 +176,71 @@ public class Main {
                         continue;
                     }
 
-                    String searchParam = searchArr[1];
+                    String searchParam = searchArr[2];
+                    String messageInvalidSearchType = "--------------\nYou wrote '" + searchType + "' which '" + searchClass + "' class isn't have. Please, try again.";
+                    Car carSearchResult;
+                    Book bookSearchResult;
+                    RootCrop rootCropSearchResult;
+                    int index;
 
-                    switch (searchType) {
-                        case "power", "model", "year" -> {
-                            BinarySearch.searchTryCatchIndexOutOfBoundsException(searchType, searchParam, cars);
-                        }
+                    switch (searchClass) {
+                        case "car":
+                            if (searchType.equals("power") || searchType.equals("model") || searchType.equals("year")) {
+                                index = BinarySearch.searchResultIndex(searchType, searchParam, cars);
 
-                        case "author", "name", "pages" -> {
-                            BinarySearch.searchTryCatchIndexOutOfBoundsException(searchType, searchParam, books);
-                        }
+                                if (index == -1) {
+                                    System.out.println("""
+                                            --------------
+                                            That array don't have an element with that information.""");
+                                } else {
+                                    carSearchResult = cars.get(index);
+                                    System.out.println(carSearchResult);
+                                }
+                            } else {
+                                System.out.println(messageInvalidSearchType);
+                            }
+                            break;
 
-                        case "type", "weight", "color" -> {
-                            BinarySearch.searchTryCatchIndexOutOfBoundsException(searchType, searchParam, rootCrops);
-                        }
+                        case "book":
+                            if (searchType.equals("author") || searchType.equals("name") || searchType.equals("pages")) {
+                                index = BinarySearch.searchResultIndex(searchType, searchParam, books);
+
+                                if (index == -1) {
+                                    System.out.println("""
+                                            --------------
+                                            That array don't have an element with that information.""");
+                                } else {
+                                    bookSearchResult = books.get(index);
+                                    System.out.println(bookSearchResult);
+                                }
+                            } else {
+                                System.out.println(messageInvalidSearchType);
+                            }
+                            break;
+
+                        case "rootcrop":
+                            if (searchType.equals("type") || searchType.equals("weight") || searchType.equals("color")) {
+                                index = BinarySearch.searchResultIndex(searchType, searchParam, rootCrops);
+
+                                if (index == -1) {
+                                    System.out.println("""
+                                            --------------
+                                            That array don't have an element with that information.""");
+                                } else {
+                                    rootCropSearchResult = rootCrops.get(index);
+                                    System.out.println(rootCropSearchResult);
+                                }
+                            } else {
+                                System.out.println(messageInvalidSearchType);
+                            }
+                            break;
+                        default:
+                            System.out.println("Error: That class doesn't exist. Please, try again.");
+                            break;
                     }
                 }
             }
         }
     }
 }
+
