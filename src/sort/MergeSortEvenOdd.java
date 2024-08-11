@@ -30,7 +30,7 @@ public class MergeSortEvenOdd implements SortingStrategy
         modCar = (ArrayList<Car>) array;
         stored = (ArrayList<Car>) array;
         if (even) modCar.removeIf(i -> i.getYear()%2 == 0);
-        else modCar.removeIf(i -> i.getYear()%2 !=);
+        else modCar.removeIf(i -> i.getYear()%2 != 0);
         tempSort.sort(modCar, comparator);
         array = mergeOld(modCar, stored, even);
     }
