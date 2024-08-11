@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class CarReadFile implements ReadFileStrategy{
+public class CarReadFile implements ReadFileStrategy {
     @Override
     public List<Car> ReadFile() {
         List<Car> carList = new ArrayList<>();
@@ -20,7 +20,7 @@ public class CarReadFile implements ReadFileStrategy{
                 int power = Integer.parseInt(values[0]);
                 String model = values[1];
                 int year = Integer.parseInt(values[2]);
-                Car car = new Car.CarBuilder(power, model, year).build();
+                Car car = new Car.Builder().power(power).model(model).year(year).build();
                 carList.add(car);
             }
         } catch (IOException e) {

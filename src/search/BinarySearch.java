@@ -1,8 +1,8 @@
 package search;
 
-import model.Book;
-import model.Car;
-import model.RootCrop;
+import models.Book;
+import models.Car;
+import models.RootCrop;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -35,7 +35,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 carComparator = Comparator.comparingInt(Car::getPower);
                 index = indexedBinarySearch(list, new Car.Builder().power(Integer.parseInt(searchParam)).model(null).year(0).build(), carComparator);
                 break;
-            case "model":
+            case "models":
                 carComparator = Comparator.comparing(Car::getModel);
                 index = indexedBinarySearch(list, new Car.Builder().power(0).model(searchParam).year(0).build(), carComparator);
                 break;

@@ -1,7 +1,6 @@
 package strategy;
 
 import models.Book;
-import models.Car;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -10,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class BookReadFile implements ReadFileStrategy{
+public class BookReadFile implements ReadFileStrategy {
     @Override
     public List<Book> ReadFile() {
         List<Book> bookList = new ArrayList<>();
@@ -21,7 +20,7 @@ public class BookReadFile implements ReadFileStrategy{
                 String author = values[0];
                 String name = values[1];
                 int pages = Integer.parseInt(values[2]);
-                Book book = new Book.BookBuilder(author, name, pages).build();
+                Book book = new Book.Builder().author(author).name(name).pages(pages).build();
                 bookList.add(book);
             }
         } catch (IOException e) {

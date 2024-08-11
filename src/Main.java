@@ -1,6 +1,6 @@
-import model.Book;
-import model.Car;
-import model.RootCrop;
+import models.Book;
+import models.Car;
+import models.RootCrop;
 import search.BinarySearch;
 import sort.MergeSort;
 import sort.MergeSortEvenOdd;
@@ -137,7 +137,7 @@ public class Main {
                     System.out.println("""
                             --------------
                             You wrote something wrong. Please, choose option to add new data in array: 'file', 'random', or 'console'. Write 'stop' to stop.""");
-                    break;
+                    continue;
             }
 
             /*
@@ -188,7 +188,7 @@ public class Main {
 
                     switch (searchClass) {
                         case "car":
-                            if (searchType.equals("power") || searchType.equals("model") || searchType.equals("year")) {
+                            if (searchType.equals("power") || searchType.equals("models") || searchType.equals("year")) {
                                 index = BinarySearch.searchResultIndex(searchType, searchParam, cars);
 
                                 if (index == -1) {
