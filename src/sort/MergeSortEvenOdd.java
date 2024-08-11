@@ -1,78 +1,53 @@
-import java.sql.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Predicate;
+package sort;
 
-public class MergeSortEvenOdd
+import model.Car;
+
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
+public class MergeSortEvenOdd implements SortingStrategy
 {
 
-
-    public static int[] sortOddEven(int[] arrayToSort, boolean sortEven)
+    @Override
+    public void sort(List array, Comparator comparator)
     {
-        int[] stored;
-        stored = arrayToSort;
-        if (sortEven) arrayToSort = Arrays.stream(arrayToSort).filter(i -> i%2 == 0).toArray();
-            else arrayToSort = Arrays.stream(arrayToSort).filter(i -> i %2 != 0).toArray();
-        mergeSort(arrayToSort, arrayToSort.length);
-        return mergeOld(arrayToSort,stored,sortEven);
+        MergeSort tempSort = new MergeSort();
+        List<Car> stored;
+        List<Car> modCar;
+        modCar = (ArrayList<Car>) array;
+        stored = (ArrayList<Car>) array;
+        modCar.removeIf(i -> i.getYear()%2 == 0);
+        tempSort.sort(modCar, comparator);
+        array = mergeOld(modCar, stored, true);
     }
 
-    private static int[] mergeOld(int[] a, int[] b, Boolean sortEven)
+    public void sort(List array, Comparator comparator, boolean even)
+    {
+        MergeSort tempSort = new MergeSort();
+        List<Car> stored;
+        List<Car> modCar;
+        modCar = (ArrayList<Car>) array;
+        stored = (ArrayList<Car>) array;
+        if (even) modCar.removeIf(i -> i.getYear()%2 == 0);
+        else modCar.removeIf(i -> i.getYear()%2 !=);
+        tempSort.sort(modCar, comparator);
+        array = mergeOld(modCar, stored, even);
+    }
+
+    private static List<Car> mergeOld(List<Car> a, List<Car> b, Boolean sortEven)
     {
         int t = 0;
-        for(int m = 0; m < b.length; m++)
+        for(int m = 0; m < b.size(); m++)
         {
-            if((b[m] % 2) != 0 ^ sortEven)
+            if((b.get(m).getYear() % 2) != 0 ^ sortEven)
             {
-                b[m] = a[t];
+                b.set(m, a.get(t));
                 t++;
             }
         }
         return b;
     }
 
-    public static void mergeSort(int[] a, int n)
-    {
-        if (n < 2)
-        {
-            return;
-        }
-        int mid = n / 2;
-        int[] l = new int[mid];
-        int[] r = new int[n - mid];
-
-        for (int i = 0; i < mid; i++) {
-            l[i] = a[i];
-        }
-        for (int i = mid; i < n; i++) {
-            r[i - mid] = a[i];
-        }
-        mergeSort(l, mid);
-        mergeSort(r, n - mid);
-
-        merge(a, l, r, mid, n - mid);
-    }
-
-    public static void merge(
-            int[] a, int[] l, int[] r, int left, int right) {
-
-        int i = 0, j = 0, k = 0;
-        while (i < left && j < right) {
-            if (l[i] <= r[j]) {
-                a[k++] = l[i++];
-            }
-            else {
-                a[k++] = r[j++];
-            }
-        }
-        while (i < left) {
-            a[k++] = l[i++];
-        }
-        while (j < right) {
-            a[k++] = r[j++];
-        }
-    }
 
 }
