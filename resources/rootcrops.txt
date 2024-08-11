@@ -1,0 +1,6 @@
+turnip:0.3:yellow
+carrot:0.15:red
+beet:0.35:red
+radish:0.07:red
+cabbage:2.3:green
+potato:0.2:brown
