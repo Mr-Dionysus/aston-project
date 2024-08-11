@@ -20,11 +20,11 @@ public class Main {
         ArrayList<RootCrop> rootCrops = new ArrayList<>();
         ArrayList<Car> carsByYear = new ArrayList<>();
 
-        Car car1 = new Car.Builder().power(100).model("Audi").year(2020).build();
-        Car car2 = new Car.Builder().power(500).model("BMW").year(2015).build();
-        Car car3 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
+        Car car1 = new Car.Builder().power(300).model("Audi").year(2020).build();
+        Car car2 = new Car.Builder().power(501).model("BMW").year(2015).build();
+        Car car3 = new Car.Builder().power(401).model("Mercedes").year(2005).build();
         Car car4 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
-        Car car5 = new Car.Builder().power(100).model("Mercedes").year(2010).build();
+        Car car5 = new Car.Builder().power(200).model("Mercedes").year(2010).build();
 
         cars.add(car1);
         cars.add(car2);
@@ -39,16 +39,17 @@ public class Main {
         carsByYear.add(car5);
 
         Comparator<Car> carComparator;
-        carComparator = Comparator.comparingInt(Car::getPower);
+        carComparator = Comparator.comparingInt(Car::getYear);
+//        carComparator = Comparator.comparingInt(Car::getPower);
 
         MergeSortEvenOdd oddEven = new MergeSortEvenOdd();
 
-        System.out.print("...........");
+        System.out.println("...........");
         System.out.println(carsByYear);
-        System.out.print("...........");
-        oddEven.sortEven(carsByYear, carComparator);
+        System.out.println("...........");
+        oddEven.sort(carsByYear, carComparator, true);
         System.out.println(carsByYear);
-        System.out.print("...........");
+        System.out.println("...........");
 
 
         RootCrop rootCrop = new RootCrop.Builder().type("test").weight(0.0).color("test").build();
@@ -57,20 +58,20 @@ public class Main {
         rootCrops.add(rootCrop);
         rootCrops.add(rootCrop2);
 
-        SortingContext sortingContext = new SortingContext<>(new MergeSort<>());
-
-        System.out.println("До сортировки по мощности: " + cars);
-        sortingContext.performSort(cars, Comparator.comparingInt(Car::getPower));
-        System.out.println("После сортировки по мощности: " + cars);
-
-
-        System.out.println("До сортировки по названию: " + cars);
-        sortingContext.performSort(cars, Comparator.comparing(Car::getModel));
-        System.out.println("После сортировки по названию: " + cars);
-
-        System.out.println("До сортировки по году: " + cars);
-        sortingContext.performSort(cars, Comparator.comparingInt(Car::getYear));
-        System.out.println("После сортировки по году: " + cars);
+//        SortingContext sortingContext = new SortingContext<>(new MergeSort<>());
+//
+//        System.out.println("До сортировки по мощности: " + cars);
+//        sortingContext.performSort(cars, Comparator.comparingInt(Car::getPower));
+//        System.out.println("После сортировки по мощности: " + cars);
+//
+//
+//        System.out.println("До сортировки по названию: " + cars);
+//        sortingContext.performSort(cars, Comparator.comparing(Car::getModel));
+//        System.out.println("После сортировки по названию: " + cars);
+//
+//        System.out.println("До сортировки по году: " + cars);
+//        sortingContext.performSort(cars, Comparator.comparingInt(Car::getYear));
+//        System.out.println("После сортировки по году: " + cars);
 
         stopProgram:
         while (true) {
