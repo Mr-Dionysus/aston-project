@@ -8,7 +8,6 @@ import sort.SortingContext;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -177,11 +176,15 @@ public class Main {
                     }
 
                     String searchParam = searchArr[2];
-                    String messageInvalidSearchType = "--------------\nYou wrote '" + searchType + "' which '" + searchClass + "' class isn't have. Please, try again.";
                     Car carSearchResult;
                     Book bookSearchResult;
                     RootCrop rootCropSearchResult;
                     int index;
+
+                    String messageInvalidSearchType = "--------------\nYou wrote '" + searchType + "' which '" + searchClass + "' class isn't have. Please, try again.";
+                    String messageCantFindElement = """
+                            --------------
+                            That array don't have an element with that information.""";
 
                     switch (searchClass) {
                         case "car":
@@ -189,9 +192,7 @@ public class Main {
                                 index = BinarySearch.searchResultIndex(searchType, searchParam, cars);
 
                                 if (index == -1) {
-                                    System.out.println("""
-                                            --------------
-                                            That array don't have an element with that information.""");
+                                    System.out.println(messageCantFindElement);
                                 } else {
                                     carSearchResult = cars.get(index);
                                     System.out.println(carSearchResult);
@@ -206,9 +207,7 @@ public class Main {
                                 index = BinarySearch.searchResultIndex(searchType, searchParam, books);
 
                                 if (index == -1) {
-                                    System.out.println("""
-                                            --------------
-                                            That array don't have an element with that information.""");
+                                    System.out.println(messageCantFindElement);
                                 } else {
                                     bookSearchResult = books.get(index);
                                     System.out.println(bookSearchResult);
@@ -223,9 +222,7 @@ public class Main {
                                 index = BinarySearch.searchResultIndex(searchType, searchParam, rootCrops);
 
                                 if (index == -1) {
-                                    System.out.println("""
-                                            --------------
-                                            That array don't have an element with that information.""");
+                                    System.out.println(messageCantFindElement);
                                 } else {
                                     rootCropSearchResult = rootCrops.get(index);
                                     System.out.println(rootCropSearchResult);
@@ -235,7 +232,7 @@ public class Main {
                             }
                             break;
                         default:
-                            System.out.println("Error: That class doesn't exist. Please, try again.");
+                            System.out.println("That class doesn't exist. Please, try again.");
                             break;
                     }
                 }
