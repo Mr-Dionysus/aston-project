@@ -188,7 +188,7 @@ public class Main {
 
                     switch (searchClass) {
                         case "car":
-                            if (searchType.equals("power") || searchType.equals("models") || searchType.equals("year")) {
+                            if (searchType.equals("power") || searchType.equals("model") || searchType.equals("year")) {
                                 index = BinarySearch.searchResultIndex(searchType, searchParam, cars);
 
                                 if (index == -1) {
