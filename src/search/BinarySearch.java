@@ -118,16 +118,14 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         return -(low + 1);
     }
 
-    public static <T> void searchTryCatchIndexOutOfBoundsException(String searchType, String searchParam, ArrayList<T> list) {
+    public static <T> int searchResultIndex(String searchType, String searchParam, ArrayList<T> list) {
         SearchingContext<T> searchingContext = new SearchingContext<>(new BinarySearch<>());
-
         int index = searchingContext.performSearch(searchType, searchParam, list);
 
-        try {
-            System.out.println("--------------\n" + list.get(index));
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("--------------\n" + "Error: " + e.getMessage());
-            System.out.println("That array don't have element with that information.");
+        if (index == -1) {
+            return -1;
         }
+
+        return index;
     }
 }
