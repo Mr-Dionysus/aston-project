@@ -36,11 +36,45 @@ public class MainMenu {
 
         while (!"0".equals(s)) {
             System.out.println(dashLine);
+            System.out.println("- Объектами какого класса вы хотите заполнить массив?");
+            System.out.println("1 - Машины");
+            System.out.println("2 - Книги");
+            System.out.println("3 - Корнеплоды (клевое название)");
+            System.out.println("9 - Я люблю реализовывать STRATEGY через list.of");
+            System.out.println("0 - Выход");
+            System.out.println(dashLine);
+            
+            String className = scanner.next();
+            s = className;
+
+            switch (s) {
+                case "1":
+                    className = "car";
+                    break;
+                case "2":
+                    className = "book";
+                    break;
+                case "3":
+                    className = "rootcrop";
+                    break;
+                case "9":
+                    System.out.println(dashLine);
+                    System.out.println("- Тьфу на тебя");
+                    System.out.println(dashLine);
+                    break;
+                case "0":
+                    continue;
+                default:
+                    System.out.println(dashLine);
+                    System.out.println(messageInvalidCommand);
+                    break;
+            }
+
+            System.out.println(dashLine);
             System.out.println("- Выберите способ заполнения исходного массива:");
             System.out.println("1 - Чтение из файла");
             System.out.println("2 - Случайным образом");
             System.out.println("3 - Ручками");
-            System.out.println("9 - Я люблю реализовывать STRATEGY через list.of");
             System.out.println("0 - Выход");
             System.out.println(dashLine);
 
@@ -53,39 +87,12 @@ public class MainMenu {
                 case "2":
                     break;
                 case "3":
-                    inputLength();
-
-                    System.out.println(dashLine);
-                    System.out.println("- Объектами какого класса вы хотите заполнить массив?");
-                    System.out.println("1 - Машины");
-                    System.out.println("2 - Книги");
-                    System.out.println("3 - Корнеплоды (клевое название)");
-                    System.out.println(dashLine);
-
-                    s = scanner.next();
-
-                    switch (s) {
-                        case "1":
-                            //car
-                            break;
-                        case "2":
-                            //book
-                            break;
-                        case "3":
-                            //rootcrop
-                            break;
-                        default:
-                            System.out.println(dashLine);
-                            System.out.println(messageInvalidCommand);
-                            break;
-                    }
-                    break;
-                case "9":
-                    System.out.println("- Тьфу на тебя");
+                    inputLength(dashLine);
                     break;
                 case "0":
-                    break;
+                    continue;
                 default:
+                    System.out.println(dashLine);
                     System.out.println(messageInvalidCommand);
                     break;
             }
@@ -93,18 +100,20 @@ public class MainMenu {
             System.out.println(dashLine);
             System.out.println("- Хочешь найти нужный тебе объект?");
             System.out.println("1 - Да");
-            System.out.println("2 - Нет");
+            System.out.println("0 - Выход");
             System.out.println(dashLine);
 
             String doSearch = scanner.next();
+            s = doSearch;
 
             switch (doSearch) {
                 case "1":
                     System.out.println(dashLine);
-                    System.out.println("- Напиши, что ты хочешь найти в формате - 'car,power,100'. Варианты:");
+                    System.out.println("- Напиши, что ты ищешь в формате: 'car,power,100'.");
                     System.out.println("1 - car (power, model, year)");
                     System.out.println("2 - book (author, name, pages)");
-                    System.out.println("3 - rootcrop (type, weight (формат 0.0), color)");
+                    System.out.println("3 - rootcrop (type, weight (формат 0 или 0.0), color)");
+                    System.out.println(dashLine);
 
                     String searchString = scanner.next().toLowerCase();
                     String[] searchArr = searchString.split(",");
@@ -133,12 +142,17 @@ public class MainMenu {
                                 index = BinarySearch.searchResultIndex(searchType, searchParam, cars);
 
                                 if (index == -1) {
+                                    System.out.println(dashLine);
                                     System.out.println(messageCantFindElement);
                                 } else {
                                     carSearchResult = cars.get(index);
+
+                                    System.out.println(dashLine);
+                                    System.out.println("Index: " + index);
                                     System.out.println(carSearchResult);
                                 }
                             } else {
+                                System.out.println(dashLine);
                                 System.out.println(messageInvalidSearchType);
                             }
                             break;
@@ -148,12 +162,17 @@ public class MainMenu {
                                 index = BinarySearch.searchResultIndex(searchType, searchParam, books);
 
                                 if (index == -1) {
+                                    System.out.println(dashLine);
                                     System.out.println(messageCantFindElement);
                                 } else {
                                     bookSearchResult = books.get(index);
+
+                                    System.out.println(dashLine);
+                                    System.out.println("Index: " + index);
                                     System.out.println(bookSearchResult);
                                 }
                             } else {
+                                System.out.println(dashLine);
                                 System.out.println(messageInvalidSearchType);
                             }
                             break;
@@ -163,12 +182,17 @@ public class MainMenu {
                                 index = BinarySearch.searchResultIndex(searchType, searchParam, rootCrops);
 
                                 if (index == -1) {
+                                    System.out.println(dashLine);
                                     System.out.println(messageCantFindElement);
                                 } else {
                                     rootCropSearchResult = rootCrops.get(index);
+
+                                    System.out.println(dashLine);
+                                    System.out.println("Index: " + index);
                                     System.out.println(rootCropSearchResult);
                                 }
                             } else {
+                                System.out.println(dashLine);
                                 System.out.println(messageInvalidSearchType);
                             }
                             break;
@@ -178,7 +202,7 @@ public class MainMenu {
                             break;
                     }
                     break;
-                case "2":
+                case "0":
                     break;
                 default:
                     System.out.println(dashLine);
@@ -186,13 +210,16 @@ public class MainMenu {
                     break;
             }
         }
-
+        System.out.println(dashLine);
         System.out.println("- До свидания!");
+        System.out.println(dashLine);
         scanner.close();
     }
 
-    private void inputLength() {
+    private void inputLength(String dashLine) {
+        System.out.println(dashLine);
         System.out.println("- Введите количество элементов массива от 1 до 10:");
+        System.out.println(dashLine);
 
         boolean status = false;
         int length = 0;
@@ -203,20 +230,22 @@ public class MainMenu {
 
             try {
                 length = Integer.parseInt(s);
-                status = setArrayLength(length);
+                status = setArrayLength(dashLine, length);
             } catch (NumberFormatException e) {
+                System.out.println(dashLine);
                 System.out.println("- Неверный ввод");
             }
         }
     }
 
-    private boolean setArrayLength(int arrayLength) {
+    private boolean setArrayLength(String dashLine, int arrayLength) {
         boolean status = false;
 
         if (0 < arrayLength && arrayLength <= 10) {
             this.arrayLength = arrayLength;
             status = true;
         } else {
+            System.out.println(dashLine);
             System.out.println("- Число должно располагаться в диапазоне от 1 до 10");
         }
 
