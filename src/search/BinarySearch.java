@@ -112,6 +112,85 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         return -(low + 1);
     }
 
+    public static <T> T searchResultObject(String searchClass, String searchType, String searchParam, String messageInvalidCommand, String dashLine, ArrayList<T> list) {
+        int index;
+        T searchResult;
+        String messageInvalidSearchType = messageInvalidCommand + "Ты написал тип " + searchType + ", которого нет у класса " + searchClass + ".";
+        String messageCantFindElement = dashLine + "\nОбъекта с этими данными в массиве нет";
+
+        switch (searchClass) {
+            case "car":
+                if (searchType.equals("power") || searchType.equals("model") || searchType.equals("year")) {
+                    index = BinarySearch.searchResultIndex(searchType, searchParam, list);
+
+                    if (index == -1) {
+                        System.out.println(dashLine);
+                        System.out.println(messageCantFindElement);
+                    } else {
+                        searchResult = list.get(index);
+
+                        System.out.println(dashLine);
+                        System.out.println("Index: " + index);
+                        System.out.println(searchResult);
+
+                        return searchResult;
+                    }
+                } else {
+                    System.out.println(dashLine);
+                    System.out.println(messageInvalidSearchType);
+                }
+                break;
+
+            case "book":
+                if (searchType.equals("author") || searchType.equals("name") || searchType.equals("pages")) {
+                    index = BinarySearch.searchResultIndex(searchType, searchParam, list);
+
+                    if (index == -1) {
+                        System.out.println(dashLine);
+                        System.out.println(messageCantFindElement);
+                    } else {
+                        searchResult = list.get(index);
+
+                        System.out.println(dashLine);
+                        System.out.println("Index: " + index);
+                        System.out.println(searchResult);
+                    }
+                } else {
+                    System.out.println(dashLine);
+                    System.out.println(messageInvalidSearchType);
+                }
+                break;
+
+            case "rootcrop":
+                if (searchType.equals("type") || searchType.equals("weight") || searchType.equals("color")) {
+                    index = BinarySearch.searchResultIndex(searchType, searchParam, list);
+
+                    if (index == -1) {
+                        System.out.println(dashLine);
+                        System.out.println(messageCantFindElement);
+                    } else {
+                        searchResult = list.get(index);
+
+                        System.out.println(dashLine);
+                        System.out.println("Index: " + index);
+                        System.out.println(searchResult);
+
+                        return searchResult;
+                    }
+                } else {
+                    System.out.println(dashLine);
+                    System.out.println(messageInvalidSearchType);
+                }
+                break;
+            default:
+                System.out.println(dashLine);
+                System.out.println(messageInvalidCommand);
+                break;
+        }
+
+        return null;
+    }
+
     public static <T> int searchResultIndex(String searchType, String searchParam, ArrayList<T> list) {
         SearchingContext<T> searchingContext = new SearchingContext<>(new BinarySearch<>());
         int index = searchingContext.performSearch(searchType, searchParam, list);

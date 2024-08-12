@@ -8,12 +8,9 @@ import sort.SortingContext;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-
         ArrayList<Car> cars = new ArrayList<>();
         ArrayList<Book> books = new ArrayList<>();
         ArrayList<RootCrop> rootCrops = new ArrayList<>();
@@ -23,19 +20,16 @@ public class Main {
         Car car2 = new Car.Builder().power(500).model("BMW").year(2015).build();
         Car car3 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
         Car car4 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
-        Car car5 = new Car.Builder().power(100).model("Mercedes").year(2010).build();
 
         cars.add(car1);
         cars.add(car2);
         cars.add(car3);
         cars.add(car4);
-        cars.add(car5);
 
         carsByYear.add(car1);
         carsByYear.add(car2);
         carsByYear.add(car3);
         carsByYear.add(car4);
-        carsByYear.add(car5);
 
         Comparator<Car> carComparator;
         carComparator = Comparator.comparingInt(Car::getPower);

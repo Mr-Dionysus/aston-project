@@ -21,29 +21,21 @@ public class MainMenu {
         Car car1 = new Car.Builder().power(100).model("Audi").year(2020).build();
         Car car2 = new Car.Builder().power(100).model("BMW").year(2015).build();
         Car car3 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
-        Car car4 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
-        Car car5 = new Car.Builder().power(500).model("Mercedes").year(2010).build();
+        Car car4 = new Car.Builder().power(500).model("Mercedes").year(2010).build();
 
         cars.add(car1);
         cars.add(car2);
         cars.add(car3);
         cars.add(car4);
-        cars.add(car5);
 
         String s = "";
         String dashLine = "-------------------------------------------------------------------------------";
-        String messageInvalidCommand = "- Введи нормальную команду";
 
         while (!"0".equals(s)) {
-            System.out.println(dashLine);
-            System.out.println("- Объектами какого класса вы хотите заполнить массив?");
-            System.out.println("1 - Машины");
-            System.out.println("2 - Книги");
-            System.out.println("3 - Корнеплоды (клевое название)");
-            System.out.println("9 - Я люблю реализовывать STRATEGY через list.of");
-            System.out.println("0 - Выход");
-            System.out.println(dashLine);
-            
+            String messageInvalidCommand = dashLine + "\n- Введи нормальную команду";
+
+            messageChooseClass(dashLine);
+
             String className = scanner.next();
             s = className;
 
@@ -58,25 +50,16 @@ public class MainMenu {
                     className = "rootcrop";
                     break;
                 case "9":
-                    System.out.println(dashLine);
-                    System.out.println("- Тьфу на тебя");
-                    System.out.println(dashLine);
+                    messageShameOnYou(dashLine);
                     break;
                 case "0":
                     continue;
                 default:
-                    System.out.println(dashLine);
                     System.out.println(messageInvalidCommand);
                     break;
             }
 
-            System.out.println(dashLine);
-            System.out.println("- Выберите способ заполнения исходного массива:");
-            System.out.println("1 - Чтение из файла");
-            System.out.println("2 - Случайным образом");
-            System.out.println("3 - Ручками");
-            System.out.println("0 - Выход");
-            System.out.println(dashLine);
+            messageChooseHowToFillArr(dashLine);
 
             s = scanner.next();
 
@@ -92,28 +75,18 @@ public class MainMenu {
                 case "0":
                     continue;
                 default:
-                    System.out.println(dashLine);
                     System.out.println(messageInvalidCommand);
                     break;
             }
 
-            System.out.println(dashLine);
-            System.out.println("- Хочешь найти нужный тебе объект?");
-            System.out.println("1 - Да");
-            System.out.println("0 - Выход");
-            System.out.println(dashLine);
+            messageWantSomeSearch(dashLine);
 
             String doSearch = scanner.next();
             s = doSearch;
 
             switch (doSearch) {
                 case "1":
-                    System.out.println(dashLine);
-                    System.out.println("- Напиши, что ты ищешь в формате: 'car,power,100'.");
-                    System.out.println("1 - car (power, model, year)");
-                    System.out.println("2 - book (author, name, pages)");
-                    System.out.println("3 - rootcrop (type, weight (формат 0 или 0.0), color)");
-                    System.out.println(dashLine);
+                    messageWhatToSearch(dashLine);
 
                     String searchString = scanner.next().toLowerCase();
                     String[] searchArr = searchString.split(",");
@@ -128,79 +101,7 @@ public class MainMenu {
                     String searchType = searchArr[1];
                     String searchParam = searchArr[2];
 
-                    Car carSearchResult;
-                    Book bookSearchResult;
-                    RootCrop rootCropSearchResult;
-                    int index;
-
-                    String messageInvalidSearchType = messageInvalidCommand + "Ты написал тип " + searchType + ", которого нет у класса " + searchClass + ".";
-                    String messageCantFindElement = dashLine + "\nОбъекта с этими данными в массиве нет";
-
-                    switch (searchClass) {
-                        case "car":
-                            if (searchType.equals("power") || searchType.equals("model") || searchType.equals("year")) {
-                                index = BinarySearch.searchResultIndex(searchType, searchParam, cars);
-
-                                if (index == -1) {
-                                    System.out.println(dashLine);
-                                    System.out.println(messageCantFindElement);
-                                } else {
-                                    carSearchResult = cars.get(index);
-
-                                    System.out.println(dashLine);
-                                    System.out.println("Index: " + index);
-                                    System.out.println(carSearchResult);
-                                }
-                            } else {
-                                System.out.println(dashLine);
-                                System.out.println(messageInvalidSearchType);
-                            }
-                            break;
-
-                        case "book":
-                            if (searchType.equals("author") || searchType.equals("name") || searchType.equals("pages")) {
-                                index = BinarySearch.searchResultIndex(searchType, searchParam, books);
-
-                                if (index == -1) {
-                                    System.out.println(dashLine);
-                                    System.out.println(messageCantFindElement);
-                                } else {
-                                    bookSearchResult = books.get(index);
-
-                                    System.out.println(dashLine);
-                                    System.out.println("Index: " + index);
-                                    System.out.println(bookSearchResult);
-                                }
-                            } else {
-                                System.out.println(dashLine);
-                                System.out.println(messageInvalidSearchType);
-                            }
-                            break;
-
-                        case "rootcrop":
-                            if (searchType.equals("type") || searchType.equals("weight") || searchType.equals("color")) {
-                                index = BinarySearch.searchResultIndex(searchType, searchParam, rootCrops);
-
-                                if (index == -1) {
-                                    System.out.println(dashLine);
-                                    System.out.println(messageCantFindElement);
-                                } else {
-                                    rootCropSearchResult = rootCrops.get(index);
-
-                                    System.out.println(dashLine);
-                                    System.out.println("Index: " + index);
-                                    System.out.println(rootCropSearchResult);
-                                }
-                            } else {
-                                System.out.println(dashLine);
-                                System.out.println(messageInvalidSearchType);
-                            }
-                            break;
-                        default:
-                            System.out.println(dashLine);
-                            System.out.println(messageInvalidCommand);
-                            break;
-                    }
+                    BinarySearch.searchResultObject(searchClass, searchType, searchParam, messageInvalidCommand, dashLine, cars);
                     break;
                 case "0":
                     break;
@@ -210,9 +111,11 @@ public class MainMenu {
                     break;
             }
         }
+
         System.out.println(dashLine);
         System.out.println("- До свидания!");
         System.out.println(dashLine);
+
         scanner.close();
     }
 
@@ -251,4 +154,49 @@ public class MainMenu {
 
         return status;
     }
+
+    private void messageChooseClass(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Объектами какого класса вы хотите заполнить массив?");
+        System.out.println("1 - Машины");
+        System.out.println("2 - Книги");
+        System.out.println("3 - Корнеплоды (клевое название)");
+        System.out.println("9 - Я люблю реализовывать STRATEGY через list.of");
+        System.out.println("0 - Выход");
+        System.out.println(dashLine);
+    }
+
+    private void messageShameOnYou(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Тьфу на тебя");
+        System.out.println(dashLine);
+    }
+
+    private void messageChooseHowToFillArr(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Выберите способ заполнения исходного массива:");
+        System.out.println("1 - Чтение из файла");
+        System.out.println("2 - Случайным образом");
+        System.out.println("3 - Ручками");
+        System.out.println("0 - Выход");
+        System.out.println(dashLine);
+    }
+
+    private void messageWantSomeSearch(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Хочешь найти нужный тебе объект?");
+        System.out.println("1 - Да");
+        System.out.println("0 - Выход");
+        System.out.println(dashLine);
+    }
+
+    private void messageWhatToSearch(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Напиши, что ты ищешь в формате: 'car,power,100'.");
+        System.out.println("1 - car (power, model, year)");
+        System.out.println("2 - book (author, name, pages)");
+        System.out.println("3 - rootcrop (type, weight (формат 0 или 0.0), color)");
+        System.out.println(dashLine);
+    }
+
 }
