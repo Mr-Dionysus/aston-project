@@ -9,7 +9,6 @@ public class RootCrop {
     private final String type;
     private final double weight;
     private final String color;
-    private static final ReadFileStrategy readFileStrategy = new RootCropReadFile();
 
     RootCrop(Builder builder) {
         this.type = builder.type;
@@ -29,13 +28,13 @@ public class RootCrop {
         return color;
     }
 
-    public static List<models.RootCrop> ReadFile() {
-        return readFileStrategy.ReadFile();
-    }
-
     @Override
     public String toString() {
-        return "\nType:   " + this.type + "\nWeight: " + this.weight + "\nColor:  " + this.color;
+        return "RootCrop{" +
+                "type='" + type + '\'' +
+                ", weight=" + weight +
+                ", color='" + color + '\'' +
+                '}';
     }
 
     public static class Builder {

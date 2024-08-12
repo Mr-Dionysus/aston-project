@@ -10,8 +10,6 @@ public class Car {
     private final String model;
     private final int year;
 
-    private static final ReadFileStrategy readFileStrategy = new CarReadFile();
-
     Car(Builder builder) {
         this.power = builder.power;
         this.model = builder.model;
@@ -30,13 +28,13 @@ public class Car {
         return year;
     }
 
-    public static List<models.Car> ReadFile() {
-        return readFileStrategy.ReadFile();
-    }
-
     @Override
     public String toString() {
-        return "Power: " + this.power + "\nModel: " + this.model + "\nYear:  " + this.year;
+        return "Car{" +
+                "power=" + power +
+                ", model='" + model + '\'' +
+                ", year=" + year +
+                '}';
     }
 
     public static class Builder {
