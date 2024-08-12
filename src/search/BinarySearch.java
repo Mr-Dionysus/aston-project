@@ -14,7 +14,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
             return -1;
         }
 
-        T example = list.getFirst();
+        T example = list.get(0);
 
         if (example instanceof Car) {
             return searchInCars(searchType, searchParam, (ArrayList<Car>) list);

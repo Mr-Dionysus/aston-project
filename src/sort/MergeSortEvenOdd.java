@@ -41,7 +41,7 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T>
     private void sortEvenOdd(List<T> array, Comparator<? super T> comparator, String type, boolean even)
     {
         //Валидация листа
-        T example = array.getFirst();
+        T example = array.get(0);
         switch (type)
         {
             case "Year":
