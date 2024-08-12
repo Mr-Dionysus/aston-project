@@ -6,6 +6,7 @@ import models.RootCrop;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Scanner;
 
 public class BinarySearch<T> implements SearchingStrategy<T> {
     @Override
@@ -112,9 +113,21 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         return -(low + 1);
     }
 
-    public static <T> T searchResultObject(String searchClass, String searchType, String searchParam, String messageInvalidCommand, String dashLine, ArrayList<T> list) {
+    public static <T> T searchResultObject(ArrayList<T> list, Scanner scanner, String messageInvalidCommand, String dashLine) {
+        String searchString = scanner.next().toLowerCase();
+        String[] searchArr = searchString.split(",");
+        String searchClass = searchArr[0];
+
+        if (searchArr[0].equals(searchString)) {
+            System.out.println(dashLine);
+            System.out.println(messageInvalidCommand);
+        }
+
+        String searchType = searchArr[1];
+        String searchParam = searchArr[2];
         T searchResult;
-        String messageInvalidSearchType = dashLine + "\n" + messageInvalidCommand + "Ты написал тип " + searchType + ", которого нет у класса " + searchClass + ".";
+
+        String messageInvalidSearchType = dashLine + "\n" + messageInvalidCommand + "\nТы написал тип " + searchType + ", которого нет у класса " + searchClass + ".";
 
         switch (searchClass) {
             case "car":
