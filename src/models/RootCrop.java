@@ -1,9 +1,15 @@
-package model;
+package models;
+
+import strategy.ReadFileStrategy;
+import strategy.RootCropReadFile;
+
+import java.util.List;
 
 public class RootCrop {
     private final String type;
     private final double weight;
     private final String color;
+    private static final ReadFileStrategy readFileStrategy = new RootCropReadFile();
 
     RootCrop(Builder builder) {
         this.type = builder.type;
@@ -21,6 +27,10 @@ public class RootCrop {
 
     public String getColor() {
         return color;
+    }
+
+    public static List<models.RootCrop> ReadFile() {
+        return readFileStrategy.ReadFile();
     }
 
     @Override

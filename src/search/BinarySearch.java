@@ -1,8 +1,8 @@
 package search;
 
-import model.Book;
-import model.Car;
-import model.RootCrop;
+import models.Book;
+import models.Car;
+import models.RootCrop;
 
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -35,7 +35,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 carComparator = Comparator.comparingInt(Car::getPower);
                 index = indexedBinarySearch(list, new Car.Builder().power(Integer.parseInt(searchParam)).model(null).year(0).build(), carComparator);
                 break;
-            case "model":
+            case "models":
                 carComparator = Comparator.comparing(Car::getModel);
                 index = indexedBinarySearch(list, new Car.Builder().power(0).model(searchParam).year(0).build(), carComparator);
                 break;
@@ -118,16 +118,14 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         return -(low + 1);
     }
 
-    public static <T> void searchTryCatchIndexOutOfBoundsException(String searchType, String searchParam, ArrayList<T> list) {
+    public static <T> int searchResultIndex(String searchType, String searchParam, ArrayList<T> list) {
         SearchingContext<T> searchingContext = new SearchingContext<>(new BinarySearch<>());
-
         int index = searchingContext.performSearch(searchType, searchParam, list);
 
-        try {
-            System.out.println("--------------\n" + list.get(index));
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("--------------\n" + "Error: " + e.getMessage());
-            System.out.println("That array don't have element with that information.");
+        if (index == -1) {
+            return -1;
         }
+
+        return index;
     }
 }

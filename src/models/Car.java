@@ -1,9 +1,16 @@
-package model;
+package models;
+
+import strategy.CarReadFile;
+import strategy.ReadFileStrategy;
+
+import java.util.List;
 
 public class Car {
     private final int power;
     private final String model;
     private final int year;
+
+    private static final ReadFileStrategy readFileStrategy = new CarReadFile();
 
     Car(Builder builder) {
         this.power = builder.power;
@@ -21,6 +28,10 @@ public class Car {
 
     public int getYear() {
         return year;
+    }
+
+    public static List<models.Car> ReadFile() {
+        return readFileStrategy.ReadFile();
     }
 
     @Override

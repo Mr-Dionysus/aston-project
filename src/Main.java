@@ -1,6 +1,6 @@
-import model.Book;
-import model.Car;
-import model.RootCrop;
+import models.Book;
+import models.Car;
+import models.RootCrop;
 import search.BinarySearch;
 import sort.MergeSort;
 import sort.MergeSortEvenOdd;
@@ -8,7 +8,6 @@ import sort.SortingContext;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -20,11 +19,11 @@ public class Main {
         ArrayList<RootCrop> rootCrops = new ArrayList<>();
         ArrayList<Car> carsByYear = new ArrayList<>();
 
-        Car car1 = new Car.Builder().power(300).model("Audi").year(2020).build();
-        Car car2 = new Car.Builder().power(501).model("BMW").year(2015).build();
-        Car car3 = new Car.Builder().power(401).model("Mercedes").year(2005).build();
+        Car car1 = new Car.Builder().power(100).model("Audi").year(2020).build();
+        Car car2 = new Car.Builder().power(500).model("BMW").year(2015).build();
+        Car car3 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
         Car car4 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
-        Car car5 = new Car.Builder().power(200).model("Mercedes").year(2010).build();
+        Car car5 = new Car.Builder().power(100).model("Mercedes").year(2010).build();
 
         cars.add(car1);
         cars.add(car2);
@@ -39,17 +38,16 @@ public class Main {
         carsByYear.add(car5);
 
         Comparator<Car> carComparator;
-        carComparator = Comparator.comparingInt(Car::getYear);
-//        carComparator = Comparator.comparingInt(Car::getPower);
+        carComparator = Comparator.comparingInt(Car::getPower);
 
         MergeSortEvenOdd oddEven = new MergeSortEvenOdd();
 
-        System.out.println("...........");
+        System.out.print("...........");
         System.out.println(carsByYear);
-        System.out.println("...........");
-        oddEven.sort(carsByYear, carComparator,  true);
+        System.out.print("...........");
+        oddEven.sortEven(carsByYear, carComparator);
         System.out.println(carsByYear);
-        System.out.println("...........");
+        System.out.print("...........");
 
 
         RootCrop rootCrop = new RootCrop.Builder().type("test").weight(0.0).color("test").build();
@@ -58,20 +56,19 @@ public class Main {
         rootCrops.add(rootCrop);
         rootCrops.add(rootCrop2);
 
-//        SortingContext sortingContext = new SortingContext<>(new MergeSort<>());
-//
-//        System.out.println("До сортировки по мощности: " + cars);
-//        sortingContext.performSort(cars, Comparator.comparingInt(Car::getPower));
-//        System.out.println("После сортировки по мощности: " + cars);
-//
-//
-//        System.out.println("До сортировки по названию: " + cars);
-//        sortingContext.performSort(cars, Comparator.comparing(Car::getModel));
-//        System.out.println("После сортировки по названию: " + cars);
-//
-//        System.out.println("До сортировки по году: " + cars);
-//        sortingContext.performSort(cars, Comparator.comparingInt(Car::getYear));
-//        System.out.println("После сортировки по году: " + cars);
+        SortingContext sortingContext = new SortingContext<>(new MergeSort<>());
+
+        System.out.println("До сортировки по мощности: " + cars);
+        sortingContext.performSort(cars, Comparator.comparingInt(Car::getPower));
+        System.out.println("После сортировки по мощности: " + cars);
+
+        System.out.println("До сортировки по названию: " + cars);
+        sortingContext.performSort(cars, Comparator.comparing(Car::getModel));
+        System.out.println("После сортировки по названию: " + cars);
+
+        System.out.println("До сортировки по году: " + cars);
+        sortingContext.performSort(cars, Comparator.comparingInt(Car::getYear));
+        System.out.println("После сортировки по году: " + cars);
 
         stopProgram:
         while (true) {
@@ -87,7 +84,7 @@ public class Main {
                 } else if (classObjects.isEmpty() || (!classObjects.equals("car") && !classObjects.equals("book") && !classObjects.equals("rootcrop"))) {
                     System.out.println("""
                             --------------
-                            You wrote empty String. Please, write class that you want - 'car', 'book' or 'rootcrop'. Write 'stop' to stop.""");
+                            You wrote class name wrong. Please, write class that you want - 'car', 'book' or 'rootcrop'. Write 'stop' to stop.""");
                 } else {
                     break;
                 }
@@ -136,6 +133,11 @@ public class Main {
                 case "console":
                     //code realization
                     break;
+                default:
+                    System.out.println("""
+                            --------------
+                            You wrote something wrong. Please, choose option to add new data in array: 'file', 'random', or 'console'. Write 'stop' to stop.""");
+                    continue;
             }
 
             /*
@@ -158,13 +160,13 @@ public class Main {
                 } else if (doSearch.equals("y")) {
                     System.out.println("""
                             --------------
-                            Write specific information that you want to find with comma like that - 'power,100'.
-                            You have next options: Car ('power', 'model', 'year'), Book ('author', 'name', 'pages'), RootCrop ('type', 'weight' (Format: 0 or 0.0), 'color').
+                            Write specific information that you want to find with comma like that - 'car,power,100'.
+                            You have next options: 'car' ('power', 'model', 'year'), 'book' ('author', 'name', 'pages'), 'rootcrop' ('type', 'weight' (Format: 0 or 0.0), 'color').
                             --------------""");
                     String searchString = scanner.nextLine().toLowerCase();
                     String[] searchArr = searchString.split(",");
-
-                    String searchType = searchArr[0];
+                    String searchClass = searchArr[0];
+                    String searchType = searchArr[1];
 
                     if (searchArr[0].equals(searchString)) {
                         System.out.println("""
@@ -173,23 +175,69 @@ public class Main {
                         continue;
                     }
 
-                    String searchParam = searchArr[1];
+                    String searchParam = searchArr[2];
+                    Car carSearchResult;
+                    Book bookSearchResult;
+                    RootCrop rootCropSearchResult;
+                    int index;
 
-                    switch (searchType) {
-                        case "power", "model", "year" -> {
-                            BinarySearch.searchTryCatchIndexOutOfBoundsException(searchType, searchParam, cars);
-                        }
+                    String messageInvalidSearchType = "--------------\nYou wrote '" + searchType + "' which '" + searchClass + "' class isn't have. Please, try again.";
+                    String messageCantFindElement = """
+                            --------------
+                            That array don't have an element with that information.""";
 
-                        case "author", "name", "pages" -> {
-                            BinarySearch.searchTryCatchIndexOutOfBoundsException(searchType, searchParam, books);
-                        }
+                    switch (searchClass) {
+                        case "car":
+                            if (searchType.equals("power") || searchType.equals("model") || searchType.equals("year")) {
+                                index = BinarySearch.searchResultIndex(searchType, searchParam, cars);
 
-                        case "type", "weight", "color" -> {
-                            BinarySearch.searchTryCatchIndexOutOfBoundsException(searchType, searchParam, rootCrops);
-                        }
+                                if (index == -1) {
+                                    System.out.println(messageCantFindElement);
+                                } else {
+                                    carSearchResult = cars.get(index);
+                                    System.out.println(carSearchResult);
+                                }
+                            } else {
+                                System.out.println(messageInvalidSearchType);
+                            }
+                            break;
+
+                        case "book":
+                            if (searchType.equals("author") || searchType.equals("name") || searchType.equals("pages")) {
+                                index = BinarySearch.searchResultIndex(searchType, searchParam, books);
+
+                                if (index == -1) {
+                                    System.out.println(messageCantFindElement);
+                                } else {
+                                    bookSearchResult = books.get(index);
+                                    System.out.println(bookSearchResult);
+                                }
+                            } else {
+                                System.out.println(messageInvalidSearchType);
+                            }
+                            break;
+
+                        case "rootcrop":
+                            if (searchType.equals("type") || searchType.equals("weight") || searchType.equals("color")) {
+                                index = BinarySearch.searchResultIndex(searchType, searchParam, rootCrops);
+
+                                if (index == -1) {
+                                    System.out.println(messageCantFindElement);
+                                } else {
+                                    rootCropSearchResult = rootCrops.get(index);
+                                    System.out.println(rootCropSearchResult);
+                                }
+                            } else {
+                                System.out.println(messageInvalidSearchType);
+                            }
+                            break;
+                        default:
+                            System.out.println("That class doesn't exist. Please, try again.");
+                            break;
                     }
                 }
             }
         }
     }
 }
+
