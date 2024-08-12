@@ -53,10 +53,7 @@ public class MainMenu {
             someSearch(cars, input, messageInvalidCommand, dashLine);
         }
 
-        System.out.println(dashLine);
-        System.out.println("- До свидания!");
-        System.out.println(dashLine);
-
+        messageGoodbye(dashLine);
         scanner.close();
     }
 
@@ -210,4 +207,9 @@ public class MainMenu {
         System.out.println(dashLine);
     }
 
+    private void messageGoodbye(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- До свидания!");
+        System.out.println(dashLine);
+    }
 }
