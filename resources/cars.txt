@@ -1,0 +1,10 @@
+530:BMW:1991
+225:Volvo:1990
+106:Volkswagen:1991
+149:Toyota:2000
+180:Skoda:2004
+67:Renault:2018
+90:Peugeot:1985
+125:Opel:2005
+112:Mercedes Benz:1995
+350:Alfa Romeo:1970
