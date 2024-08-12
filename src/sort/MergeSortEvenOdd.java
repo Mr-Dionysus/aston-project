@@ -1,8 +1,8 @@
 package sort;
 
-import model.Book;
-import model.Car;
-import model.RootCrop;
+import models.Book;
+import models.Car;
+import models.RootCrop;
 
 import java.util.ArrayList;
 import java.util.Comparator;

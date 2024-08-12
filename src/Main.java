@@ -45,7 +45,7 @@ public class Main {
         System.out.print("...........");
         System.out.println(carsByYear);
         System.out.print("...........");
-        oddEven.sortEven(carsByYear, carComparator);
+        oddEven.sort(carsByYear, carComparator);
         System.out.println(carsByYear);
         System.out.print("...........");
 
