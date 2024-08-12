@@ -4,13 +4,20 @@ import models.Book;
 import models.Car;
 import models.RootCrop;
 import search.BinarySearch;
+import strategy.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class MainMenu {
     private int arrayLength;
     private final Scanner scanner = new Scanner(System.in);
+    private ReadFileContext readFileContext = new ReadFileContext();
+    String className = "";
+    List<Car> cars = new ArrayList<>();
+    List<Book> books = new ArrayList<>();
+    List<RootCrop> rootCrops = new ArrayList<>();
 
     public void start() {
         ArrayList<Car> cars = new ArrayList<>();
@@ -36,7 +43,7 @@ public class MainMenu {
 
             messageChooseClass(dashLine);
 
-            String className = scanner.next();
+            className = scanner.next();
             s = className;
 
             switch (s) {
@@ -65,7 +72,8 @@ public class MainMenu {
 
             switch (s) {
                 case "1":
-                    System.out.println("- Это тяжко ...");
+                    fillArray();
+
                     break;
                 case "2":
                     break;
@@ -199,4 +207,22 @@ public class MainMenu {
         System.out.println(dashLine);
     }
 
+    private void fillArray() {
+        switch (className) {
+            case "book":
+                readFileContext.setReadFileStrategy(new BookReadFile());
+                books = readFileContext.executeReadFileStrategy();
+                books.forEach(System.out::println);
+                break;
+            case "car":
+                readFileContext.setReadFileStrategy(new CarReadFile());
+                cars = readFileContext.executeReadFileStrategy();
+                cars.forEach(System.out::println);
+                break;
+            case "rootcrop":
+                readFileContext.setReadFileStrategy(new RootCropReadFile());
+                rootCrops = readFileContext.executeReadFileStrategy();
+                rootCrops.forEach(System.out::println);
+        }
+    }
 }
