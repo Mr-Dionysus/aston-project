@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Car> cars = new ArrayList<>();
@@ -140,13 +141,13 @@ public class Main {
                     continue;
             }
 
-            /*
-            Console writing realization
 
-            while (true) {
+//            Console writing realization
+//
+//            while (true) {
+//
+//            }
 
-            }
-            */
 
             while (true) {
                 System.out.println("""
@@ -238,6 +239,8 @@ public class Main {
                 }
             }
         }
+
+
     }
 }
 

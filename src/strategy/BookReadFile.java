@@ -11,7 +11,7 @@ import java.util.List;
 
 public class BookReadFile implements ReadFileStrategy {
     @Override
-    public List<Book> ReadFile() {
+    public List<Book> readFile() {
         List<Book> bookList = new ArrayList<>();
         String line;
         try (BufferedReader reader = new BufferedReader(new FileReader("resources/books.txt"))) {
