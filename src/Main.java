@@ -5,28 +5,14 @@ import search.BinarySearch;
 import sort.MergeSort;
 import sort.MergeSortEvenOdd;
 import sort.SortingContext;
-import strategy.BookReadFile;
-import strategy.CarReadFile;
-import strategy.ReadFileContext;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
 
-        ReadFileContext readFileContext = new ReadFileContext();
-        readFileContext.setReadFileStrategy(new BookReadFile());
-        List<Book> bookList = readFileContext.executeReadFileStrategy();
-        bookList.forEach(System.out::println);
-
-        readFileContext.setReadFileStrategy(new CarReadFile());
-        List<Car> carList = readFileContext.executeReadFileStrategy();
-        carList.forEach(System.out::println);
-
-        /**
         Scanner scanner = new Scanner(System.in);
 
         ArrayList<Car> cars = new ArrayList<>();
@@ -60,7 +46,7 @@ public class Main {
         System.out.print("...........");
         System.out.println(carsByYear);
         System.out.print("...........");
-        oddEven.sortEven(carsByYear, carComparator);
+        oddEven.sort(carsByYear, carComparator);
         System.out.println(carsByYear);
         System.out.print("...........");
 
@@ -253,7 +239,7 @@ public class Main {
                 }
             }
         }
-         */
+
 
     }
 }
