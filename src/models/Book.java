@@ -1,10 +1,5 @@
 package models;
 
-import strategy.BookReadFile;
-import strategy.ReadFileStrategy;
-
-import java.util.List;
-
 public class Book {
     private final String author;
     private final String name;
@@ -30,11 +25,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Book{" +
-                "author='" + author + '\'' +
-                ", name='" + name + '\'' +
-                ", pages=" + pages +
-                '}';
+        return "\nAuthor: " + this.author + "\nName:   " + this.name + "\nPages:  " + this.pages;
     }
 
     public static class Builder {

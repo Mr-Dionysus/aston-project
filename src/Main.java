@@ -1,7 +1,7 @@
+import menu.MainMenu;
 import models.Book;
 import models.Car;
 import models.RootCrop;
-import search.BinarySearch;
 import sort.MergeSort;
 import sort.MergeSortEvenOdd;
 import sort.SortingContext;
@@ -45,7 +45,7 @@ public class Main {
         System.out.print("...........");
         System.out.println(carsByYear);
         System.out.print("...........");
-        oddEven.sortEven(carsByYear, carComparator);
+        oddEven.sort(carsByYear, carComparator);
         System.out.println(carsByYear);
         System.out.print("...........");
 
@@ -70,174 +70,8 @@ public class Main {
         sortingContext.performSort(cars, Comparator.comparingInt(Car::getYear));
         System.out.println("После сортировки по году: " + cars);
 
-        stopProgram:
-        while (true) {
-            while (true) {
-                System.out.println("""
-                        --------------
-                        What class's objects do you want to use - 'car', 'book' or 'rootcrop'? Write 'stop' to stop.
-                        --------------""");
-                String classObjects = scanner.nextLine().toLowerCase();
-
-                if (classObjects.equals("stop")) {
-                    break stopProgram;
-                } else if (classObjects.isEmpty() || (!classObjects.equals("car") && !classObjects.equals("book") && !classObjects.equals("rootcrop"))) {
-                    System.out.println("""
-                            --------------
-                            You wrote class name wrong. Please, write class that you want - 'car', 'book' or 'rootcrop'. Write 'stop' to stop.""");
-                } else {
-                    break;
-                }
-            }
-
-            while (true) {
-                System.out.println("""
-                        --------------
-                        Write a length of an array. Write '0' to stop.
-                        --------------""");
-                int arrLength;
-
-                try {
-                    arrLength = Integer.parseInt(scanner.nextLine());
-                } catch (NumberFormatException e) {
-                    System.out.println("--------------\n" + "Error: " + e.getMessage() + ". Please, write '0' or a positive number.");
-                    continue;
-                }
-
-                if (arrLength == 0) {
-                    break stopProgram;
-                } else if (arrLength < 0) {
-                    System.out.println("""
-                            --------------
-                            You wrote negative number. Please, write '0' or a positive number.""");
-                } else {
-                    break;
-                }
-            }
-
-            System.out.println("""
-                    --------------
-                    Do you want to add new data in array via 'file', by 'random', or via 'console'? Write 'stop' to stop.
-                    --------------""");
-            String addDataOptions = scanner.nextLine().toLowerCase();
-
-            switch (addDataOptions) {
-                case "stop":
-                    break stopProgram;
-                case "file":
-                    //code realization
-                    break;
-                case "random":
-                    //code realization
-                    break;
-                case "console":
-                    //code realization
-                    break;
-                default:
-                    System.out.println("""
-                            --------------
-                            You wrote something wrong. Please, choose option to add new data in array: 'file', 'random', or 'console'. Write 'stop' to stop.""");
-                    continue;
-            }
-
-            /*
-            Console writing realization
-
-            while (true) {
-
-            }
-            */
-
-            while (true) {
-                System.out.println("""
-                        --------------
-                        Do you want to find an object with specific information? Write 'y' or 'n'.
-                        --------------""");
-                String doSearch = scanner.nextLine().toLowerCase();
-
-                if (doSearch.equals("n")) {
-                    break;
-                } else if (doSearch.equals("y")) {
-                    System.out.println("""
-                            --------------
-                            Write specific information that you want to find with comma like that - 'car,power,100'.
-                            You have next options: 'car' ('power', 'model', 'year'), 'book' ('author', 'name', 'pages'), 'rootcrop' ('type', 'weight' (Format: 0 or 0.0), 'color').
-                            --------------""");
-                    String searchString = scanner.nextLine().toLowerCase();
-                    String[] searchArr = searchString.split(",");
-                    String searchClass = searchArr[0];
-                    String searchType = searchArr[1];
-
-                    if (searchArr[0].equals(searchString)) {
-                        System.out.println("""
-                                --------------
-                                You wrote the information in wrong format. Please, try again.""");
-                        continue;
-                    }
-
-                    String searchParam = searchArr[2];
-                    Car carSearchResult;
-                    Book bookSearchResult;
-                    RootCrop rootCropSearchResult;
-                    int index;
-
-                    String messageInvalidSearchType = "--------------\nYou wrote '" + searchType + "' which '" + searchClass + "' class isn't have. Please, try again.";
-                    String messageCantFindElement = """
-                            --------------
-                            That array don't have an element with that information.""";
-
-                    switch (searchClass) {
-                        case "car":
-                            if (searchType.equals("power") || searchType.equals("model") || searchType.equals("year")) {
-                                index = BinarySearch.searchResultIndex(searchType, searchParam, cars);
-
-                                if (index == -1) {
-                                    System.out.println(messageCantFindElement);
-                                } else {
-                                    carSearchResult = cars.get(index);
-                                    System.out.println(carSearchResult);
-                                }
-                            } else {
-                                System.out.println(messageInvalidSearchType);
-                            }
-                            break;
-
-                        case "book":
-                            if (searchType.equals("author") || searchType.equals("name") || searchType.equals("pages")) {
-                                index = BinarySearch.searchResultIndex(searchType, searchParam, books);
-
-                                if (index == -1) {
-                                    System.out.println(messageCantFindElement);
-                                } else {
-                                    bookSearchResult = books.get(index);
-                                    System.out.println(bookSearchResult);
-                                }
-                            } else {
-                                System.out.println(messageInvalidSearchType);
-                            }
-                            break;
-
-                        case "rootcrop":
-                            if (searchType.equals("type") || searchType.equals("weight") || searchType.equals("color")) {
-                                index = BinarySearch.searchResultIndex(searchType, searchParam, rootCrops);
-
-                                if (index == -1) {
-                                    System.out.println(messageCantFindElement);
-                                } else {
-                                    rootCropSearchResult = rootCrops.get(index);
-                                    System.out.println(rootCropSearchResult);
-                                }
-                            } else {
-                                System.out.println(messageInvalidSearchType);
-                            }
-                            break;
-                        default:
-                            System.out.println("That class doesn't exist. Please, try again.");
-                            break;
-                    }
-                }
-            }
-        }
+        MainMenu mainMenu = new MainMenu();
+        mainMenu.start();
     }
 }
 
