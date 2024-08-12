@@ -11,7 +11,7 @@ import java.util.List;
 
 public class RootCropReadFile implements ReadFileStrategy {
     @Override
-    public List<RootCrop> ReadFile() {
+    public List<RootCrop> readFile() {
         List<RootCrop> rootCropList = new ArrayList<>();
         String line;
         try (BufferedReader reader = new BufferedReader(new FileReader("resources/rootcrops.txt"))) {
