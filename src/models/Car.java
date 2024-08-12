@@ -1,10 +1,5 @@
 package models;
 
-import strategy.CarReadFile;
-import strategy.ReadFileStrategy;
-
-import java.util.List;
-
 public class Car {
     private final int power;
     private final String model;
@@ -30,11 +25,7 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Car{" +
-                "power=" + power +
-                ", model='" + model + '\'' +
-                ", year=" + year +
-                '}';
+        return "Power: " + this.power + "\nModel: " + this.model + "\nYear:  " + this.year;
     }
 
     public static class Builder {
