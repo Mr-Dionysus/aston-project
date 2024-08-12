@@ -21,9 +21,9 @@ public class Main {
         ArrayList<Car> carsByYear = new ArrayList<>();
 
         Car car1 = new Car.Builder().power(100).model("Audi").year(2020).build();
-        Car car2 = new Car.Builder().power(500).model("BMW").year(2015).build();
-        Car car3 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
-        Car car4 = new Car.Builder().power(100).model("Mercedes").year(2005).build();
+        Car car2 = new Car.Builder().power(555).model("BMW").year(2015).build();
+        Car car3 = new Car.Builder().power(333).model("Mercedes").year(2005).build();
+        Car car4 = new Car.Builder().power(222).model("Mercedes").year(2005).build();
         Car car5 = new Car.Builder().power(100).model("Mercedes").year(2010).build();
 
         cars.add(car1);
@@ -41,12 +41,12 @@ public class Main {
         Comparator<Car> carComparator;
         carComparator = Comparator.comparingInt(Car::getPower);
 
-        MergeSortEvenOdd oddEven = new MergeSortEvenOdd();
+        SortingContext oddEven = new SortingContext<>(new MergeSortEvenOdd());
 
         System.out.print("...........");
         System.out.println(carsByYear);
         System.out.print("...........");
-        oddEven.sort(carsByYear, carComparator);
+        oddEven.performSort(carsByYear, carComparator);
         System.out.println(carsByYear);
         System.out.print("...........");
 
