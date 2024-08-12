@@ -8,6 +8,7 @@ import sort.SortingContext;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Main {
@@ -36,7 +37,7 @@ public class Main {
         carsByYear.add(car3);
         carsByYear.add(car4);
         carsByYear.add(car5);
-
+/*
         Comparator<Car> carComparator;
         carComparator = Comparator.comparingInt(Car::getPower);
 
@@ -69,19 +70,23 @@ public class Main {
         System.out.println("До сортировки по году: " + cars);
         sortingContext.performSort(cars, Comparator.comparingInt(Car::getYear));
         System.out.println("После сортировки по году: " + cars);
-
+*/
         stopProgram:
         while (true) {
+            int classObjects;
             while (true) {
                 System.out.println("""
-                        --------------
-                        What class's objects do you want to use - 'car', 'book' or 'rootcrop'? Write 'stop' to stop.
+                        Объектами какого класса заполняем массив?
+                        1 - Car
+                        2 - Book
+                        3 - Rootcrop
+                        0 - Выход.
                         --------------""");
-                String classObjects = scanner.nextLine().toLowerCase();
+                classObjects = scanner.nextInt();
 
-                if (classObjects.equals("stop")) {
+                if (classObjects == 0) {
                     break stopProgram;
-                } else if (classObjects.isEmpty() || (!classObjects.equals("car") && !classObjects.equals("book") && !classObjects.equals("rootcrop"))) {
+                } else if (classObjects != 1 && classObjects != 2 && classObjects != 3) {
                     System.out.println("""
                             --------------
                             You wrote class name wrong. Please, write class that you want - 'car', 'book' or 'rootcrop'. Write 'stop' to stop.""");
@@ -89,16 +94,11 @@ public class Main {
                     break;
                 }
             }
-
+            int arrLength;
             while (true) {
-                System.out.println("""
-                        --------------
-                        Write a length of an array. Write '0' to stop.
-                        --------------""");
-                int arrLength;
-
+                System.out.println("Введите длину массива. 0 - Выход.");
                 try {
-                    arrLength = Integer.parseInt(scanner.nextLine());
+                    arrLength = scanner.nextInt();
                 } catch (NumberFormatException e) {
                     System.out.println("--------------\n" + "Error: " + e.getMessage() + ". Please, write '0' or a positive number.");
                     continue;
@@ -107,30 +107,28 @@ public class Main {
                 if (arrLength == 0) {
                     break stopProgram;
                 } else if (arrLength < 0) {
-                    System.out.println("""
-                            --------------
-                            You wrote negative number. Please, write '0' or a positive number.""");
+                    System.out.println("Длина массива не может быть отрицательной. Введите положительное число либо введите 0 для выхода.");
                 } else {
                     break;
                 }
             }
 
-            System.out.println("""
-                    --------------
-                    Do you want to add new data in array via 'file', by 'random', or via 'console'? Write 'stop' to stop.
-                    --------------""");
-            String addDataOptions = scanner.nextLine().toLowerCase();
+            System.out.println("Как заполнить массив?\n1 - Из файла.\n2 - Случайные значения\n3 - Вручную\n0 - Выход.");
+            int addDataOptions = scanner.nextInt();
 
             switch (addDataOptions) {
-                case "stop":
+                case 0:
                     break stopProgram;
-                case "file":
+                case 1:
                     //code realization
                     break;
-                case "random":
-                    //code realization
+                case 2:
+                    if (classObjects == 1){
+                        Car[] randCars = Car.createObjects(arrLength);
+                        System.out.println("randCars length: "+randCars.length);
+                    }
                     break;
-                case "console":
+                case 3:
                     //code realization
                     break;
                 default:
