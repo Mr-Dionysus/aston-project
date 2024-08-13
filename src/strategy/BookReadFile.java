@@ -6,13 +6,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class BookReadFile implements ReadFileStrategy {
     @Override
-    public List<Book> readFile() {
-        List<Book> bookList = new ArrayList<>();
+    public ArrayList<Book> readFile() {
+        ArrayList<Book> bookList = new ArrayList<>();
         String line;
         try (BufferedReader reader = new BufferedReader(new FileReader("resources/books.txt"))) {
             while ((line = reader.readLine()) != null) {
@@ -25,7 +23,7 @@ public class BookReadFile implements ReadFileStrategy {
             }
         } catch (IOException e) {
             System.out.println("Exception\n");
-            bookList = Collections.emptyList();
+            bookList = null;
         }
         return bookList;
     }
