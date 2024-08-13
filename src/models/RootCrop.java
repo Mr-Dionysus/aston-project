@@ -1,10 +1,5 @@
 package models;
 
-import strategy.ReadFileStrategy;
-import strategy.RootCropReadFile;
-
-import java.util.List;
-
 public class RootCrop {
     private final String type;
     private final double weight;
@@ -30,11 +25,7 @@ public class RootCrop {
 
     @Override
     public String toString() {
-        return "RootCrop{" +
-                "type='" + type + '\'' +
-                ", weight=" + weight +
-                ", color='" + color + '\'' +
-                '}';
+        return "Type: " + this.type + "; Weight: " + this.weight + "; Color:  " + this.color;
     }
 
     public static class Builder {
