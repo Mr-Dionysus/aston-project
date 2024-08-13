@@ -1,7 +1,7 @@
 package strategy;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface ReadFileStrategy<T> {
-    List<T> readFile();
+    ArrayList<T> readFile();
 }

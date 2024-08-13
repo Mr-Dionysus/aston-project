@@ -26,7 +26,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "Author: " + this.author + "; Name:   " + this.name + "; Pages:  " + this.pages;
+        return "Author: " + this.author + " | Name: " + this.name + " | Pages: " + this.pages;
     }
 
     public static class Builder {

@@ -1,5 +1,6 @@
 package search;
 
+import menu.Message;
 import models.Book;
 import models.Car;
 import models.RootCrop;
@@ -118,49 +119,50 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         String[] searchArr = searchString.split(",");
         String searchClass = searchArr[0];
 
-        if (searchArr[0].equals(searchString)) {
+        if (searchArr.length != 3) {
             System.out.println(dashLine);
             System.out.println(messageInvalidCommand);
+        } else {
+            String searchType = searchArr[1];
+            String searchParam = searchArr[2];
+            T searchResult;
+
+            String messageInvalidSearchType = dashLine + "\n" + messageInvalidCommand + "\nТы написал тип " + searchType + ", которого нет у класса " + searchClass + ".";
+
+            switch (searchClass) {
+                case "car":
+                    if (searchType.equals("power") || searchType.equals("model") || searchType.equals("year")) {
+                        searchResult = BinarySearch.searchResultIndex(searchType, searchParam, list, dashLine);
+                        return searchResult;
+                    } else {
+                        System.out.println(messageInvalidSearchType);
+                    }
+                    break;
+
+                case "book":
+                    if (searchType.equals("author") || searchType.equals("name") || searchType.equals("pages")) {
+                        searchResult = BinarySearch.searchResultIndex(searchType, searchParam, list, dashLine);
+                        return searchResult;
+                    } else {
+                        System.out.println(messageInvalidSearchType);
+                    }
+                    break;
+
+                case "rootcrop":
+                    if (searchType.equals("type") || searchType.equals("weight") || searchType.equals("color")) {
+                        searchResult = BinarySearch.searchResultIndex(searchType, searchParam, list, dashLine);
+                        return searchResult;
+                    } else {
+                        System.out.println(messageInvalidSearchType);
+                    }
+                    break;
+                default:
+                    System.out.println(dashLine);
+                    System.out.println(messageInvalidCommand);
+                    return null;
+            }
         }
 
-        String searchType = searchArr[1];
-        String searchParam = searchArr[2];
-        T searchResult;
-
-        String messageInvalidSearchType = dashLine + "\n" + messageInvalidCommand + "\nТы написал тип " + searchType + ", которого нет у класса " + searchClass + ".";
-
-        switch (searchClass) {
-            case "car":
-                if (searchType.equals("power") || searchType.equals("model") || searchType.equals("year")) {
-                    searchResult = BinarySearch.searchResultIndex(searchType, searchParam, list, dashLine);
-                    return searchResult;
-                } else {
-                    System.out.println(messageInvalidSearchType);
-                }
-                break;
-
-            case "book":
-                if (searchType.equals("author") || searchType.equals("name") || searchType.equals("pages")) {
-                    searchResult = BinarySearch.searchResultIndex(searchType, searchParam, list, dashLine);
-                    return searchResult;
-                } else {
-                    System.out.println(messageInvalidSearchType);
-                }
-                break;
-
-            case "rootcrop":
-                if (searchType.equals("type") || searchType.equals("weight") || searchType.equals("color")) {
-                    searchResult = BinarySearch.searchResultIndex(searchType, searchParam, list, dashLine);
-                    return searchResult;
-                } else {
-                    System.out.println(messageInvalidSearchType);
-                }
-                break;
-            default:
-                System.out.println(dashLine);
-                System.out.println(messageInvalidCommand);
-                return null;
-        }
         return null;
     }
 
@@ -181,6 +183,44 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
             System.out.println(searchResult);
 
             return searchResult;
+        }
+    }
+
+    public static void someSearchSwitchCarBookRootCrop(String className, ArrayList cars, ArrayList books, ArrayList rootCrops, ArrayList list, Scanner scanner, String messageInvalidCommand, String dashLine) {
+        switch (className) {
+            case "car":
+                cars = list;
+                someSearch(scanner, cars, messageInvalidCommand, dashLine);
+                break;
+            case "book":
+                books = list;
+                someSearch(scanner, books, messageInvalidCommand, dashLine);
+                break;
+            case "rootcrop":
+                rootCrops = list;
+                someSearch(scanner, rootCrops, messageInvalidCommand, dashLine);
+                break;
+            default:
+                System.out.println(messageInvalidCommand);
+                break;
+        }
+    }
+
+    public static <T> void someSearch(Scanner scanner, ArrayList<T> list, String messageInvalidCommand, String dashLine) {
+        String doSearch = scanner.next();
+        list.forEach(System.out::println);
+
+        switch (doSearch) {
+            case "1":
+                Message.whatToSearch(dashLine);
+                BinarySearch.searchResultObject(list, scanner, messageInvalidCommand, dashLine);
+                break;
+            case "0":
+                break;
+            default:
+                System.out.println(dashLine);
+                System.out.println(messageInvalidCommand);
+                break;
         }
     }
 }
