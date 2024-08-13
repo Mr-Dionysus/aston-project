@@ -11,7 +11,7 @@ import java.util.List;
 
 public class CarReadFile implements ReadFileStrategy {
     @Override
-    public List<Car> ReadFile() {
+    public List<Car> readFile() {
         List<Car> carList = new ArrayList<>();
         String line;
         try (BufferedReader reader = new BufferedReader(new FileReader("resources/cars.txt"))) {

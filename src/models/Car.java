@@ -39,7 +39,9 @@ public class Car {
 
     @Override
     public String toString() {
-        return "Power: " + this.power + "\nModel: " + this.model + "\nYear:  " + this.year;
+        return "power=" + power +
+                ", model='" + model + '\'' +
+                ", year=" + year;
     }
 
     public static class Builder {
