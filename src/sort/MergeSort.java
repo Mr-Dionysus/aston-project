@@ -80,7 +80,6 @@ public class MergeSort<T> implements SortingStrategy<T> {
                     case "0":
                         break;
                     default:
-                        System.out.println(dashLine);
                         System.out.println(messageInvalidCommand);
                         break;
                 }
@@ -123,7 +122,6 @@ public class MergeSort<T> implements SortingStrategy<T> {
                     case "0":
                         break;
                     default:
-                        System.out.println(dashLine);
                         System.out.println(messageInvalidCommand);
                         break;
                 }
@@ -166,7 +164,6 @@ public class MergeSort<T> implements SortingStrategy<T> {
                     case "0":
                         break;
                     default:
-                        System.out.println(dashLine);
                         System.out.println(messageInvalidCommand);
                         break;
                 }
@@ -188,17 +185,13 @@ public class MergeSort<T> implements SortingStrategy<T> {
         if (isEven) {
             sortingContext.setSortingStrategy(new MergeSortEvenOdd());
         } else {
-            //sortingContext.setSortingStrategy(new MergeSortOdd());
+            //Нечетная сортировка
+            sortingContext.setSortingStrategy(new MergeSortEvenOdd());
         }
 
         switch (className) {
             case "car":
-                System.out.println(dashLine);
-                System.out.println("- Выберите поле, по которому будет четная сортировка:");
-                System.out.println("1 - Мощность");
-                System.out.println("2 - Год");
-                System.out.println(dashLine);
-
+                Message.chooseMergeSortEvenOddSortParam(dashLine);
                 String input = scanner.next();
 
                 switch (input) {
@@ -219,17 +212,12 @@ public class MergeSort<T> implements SortingStrategy<T> {
                     case "0":
                         break;
                     default:
-                        System.out.println(dashLine);
                         System.out.println(messageInvalidCommand);
                         break;
                 }
                 break;
 
             case "book":
-                System.out.println(dashLine);
-                System.out.println("- Cортировка по четным числам страниц:");
-                System.out.println(dashLine);
-
                 bookComparator = Comparator.comparingInt(Book::getPages);
                 sortingContext.performSort(books, bookComparator);
 
@@ -242,6 +230,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                 System.out.println("- К сожалению, дробные числа, такие, как вес, не могут быть четными или нечетными");
                 System.out.println(dashLine);
                 break;
+
             default:
                 System.out.println(messageInvalidCommand);
                 break;

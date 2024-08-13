@@ -5,6 +5,7 @@ import models.Car;
 import models.RootCrop;
 import search.BinarySearch;
 import sort.MergeSort;
+import sort.MergeSortEvenOdd;
 import sort.SortingContext;
 import strategy.BookReadFile;
 import strategy.CarReadFile;
@@ -28,6 +29,7 @@ public class Menu {
     ArrayList list = new ArrayList();
 
     public void start() {
+        System.out.println(MergeSortEvenOdd.getIsEven());
         String input = "";
         String dashLine = "-------------------------------------------------------------------------------";
         String messageInvalidCommand = dashLine + "\n- Введи нормальную команду";
@@ -167,15 +169,15 @@ public class Menu {
                 System.out.println("2 - Нечетную");
                 System.out.println("0 = Выход");
                 System.out.println(dashLine);
+
                 input = scanner.next();
-                boolean isEven = false;
 
                 switch (input) {
                     case "1":
-                        isEven = true;
+                        MergeSortEvenOdd.setIsEven(true);
                         break;
                     case "2":
-                        isEven = false;
+                        MergeSortEvenOdd.setIsEven(false);
                         break;
                     case "0":
                         input = "0";
@@ -185,7 +187,7 @@ public class Menu {
                         return input;
                 }
 
-                MergeSort.arrMergeSortEvenOdd(isEven, className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
+                MergeSort.arrMergeSortEvenOdd(MergeSortEvenOdd.getIsEven(), className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
                 input = "0";
                 return input;
             case "0":

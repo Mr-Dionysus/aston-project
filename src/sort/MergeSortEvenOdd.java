@@ -10,9 +10,20 @@ import java.util.List;
 
 public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
     //even - true чётная сортировка, false - нечётная, по умолчанию четная.
+    private static boolean isEven = true;
+
+    public static boolean getIsEven() {
+        return isEven;
+    }
+
+    public static void setIsEven(boolean isEven) {
+        MergeSortEvenOdd.isEven = isEven;
+    }
+
+
     @Override
     public void sort(List<T> array, Comparator<? super T> comparator) {
-        sort(array, comparator, "default", true);
+        sort(array, comparator, "default", MergeSortEvenOdd.getIsEven());
     }
 
     public void sort(List<T> array, Comparator<? super T> comparator, boolean even) {
@@ -23,41 +34,41 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
         sort(array, comparator, type, true);
     }
 
-    public void sort(List<T> array, Comparator<? super T> comparator, String type, boolean even) {
+    public void sort(List<T> array, Comparator<? super T> comparator, String type, boolean isEven) {
         if (array.size() <= 1) {
             return;
         }
-        sortEvenOdd(array, comparator, type, even);
+        sortEvenOdd(array, comparator, type, isEven);
     }
 
-    private void sortEvenOdd(List<T> array, Comparator<? super T> comparator, String type, boolean even) {
+    private void sortEvenOdd(List<T> array, Comparator<? super T> comparator, String type, boolean isEven) {
         //Валидация листа
         T example = array.getFirst();
         switch (type) {
             case "Year":
             case "Power":
                 if (example instanceof Car) {
-                    sortCaseCar((List<Car>) array, comparator, type, even);
+                    sortCaseCar((List<Car>) array, comparator, type, isEven);
                 }
                 break;
             case "Pages":
                 if (example instanceof Book) {
-                    sortCaseBook((List<Book>) array, comparator, type, even);
+                    sortCaseBook((List<Book>) array, comparator, type, isEven);
                 }
                 break;
             case "Weight":
                 if (example instanceof RootCrop) {
-                    sortCaseCrop((List<RootCrop>) array, comparator, type, even);
+                    sortCaseCrop((List<RootCrop>) array, comparator, type, isEven);
                 }
                 break;
             //Поле сортировки по умолчанию.
             default:
                 if (example instanceof Car) {
-                    sortCaseCar((List<Car>) array, comparator, "Year", even);
+                    sortCaseCar((List<Car>) array, comparator, "Year", isEven);
                 } else if (example instanceof Book) {
-                    sortCaseBook((List<Book>) array, comparator, "Pages", even);
+                    sortCaseBook((List<Book>) array, comparator, "Pages", isEven);
                 } else if (example instanceof RootCrop) {
-                    sortCaseCrop((List<RootCrop>) array, comparator, "Weight", even);
+                    sortCaseCrop((List<RootCrop>) array, comparator, "Weight", isEven);
                 } else {
                     System.out.println("Exception: Wrong sorting parameter");
                 }
