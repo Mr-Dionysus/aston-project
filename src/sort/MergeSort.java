@@ -57,6 +57,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
 
                         System.out.println(dashLine);
                         cars.forEach(System.out::println);
+                        input = "power";
                         break;
                     case "2":
                         sortingContext.setSortingStrategy(new MergeSort());
@@ -65,6 +66,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
 
                         System.out.println(dashLine);
                         cars.forEach(System.out::println);
+                        input = "model";
                         break;
                     case "3":
                         sortingContext.setSortingStrategy(new MergeSort());
@@ -73,6 +75,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
 
                         System.out.println(dashLine);
                         cars.forEach(System.out::println);
+                        input = "year";
                         break;
                     case "0":
                         break;
@@ -97,6 +100,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
 
                         System.out.println(dashLine);
                         books.forEach(System.out::println);
+                        input = "author";
                         break;
                     case "2":
                         sortingContext.setSortingStrategy(new MergeSort());
@@ -105,6 +109,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
 
                         System.out.println(dashLine);
                         books.forEach(System.out::println);
+                        input = "name";
                         break;
                     case "3":
                         sortingContext.setSortingStrategy(new MergeSort());
@@ -113,6 +118,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
 
                         System.out.println(dashLine);
                         books.forEach(System.out::println);
+                        input = "pages";
                         break;
                     case "0":
                         break;
@@ -137,6 +143,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
 
                         System.out.println(dashLine);
                         rootCrops.forEach(System.out::println);
+                        input = "type";
                         break;
                     case "2":
                         sortingContext.setSortingStrategy(new MergeSort());
@@ -145,6 +152,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
 
                         System.out.println(dashLine);
                         rootCrops.forEach(System.out::println);
+                        input = "weight";
                         break;
                     case "3":
                         sortingContext.setSortingStrategy(new MergeSort());
@@ -153,6 +161,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
 
                         System.out.println(dashLine);
                         rootCrops.forEach(System.out::println);
+                        input = "color";
                         break;
                     case "0":
                         break;
@@ -179,7 +188,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
         switch (className) {
             case "car":
                 System.out.println(dashLine);
-                System.out.println("- Выберите поле, по которому будет сортировка:");
+                System.out.println("- Выберите поле, по которому будет четная сортировка:");
                 System.out.println("1 - Мощность");
                 System.out.println("2 - Год");
                 System.out.println(dashLine);
@@ -210,8 +219,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         System.out.println(messageInvalidCommand);
                         break;
                 }
-
-                return input;
+                break;
 
             case "book":
                 System.out.println(dashLine);
@@ -230,7 +238,6 @@ public class MergeSort<T> implements SortingStrategy<T> {
                 System.out.println(dashLine);
                 System.out.println("- К сожалению, дробные числа, такие, как вес, не могут быть четными или нечетными");
                 System.out.println(dashLine);
-
                 break;
             default:
                 System.out.println(messageInvalidCommand);

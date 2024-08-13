@@ -1,7 +1,7 @@
 package menu;
 
 public class Message {
-    public static void chooseClass(String dashLine) {
+    public static void chooseClassOption(String dashLine) {
         System.out.println(dashLine);
         System.out.println("- Объектами какого класса вы хотите заполнить массив?");
         System.out.println("1 - Машины");
@@ -18,7 +18,7 @@ public class Message {
         System.out.println(dashLine);
     }
 
-    public static void chooseHowToFillArr(String dashLine) {
+    public static void chooseFillArrOption(String dashLine) {
         System.out.println(dashLine);
         System.out.println("- Выберите способ заполнения исходного массива:");
         System.out.println("1 - Чтение из файла");
@@ -28,7 +28,7 @@ public class Message {
         System.out.println(dashLine);
     }
 
-    public static void wantSomeSearch(String dashLine) {
+    public static void chooseYouWantSomeSearch(String dashLine) {
         System.out.println(dashLine);
         System.out.println("- Хочешь найти нужный тебе объект?");
         System.out.println("1 - Да");
@@ -36,12 +36,10 @@ public class Message {
         System.out.println(dashLine);
     }
 
-    public static void whatToSearch(String dashLine) {
+    public static void writeSearchObject(String className, String sortBy, String dashLine) {
         System.out.println(dashLine);
-        System.out.println("- Напиши, что ты ищешь в формате: 'car,power,100'.");
-        System.out.println("1 - car (power, model, year)");
-        System.out.println("2 - book (author, name, pages)");
-        System.out.println("3 - rootcrop (type, weight (формат 0 или 0.0), color)");
+        System.out.println("- Вы можете найти объект из класса '" + className + "' по значению параметра '" + sortBy + "'.");
+        System.out.println("- Формат: " + className + "," + sortBy + ",100");
         System.out.println(dashLine);
     }
 
