@@ -178,64 +178,6 @@ public class MergeSort<T> implements SortingStrategy<T> {
         return "0";
     }
 
-    public static void arrMergeSortEvenOdd(boolean isEven, String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, String messageInvalidCommand, String dashLine) {
-        Comparator<Car> carComparator;
-        Comparator<Book> bookComparator;
-
-        if (isEven) {
-            sortingContext.setSortingStrategy(new MergeSortEvenOdd());
-        } else {
-            //Нечетная сортировка
-            sortingContext.setSortingStrategy(new MergeSortEvenOdd());
-        }
-
-        switch (className) {
-            case "car":
-                Message.chooseMergeSortEvenOddSortParam(dashLine);
-                String input = scanner.next();
-
-                switch (input) {
-                    case "1":
-                        carComparator = Comparator.comparingInt(Car::getPower);
-                        sortingContext.performSort(cars, carComparator);
-
-                        System.out.println(dashLine);
-                        cars.forEach(System.out::println);
-                        break;
-                    case "2":
-                        carComparator = Comparator.comparingInt(Car::getYear);
-                        sortingContext.performSort(cars, carComparator);
-
-                        System.out.println(dashLine);
-                        cars.forEach(System.out::println);
-                        break;
-                    case "0":
-                        break;
-                    default:
-                        System.out.println(messageInvalidCommand);
-                        break;
-                }
-                break;
-
-            case "book":
-                bookComparator = Comparator.comparingInt(Book::getPages);
-                sortingContext.performSort(books, bookComparator);
-
-                System.out.println(dashLine);
-                books.forEach(System.out::println);
-                break;
-
-            case "rootcrop":
-                System.out.println(dashLine);
-                System.out.println("- К сожалению, дробные числа, такие, как вес, не могут быть четными или нечетными");
-                System.out.println(dashLine);
-                break;
-
-            default:
-                System.out.println(messageInvalidCommand);
-                break;
-        }
-    }
 
     @Override
     public void sort(List<T> array, Comparator<? super T> comparator) {

@@ -1,5 +1,6 @@
 package sort;
 
+import menu.Message;
 import models.Book;
 import models.Car;
 import models.RootCrop;
@@ -7,6 +8,7 @@ import models.RootCrop;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Scanner;
 
 public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
     //even - true чётная сортировка, false - нечётная, по умолчанию четная.
@@ -119,7 +121,6 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
             stored.removeIf(i -> i.getPages() % 2 == 0);
         sortingContext.performSort(stored, compareTo);
         mergeCaseBook(stored, array, type, even);
-
     }
 
     private void sortCaseCrop(List<RootCrop> array, Comparator<? super T> comparator, String type, boolean even) {
@@ -136,7 +137,6 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
             stored.removeIf(i -> i.getWeight() % 2 == 0);
         sortingContext.performSort(stored, compareTo);
         mergeCaseCrop(stored, array, type, even);
-
     }
 
     private void mergeCaseCar(List<Car> stored, List<Car> array, String type, Boolean sortEven) {
@@ -181,5 +181,60 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
                 t++;
             }
         }
+    }
+
+
+    public static void mergeSortedArrEvenOdd(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, String messageInvalidCommand, String dashLine) {
+        sortingContext.setSortingStrategy(new MergeSortEvenOdd());
+
+        switch (className) {
+            case "car":
+                Message.chooseSortParamMergeSortEvenOdd(dashLine);
+                switchSortParamsMergeSort(cars, scanner, sortingContext, messageInvalidCommand, dashLine);
+                break;
+
+            case "book":
+                Message.sortByEvenOrOddPages(dashLine);
+                Comparator<Book> bookComparator = Comparator.comparingInt(Book::getPages);
+                sortingContext.performSort(books, bookComparator);
+
+                System.out.println(dashLine);
+                books.forEach(System.out::println);
+                break;
+
+            case "rootcrop":
+                Message.cantBeEvenOrOdd(dashLine);
+                break;
+
+            default:
+                System.out.println(messageInvalidCommand);
+                break;
+        }
+    }
+
+    public static <T> String switchSortParamsMergeSort(ArrayList<T> cars, Scanner scanner, SortingContext sortingContext, String messageInvalidCommand, String dashLine) {
+        String input = scanner.next();
+        Comparator carComparator;
+
+        switch (input) {
+            case "1":
+                carComparator = Comparator.comparingInt(Car::getPower);
+                break;
+            case "2":
+                carComparator = Comparator.comparingInt(Car::getYear);
+                break;
+            case "0":
+                return input;
+            default:
+                System.out.println(messageInvalidCommand);
+                input = "0";
+                return input;
+        }
+
+        sortingContext.performSort(cars, carComparator);
+
+        System.out.println(dashLine);
+        cars.forEach(System.out::println);
+        return input;
     }
 }

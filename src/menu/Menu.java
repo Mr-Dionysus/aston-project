@@ -26,7 +26,6 @@ public class Menu {
     ArrayList<Car> cars = new ArrayList<>();
     ArrayList<Book> books = new ArrayList<>();
     ArrayList<RootCrop> rootCrops = new ArrayList<>();
-    ArrayList list = new ArrayList();
 
     public void start() {
         System.out.println(MergeSortEvenOdd.getIsEven());
@@ -34,7 +33,7 @@ public class Menu {
         String dashLine = "-------------------------------------------------------------------------------";
         String messageInvalidCommand = dashLine + "\n- Введи нормальную команду";
 
-        while (!"0".equals(input)) {
+        while (true) {
             Message.chooseClassOption(dashLine);
             className = classOptions(messageInvalidCommand, dashLine);
             input = className;
@@ -118,7 +117,7 @@ public class Menu {
             case "2":
                 break;
             case "3":
-                inputLength(dashLine);
+                inputLength(messageInvalidCommand, dashLine);
                 break;
             case "0":
                 break;
@@ -136,23 +135,21 @@ public class Menu {
         switch (className) {
             case "book":
                 readFileContext.setReadFileStrategy(new BookReadFile());
-                list = readFileContext.executeReadFileStrategy();
-                list.forEach(System.out::println);
-                return list;
+                break;
             case "car":
                 readFileContext.setReadFileStrategy(new CarReadFile());
-                list = readFileContext.executeReadFileStrategy();
-                list.forEach(System.out::println);
-                return list;
+                break;
             case "rootcrop":
                 readFileContext.setReadFileStrategy(new RootCropReadFile());
-                list = readFileContext.executeReadFileStrategy();
-                list.forEach(System.out::println);
-                return list;
+                break;
             default:
                 System.out.println(messageInvalidCommand);
                 return null;
         }
+
+        list = readFileContext.executeReadFileStrategy();
+        list.forEach(System.out::println);
+        return list;
     }
 
     private String sortOptions(String messageInvalidCommand, String dashLine) {
@@ -163,31 +160,13 @@ public class Menu {
                 input = MergeSort.mergeSortArr(className, scanner, sortingContext, cars, books, rootCrops, messageInvalidCommand, dashLine);
                 return input;
             case "2":
-                System.out.println(dashLine);
-                System.out.println("- Вы хотите сделать четную или нечетную сортировку?");
-                System.out.println("1 - Четную");
-                System.out.println("2 - Нечетную");
-                System.out.println("0 = Выход");
-                System.out.println(dashLine);
-
-                input = scanner.next();
-
-                switch (input) {
-                    case "1":
-                        MergeSortEvenOdd.setIsEven(true);
-                        break;
-                    case "2":
-                        MergeSortEvenOdd.setIsEven(false);
-                        break;
-                    case "0":
-                        input = "0";
-                        return input;
-                    default:
-                        System.out.println(messageInvalidCommand);
-                        return input;
-                }
-
-                MergeSort.arrMergeSortEvenOdd(MergeSortEvenOdd.getIsEven(), className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
+                MergeSortEvenOdd.setIsEven(true);
+                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
+                input = "0";
+                return input;
+            case "3":
+                MergeSortEvenOdd.setIsEven(false);
+                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
                 input = "0";
                 return input;
             case "0":
@@ -199,14 +178,12 @@ public class Menu {
         }
     }
 
-    private void inputLength(String dashLine) {
-        System.out.println(dashLine);
-        System.out.println("- Введите количество элементов массива от 1 до 10:");
-        System.out.println(dashLine);
+    private void inputLength(String messageInvalidCommand, String dashLine) {
+        Message.writeArrLength(dashLine);
 
         boolean status = false;
-        int length = 0;
-        String input = "";
+        int length;
+        String input;
 
         while (!status) {
             input = scanner.next();
@@ -215,8 +192,7 @@ public class Menu {
                 length = Integer.parseInt(input);
                 status = setArrayLength(dashLine, length);
             } catch (NumberFormatException e) {
-                System.out.println(dashLine);
-                System.out.println("- Неверный ввод");
+                System.out.println(messageInvalidCommand);
             }
         }
     }
@@ -228,8 +204,7 @@ public class Menu {
             this.arrayLength = arrayLength;
             status = true;
         } else {
-            System.out.println(dashLine);
-            System.out.println("- Число должно располагаться в диапазоне от 1 до 10");
+            Message.wrongArrLength(dashLine);
         }
 
         return status;
@@ -264,7 +239,6 @@ public class Menu {
             case "0":
                 break;
             default:
-                System.out.println(dashLine);
                 System.out.println(messageInvalidCommand);
                 break;
         }

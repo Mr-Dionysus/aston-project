@@ -24,6 +24,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         } else if (example instanceof RootCrop) {
             return searchInRootCrops(searchType, searchParam, (ArrayList<RootCrop>) list, dashLine);
         }
+        
         return -1;
     }
 
