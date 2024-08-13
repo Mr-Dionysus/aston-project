@@ -181,9 +181,15 @@ public class MergeSort<T> implements SortingStrategy<T> {
         return "0";
     }
 
-    public static String mergeSortEvenOddArr(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, String messageInvalidCommand, String dashLine) {
+    public static void arrMergeSortEvenOdd(boolean isEven, String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, String messageInvalidCommand, String dashLine) {
         Comparator<Car> carComparator;
         Comparator<Book> bookComparator;
+
+        if (isEven) {
+            sortingContext.setSortingStrategy(new MergeSortEvenOdd());
+        } else {
+            //sortingContext.setSortingStrategy(new MergeSortOdd());
+        }
 
         switch (className) {
             case "car":
@@ -197,7 +203,6 @@ public class MergeSort<T> implements SortingStrategy<T> {
 
                 switch (input) {
                     case "1":
-                        sortingContext.setSortingStrategy(new MergeSortEvenOdd());
                         carComparator = Comparator.comparingInt(Car::getPower);
                         sortingContext.performSort(cars, carComparator);
 
@@ -205,7 +210,6 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         cars.forEach(System.out::println);
                         break;
                     case "2":
-                        sortingContext.setSortingStrategy(new MergeSortEvenOdd());
                         carComparator = Comparator.comparingInt(Car::getYear);
                         sortingContext.performSort(cars, carComparator);
 
@@ -226,7 +230,6 @@ public class MergeSort<T> implements SortingStrategy<T> {
                 System.out.println("- Cортировка по четным числам страниц:");
                 System.out.println(dashLine);
 
-                sortingContext.setSortingStrategy(new MergeSortEvenOdd());
                 bookComparator = Comparator.comparingInt(Book::getPages);
                 sortingContext.performSort(books, bookComparator);
 
@@ -243,8 +246,6 @@ public class MergeSort<T> implements SortingStrategy<T> {
                 System.out.println(messageInvalidCommand);
                 break;
         }
-
-        return "0";
     }
 
     @Override

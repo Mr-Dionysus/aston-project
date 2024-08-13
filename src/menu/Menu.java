@@ -161,7 +161,31 @@ public class Menu {
                 input = MergeSort.mergeSortArr(className, scanner, sortingContext, cars, books, rootCrops, messageInvalidCommand, dashLine);
                 return input;
             case "2":
-                MergeSort.mergeSortEvenOddArr(className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
+                System.out.println(dashLine);
+                System.out.println("- Вы хотите сделать четную или нечетную сортировку?");
+                System.out.println("1 - Четную");
+                System.out.println("2 - Нечетную");
+                System.out.println("0 = Выход");
+                System.out.println(dashLine);
+                input = scanner.next();
+                boolean isEven = false;
+
+                switch (input) {
+                    case "1":
+                        isEven = true;
+                        break;
+                    case "2":
+                        isEven = false;
+                        break;
+                    case "0":
+                        input = "0";
+                        return input;
+                    default:
+                        System.out.println(messageInvalidCommand);
+                        return input;
+                }
+
+                MergeSort.arrMergeSortEvenOdd(isEven, className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
                 input = "0";
                 return input;
             case "0":
