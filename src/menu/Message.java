@@ -84,4 +84,18 @@ public class Message {
         System.out.println("0 - Выход");
         System.out.println(dashLine);
     }
+
+    public static void chooseMergeSortEvenOddSortParam(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Выберите поле, по которому будет четная сортировка:");
+        System.out.println("1 - Мощность");
+        System.out.println("2 - Год");
+        System.out.println(dashLine);
+    }
+
+    public static void sortByEvenPages(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Cортировка по четным числам страниц:");
+        System.out.println(dashLine);
+    }
 }
