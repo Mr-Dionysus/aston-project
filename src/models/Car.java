@@ -3,6 +3,7 @@ package models;
 import strategy.CarReadFile;
 import strategy.ReadFileStrategy;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -33,9 +34,9 @@ public class Car {
         return year;
     }
 
-    public static List<models.Car> ReadFile() {
-        return readFileStrategy.ReadFile();
-    }
+//    public static List<models.Car> ReadFile() {
+//        return readFileStrategy.ReadFile();
+//    }
 
     @Override
     public String toString() {
@@ -69,14 +70,15 @@ public class Car {
         }
     }
 
-    public static Car[] createObjects(int n){
-        Car[] cars = new Car[n];
 
-        for (int i = 0; i < cars.length;i++){
-            cars[i] = new Car.Builder().power(randomPower()).model(randomModel()).year(randomYear()).build();
-            System.out.println(cars[i].toString());
+
+    public static ArrayList<Car> createObjects(int length){
+        ArrayList<Car> carList = new ArrayList<>();
+
+        for (int i = 0; i < length; i++){
+            carList.add(new Car.Builder().power(randomPower()).model(randomModel()).year(randomYear()).build());
         }
-        return cars;
+        return carList;
     }
 
     static Random random = new Random();
