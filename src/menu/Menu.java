@@ -6,10 +6,12 @@ import models.RootCrop;
 import search.BinarySearch;
 import sort.MergeSort;
 import sort.SortingContext;
-import strategy.BookReadFile;
-import strategy.CarReadFile;
-import strategy.ReadFileContext;
-import strategy.RootCropReadFile;
+import strategy.fillmanually.BookFillManually;
+import strategy.fillmanually.FillManuallyContext;
+import strategy.readfile.BookReadFile;
+import strategy.readfile.CarReadFile;
+import strategy.readfile.ReadFileContext;
+import strategy.readfile.RootCropReadFile;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -17,8 +19,9 @@ import java.util.Scanner;
 public class Menu {
     private int arrayLength;
     private final Scanner scanner = new Scanner(System.in);
-    private SortingContext sortingContext = new SortingContext(null);
-    private ReadFileContext readFileContext = new ReadFileContext();
+    private final SortingContext sortingContext = new SortingContext(null);
+    private final ReadFileContext readFileContext = new ReadFileContext();
+    private final FillManuallyContext fillManuallyContext = new FillManuallyContext();
     String className = "";
     String sortBy = "";
 
@@ -106,7 +109,7 @@ public class Menu {
     }
 
     private <T> ArrayList<T> fillArrOptions(String messageInvalidCommand, String dashLine) {
-        ArrayList<T> list;
+        ArrayList<T> list = null;
         String input = scanner.next();
 
         switch (input) {
@@ -116,7 +119,9 @@ public class Menu {
             case "2":
                 break;
             case "3":
+                // SSV
                 inputLength(dashLine);
+                list = fillArrayManually(dashLine);
                 break;
             case "0":
                 break;
@@ -125,32 +130,47 @@ public class Menu {
                 break;
         }
 
-        return null;
+        return list;
+    }
+
+    private <T> ArrayList<T> fillArrayManually(String dashLine) {
+        ArrayList<T> list = new ArrayList<>();
+        switch (className) {
+            case "book":
+                fillManuallyContext.setFillManuallyStrategy(new BookFillManually());
+                break;
+            case "car":
+//
+                break;
+            case "rootcrop"://
+                break;
+        }
+        for (int i = 1; i <= arrayLength; i++) {
+            System.out.printf("Заполняем %d книгу\n", i);
+            list.add((T) fillManuallyContext.executeFillManually());
+        }
+        return list;
     }
 
     private <T> ArrayList<T> fillArray(String messageInvalidCommand) {
-        ArrayList<T> list;
-
+        ArrayList<T> list = null;
         switch (className) {
             case "book":
                 readFileContext.setReadFileStrategy(new BookReadFile());
-                list = readFileContext.executeReadFileStrategy();
-                list.forEach(System.out::println);
-                return list;
+                break;
             case "car":
                 readFileContext.setReadFileStrategy(new CarReadFile());
-                list = readFileContext.executeReadFileStrategy();
-                list.forEach(System.out::println);
-                return list;
+                break;
             case "rootcrop":
                 readFileContext.setReadFileStrategy(new RootCropReadFile());
-                list = readFileContext.executeReadFileStrategy();
-                list.forEach(System.out::println);
-                return list;
+                break;
             default:
                 System.out.println(messageInvalidCommand);
-                return null;
         }
+        list = readFileContext.executeReadFileStrategy();
+        list.forEach(System.out::println);
+
+        return list;
     }
 
     private String sortOptions(String messageInvalidCommand, String dashLine) {
@@ -208,7 +228,6 @@ public class Menu {
 
         while (!status) {
             input = scanner.next();
-
             try {
                 length = Integer.parseInt(input);
                 status = setArrayLength(dashLine, length);
