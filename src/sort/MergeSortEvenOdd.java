@@ -11,6 +11,7 @@ import java.util.List;
 public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
     //even - true чётная сортировка, false - нечётная, по умолчанию четная.
     private static boolean isEven = true;
+    private static String sortType = "";
 
     public static boolean getIsEven() {
         return isEven;
@@ -20,18 +21,13 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
         MergeSortEvenOdd.isEven = isEven;
     }
 
+    public static String getSortType(){ return sortType ;}
+
+    public static void setSortType(String sortType){ MergeSortEvenOdd.sortType = sortType;}
 
     @Override
     public void sort(List<T> array, Comparator<? super T> comparator) {
-        sort(array, comparator, "default", MergeSortEvenOdd.getIsEven());
-    }
-
-    public void sort(List<T> array, Comparator<? super T> comparator, boolean even) {
-        sort(array, comparator, "default", even);
-    }
-
-    public void sort(List<T> array, Comparator<? super T> comparator, String type) {
-        sort(array, comparator, type, true);
+        sort(array, comparator, MergeSortEvenOdd.getSortType(), MergeSortEvenOdd.getIsEven());
     }
 
     public void sort(List<T> array, Comparator<? super T> comparator, String type, boolean isEven) {

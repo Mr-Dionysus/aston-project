@@ -196,6 +196,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
 
                 switch (input) {
                     case "1":
+                        MergeSortEvenOdd.setSortType("Power");
                         carComparator = Comparator.comparingInt(Car::getPower);
                         sortingContext.performSort(cars, carComparator);
 
