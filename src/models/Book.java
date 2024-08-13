@@ -28,7 +28,6 @@ public class Book {
         return pages;
     }
 
-
     @Override
     public String toString() {
         return "Author: " + this.author + " | Name: " + this.name + " | Pages: " + this.pages;
@@ -71,41 +70,21 @@ public class Book {
 
     static String[] authors = {"Лев Толстой", "Фёдор Достоевский", "Михаил Булгаков", "Эрнест Хемингуэй", "Стивен Кинг",
             "Антуан де Сент-Экзюпери", "Александр Дюма", "Артур Конан Дойл", "Агата Кристи", "Фрэнсис Скотт Фицджеральд"};
-    Map<String, String> booksMap = new HashMap<>();
-    {
-        booksMap.put("Лев Толстой", "Война и мир");
-        booksMap.put("Лев Толстой", "Анна Каренина");
-        booksMap.put("Фёдор Достоевский", "Преступление и наказание");
-        booksMap.put("Фёдор Достоевский", "Идиот");
-        booksMap.put("Михаил Булгаков", "Мастер и Маргарита");
-        booksMap.put("Михаил Булгаков", "Белая гвардия");
-        booksMap.put("Эрнест Хемингуэй", "Старик и море");
-        booksMap.put("Эрнест Хемингуэй", "По ком звонит колокол");
-        booksMap.put("Стивен Кинг", "Сияние");
-        booksMap.put("Стивен Кинг", "Оно");
-        booksMap.put("Антуан де Сент-Экзюпери", "Маленький принц");
-        booksMap.put("Антуан де Сент-Экзюпери", "Планета людей");
-        booksMap.put("Александр Дюма", "Три мушкетёра");
-        booksMap.put("Александр Дюма", "Граф Монте-Кристо");
-        booksMap.put("Артур Конан Дойл", "Приключения Шерлока Холмса и доктора Ватсона");
-        booksMap.put("Артур Конан Дойл", "Собака Баскервилей");
-        booksMap.put("Агата Кристи", "Убийство в Восточном экспрессе");
-        booksMap.put("Агата Кристи", "Десять негритят");
-        booksMap.put("Фрэнсис Скотт Фицджеральд", "Великий Гэтсби");
-        booksMap.put("Фрэнсис Скотт Фицджеральд", "Ночь нежна");
-    }
-    
+    static String[] names = {"Война и мир", "Анна Каренина", "Преступление и наказание", "Идиот", "Мастер и Маргарита",
+            "Белая гвардия", "Старик и море", "Смешарики2", "Сияние", "Оно", "Маленький принц", "Планета людей",
+            "Три мушкетёра", "Колобок", "Собака Баскервилей", "Десять негритят", "Ночь нежна"};
+
     static Random random = new Random();
 
     private static String randomAuthor() {
-        return "";
+        return authors[random.nextInt(1,authors.length)];
     }
 
     private static String randomName() {
-        return "";
+        return names[random.nextInt(1,names.length)];
     }
 
     private static int randomPages() {
-        return 1;
+        return random.nextInt(1,500);
     }
 }

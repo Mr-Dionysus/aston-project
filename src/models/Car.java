@@ -34,10 +34,6 @@ public class Car {
         return year;
     }
 
-//    public static List<models.Car> ReadFile() {
-//        return readFileStrategy.ReadFile();
-//    }
-
     @Override
     public String toString() {
         return "Power: " + this.power + " | Model: " + this.model + " | Year: " + this.year;
@@ -68,8 +64,6 @@ public class Car {
         }
     }
 
-
-
     public static ArrayList<Car> createObjects(int length){
         ArrayList<Car> carList = new ArrayList<>();
 
@@ -82,7 +76,7 @@ public class Car {
     static Random random = new Random();
 
     private static int randomYear() {
-        return random.nextInt(1800,2050);
+        return random.nextInt(1990,2024);
     }
 
     private static int randomPower() {
@@ -92,5 +86,4 @@ public class Car {
     private static String randomModel() {
         return models[random.nextInt(1,models.length)];
     }
-
 }

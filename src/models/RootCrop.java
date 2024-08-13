@@ -1,5 +1,8 @@
 package models;
 
+import java.util.ArrayList;
+import java.util.Random;
+
 public class RootCrop {
     private final String type;
     private final double weight;
@@ -52,4 +55,32 @@ public class RootCrop {
             return new RootCrop(this);
         }
     }
+
+
+    static String[] types = {"Turnip", "Carrot","Beet","Radish","Cabbage","Potato"};
+    static String[] colors = {"yellow", "red", "green", "brown"};
+    public static ArrayList<RootCrop> createObjects(int length){
+        ArrayList<RootCrop> rootCropList = new ArrayList<>();
+
+        for (int i = 0; i < length; i++){
+            rootCropList.add(new Builder().type(randomType()).weight(randomWeight()).color(randomColor()).build());
+        }
+        return rootCropList;
+    }
+
+    static Random random = new Random();
+
+    private static Double randomWeight() {
+        return (double) Math.round(random.nextDouble(0.01,5)*100)/100;
+    }
+
+    private static String randomColor() {
+        return colors[random.nextInt(1,colors.length)];
+    }
+
+    private static String randomType() {
+        return types[random.nextInt(1,types.length)];
+    }
+
+
 }

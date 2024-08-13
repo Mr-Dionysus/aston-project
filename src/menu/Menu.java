@@ -33,6 +33,7 @@ public class Menu {
         String messageInvalidCommand = dashLine + "\n- Введи нормальную команду";
 
         while (!"0".equals(input)) {
+            // Выбор класса для заполнения
             Message.chooseClassOption(dashLine);
             className = classOptions(messageInvalidCommand, dashLine);
             input = className;
@@ -40,7 +41,8 @@ public class Menu {
             if (input.equals("0")) {
                 break;
             }
-
+            // ----------------------------------------------------
+            // Выбор метода заполнения
             Message.chooseFillArrOption(dashLine);
 
             switch (className) {
@@ -62,7 +64,8 @@ public class Menu {
             if (cars == null || books == null || rootCrops == null) {
                 break;
             }
-
+            // ----------------------------------------------------
+            //Выбор метода сортировки
             Message.chooseSortOption(dashLine);
             sortBy = sortOptions(messageInvalidCommand, dashLine);
 
@@ -77,7 +80,7 @@ public class Menu {
         Message.goodbye(dashLine);
         scanner.close();
     }
-
+// Выбор класса для заполнения
     private String classOptions(String messageInvalidCommand, String dashLine) {
         String input = scanner.next();
 
@@ -114,7 +117,9 @@ public class Menu {
                 list = fillArray(messageInvalidCommand);
                 return list;
             case "2":
-                break;
+                inputLength(dashLine);
+                list = fillArrayRand(arrayLength, messageInvalidCommand);
+                return list;
             case "3":
                 inputLength(dashLine);
                 break;
@@ -145,6 +150,28 @@ public class Menu {
             case "rootcrop":
                 readFileContext.setReadFileStrategy(new RootCropReadFile());
                 list = readFileContext.executeReadFileStrategy();
+                list.forEach(System.out::println);
+                return list;
+            default:
+                System.out.println(messageInvalidCommand);
+                return null;
+        }
+    }
+
+    private <T> ArrayList<T> fillArrayRand(int arrayLength, String messageInvalidCommand) {
+        ArrayList<T> list;
+
+        switch (className) {
+            case "book":
+                list = (ArrayList<T>) Book.createObjects(arrayLength);
+                list.forEach(System.out::println);
+                return list;
+            case "car":
+                list = (ArrayList<T>) Car.createObjects(arrayLength);
+                list.forEach(System.out::println);
+                return list;
+            case "rootcrop":
+                list = (ArrayList<T>) RootCrop.createObjects(arrayLength);
                 list.forEach(System.out::println);
                 return list;
             default:
