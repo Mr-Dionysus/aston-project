@@ -42,7 +42,7 @@ public class MainMenu {
             String messageInvalidCommand = dashLine + "\n- Введи нормальную команду";
 
             messageChooseClass(dashLine);
-            String className = chooseClass(input, messageInvalidCommand, dashLine);
+            className = chooseClass(input, messageInvalidCommand, dashLine);
             input = className;
 
             if (input.equals("0")) {
@@ -126,7 +126,7 @@ public class MainMenu {
 
         switch (input) {
             case "1":
-                System.out.println("- Это тяжко ...");
+                fillArray();
                 break;
             case "2":
                 break;
