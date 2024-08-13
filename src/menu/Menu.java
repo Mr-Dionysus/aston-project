@@ -47,9 +47,11 @@ public class Menu {
 
             switch (className) {
                 case "car":
+                    MergeSortEvenOdd.setSortType("Year");
                     cars = fillArrOptions(messageInvalidCommand, dashLine);
                     break;
                 case "book":
+                    MergeSortEvenOdd.setSortType("Pages");
                     books = fillArrOptions(messageInvalidCommand, dashLine);
                     break;
                 case "rootcrop":
