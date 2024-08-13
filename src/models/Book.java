@@ -26,9 +26,7 @@ public class Book {
 
     @Override
     public String toString() {
-        return "author='" + author + '\'' +
-                ", name='" + name + '\'' +
-                ", pages=" + pages;
+        return "Author: " + this.author + "; Name:   " + this.name + "; Pages:  " + this.pages;
     }
 
     public static class Builder {
