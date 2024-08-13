@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
+import exceptions.ValidateException;
+
 public class Book {
     private final String author;
     private final String name;
@@ -28,6 +30,7 @@ public class Book {
         return pages;
     }
 
+
     @Override
     public String toString() {
         return "Author: " + this.author + " | Name: " + this.name + " | Pages: " + this.pages;
@@ -39,21 +42,33 @@ public class Book {
         private int pages;
 
         public Builder author(String author) {
-            this.author = author;
+            if  (!author.isEmpty() && !author.matches("-?\\d+")){
+                this.author = author;
+            } else {
+                throw new ValidateException("Ошибка валидации");
+            }
             return this;
         }
 
         public Builder name(String name) {
-            this.name = name;
+            if  (!name.isEmpty() && !name.matches("-?\\d+")){
+                this.name = name;
+            } else {
+                throw new ValidateException("Ошибка валидации");
+            }
             return this;
         }
 
-        public Builder pages(int pages) {
-            this.pages = pages;
+        public Builder pages(int pages)  {
+            if  (0 < pages && pages <= 1000){
+                this.pages = pages;
+            } else {
+                throw new ValidateException("Ошибка валидации");
+            }
             return this;
         }
 
-        public Book build() {
+        public Book build() throws ValidateException {
             return new Book(this);
         }
     }
