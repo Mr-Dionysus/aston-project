@@ -1,8 +1,8 @@
 package strategy;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public class ReadFileContext<T>{
+public class ReadFileContext<T> {
 
     private ReadFileStrategy<T> readFileStrategy;
 
@@ -17,7 +17,7 @@ public class ReadFileContext<T>{
         this.readFileStrategy = readFileStrategy;
     }
 
-    public List<T> executeReadFileStrategy() {
+    public ArrayList<T> executeReadFileStrategy() {
         return readFileStrategy.readFile();
     }
 

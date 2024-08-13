@@ -6,13 +6,11 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
 
 public class RootCropReadFile implements ReadFileStrategy {
     @Override
-    public List<RootCrop> readFile() {
-        List<RootCrop> rootCropList = new ArrayList<>();
+    public ArrayList<RootCrop> readFile() {
+        ArrayList<RootCrop> rootCropList = new ArrayList<>();
         String line;
         try (BufferedReader reader = new BufferedReader(new FileReader("resources/rootcrops.txt"))) {
             while ((line = reader.readLine()) != null) {
@@ -25,7 +23,7 @@ public class RootCropReadFile implements ReadFileStrategy {
             }
         } catch (IOException e) {
             System.out.println("Exception\n");
-            rootCropList = Collections.emptyList();
+            rootCropList = null;
         }
         return rootCropList;
     }
