@@ -34,12 +34,12 @@ public class Main {
         Comparator<Car> carComparator;
         carComparator = Comparator.comparingInt(Car::getPower);
 
-        MergeSortEvenOdd oddEven = new MergeSortEvenOdd();
+        SortingContext oddEven = new SortingContext<>(new MergeSortEvenOdd());
 
         System.out.print("...........");
         System.out.println(carsByYear);
         System.out.print("...........");
-        oddEven.sort(carsByYear, carComparator);
+        oddEven.performSort(carsByYear, carComparator);
         System.out.println(carsByYear);
         System.out.print("...........");
 

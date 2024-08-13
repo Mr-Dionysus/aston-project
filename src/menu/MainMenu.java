@@ -35,95 +35,32 @@ public class MainMenu {
         cars.add(car3);
         cars.add(car4);
 
-        String s = "";
+        String input = "";
         String dashLine = "-------------------------------------------------------------------------------";
 
-        while (!"0".equals(s)) {
+        while (!"0".equals(input)) {
             String messageInvalidCommand = dashLine + "\n- Введи нормальную команду";
 
             messageChooseClass(dashLine);
+            String className = chooseClass(input, messageInvalidCommand, dashLine);
+            input = className;
 
-            className = scanner.next();
-            s = className;
-
-            switch (s) {
-                case "1":
-                    className = "car";
-                    break;
-                case "2":
-                    className = "book";
-                    break;
-                case "3":
-                    className = "rootcrop";
-                    break;
-                case "9":
-                    messageShameOnYou(dashLine);
-                    break;
-                case "0":
-                    continue;
-                default:
-                    System.out.println(messageInvalidCommand);
-                    break;
+            if (input.equals("0")) {
+                continue;
             }
 
             messageChooseHowToFillArr(dashLine);
+            input = chooseHotToFillArr(input, messageInvalidCommand, dashLine);
 
-            s = scanner.next();
-
-            switch (s) {
-                case "1":
-                    fillArray();
-
-                    break;
-                case "2":
-                    break;
-                case "3":
-                    inputLength(dashLine);
-                    break;
-                case "0":
-                    continue;
-                default:
-                    System.out.println(messageInvalidCommand);
-                    break;
+            if (input.equals("0")) {
+                continue;
             }
 
             messageWantSomeSearch(dashLine);
-
-            String doSearch = scanner.next();
-            s = doSearch;
-
-            switch (doSearch) {
-                case "1":
-                    messageWhatToSearch(dashLine);
-
-                    String searchString = scanner.next().toLowerCase();
-                    String[] searchArr = searchString.split(",");
-                    String searchClass = searchArr[0];
-
-                    if (searchArr[0].equals(searchString)) {
-                        System.out.println(dashLine);
-                        System.out.println(messageInvalidCommand);
-                        continue;
-                    }
-
-                    String searchType = searchArr[1];
-                    String searchParam = searchArr[2];
-
-                    BinarySearch.searchResultObject(searchClass, searchType, searchParam, messageInvalidCommand, dashLine, cars);
-                    break;
-                case "0":
-                    break;
-                default:
-                    System.out.println(dashLine);
-                    System.out.println(messageInvalidCommand);
-                    break;
-            }
+            someSearch(cars, input, messageInvalidCommand, dashLine);
         }
 
-        System.out.println(dashLine);
-        System.out.println("- До свидания!");
-        System.out.println(dashLine);
-
+        messageGoodbye(dashLine);
         scanner.close();
     }
 
@@ -134,13 +71,13 @@ public class MainMenu {
 
         boolean status = false;
         int length = 0;
-        String s = "";
+        String input = "";
 
         while (!status) {
-            s = scanner.next();
+            input = scanner.next();
 
             try {
-                length = Integer.parseInt(s);
+                length = Integer.parseInt(input);
                 status = setArrayLength(dashLine, length);
             } catch (NumberFormatException e) {
                 System.out.println(dashLine);
@@ -161,6 +98,76 @@ public class MainMenu {
         }
 
         return status;
+    }
+
+    private <T> String someSearch(ArrayList<T> list, String input, String messageInvalidCommand, String dashLine) {
+        String doSearch = scanner.next();
+        input = doSearch;
+
+        switch (doSearch) {
+            case "1":
+                messageWhatToSearch(dashLine);
+                BinarySearch.searchResultObject(list, scanner, messageInvalidCommand, dashLine);
+                break;
+            case "0":
+                break;
+            default:
+                System.out.println(dashLine);
+                System.out.println(messageInvalidCommand);
+                break;
+        }
+
+        return input;
+    }
+
+    private String chooseHotToFillArr(String input, String messageInvalidCommand, String dashLine) {
+
+        input = scanner.next();
+
+        switch (input) {
+            case "1":
+                System.out.println("- Это тяжко ...");
+                break;
+            case "2":
+                break;
+            case "3":
+                inputLength(dashLine);
+                break;
+            case "0":
+                break;
+            default:
+                System.out.println(messageInvalidCommand);
+                break;
+        }
+
+        return input;
+    }
+
+    private String chooseClass(String input, String messageInvalidCommand, String dashLine) {
+        input = scanner.next();
+
+        switch (input) {
+            case "1":
+                input = "car";
+                break;
+            case "2":
+                input = "book";
+                break;
+            case "3":
+                input = "rootcrop";
+                break;
+            case "9":
+                messageShameOnYou(dashLine);
+                break;
+            case "0":
+                input = "0";
+                break;
+            default:
+                System.out.println(messageInvalidCommand);
+                break;
+        }
+
+        return input;
     }
 
     private void messageChooseClass(String dashLine) {
@@ -207,6 +214,11 @@ public class MainMenu {
         System.out.println(dashLine);
     }
 
+    private void messageGoodbye(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- До свидания!");
+        System.out.println(dashLine);
+    }
     private void fillArray() {
         switch (className) {
             case "book":

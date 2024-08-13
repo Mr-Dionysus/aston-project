@@ -13,7 +13,7 @@ public class SearchingContext<T> {
         this.searchingStrategy = searchingStrategy;
     }
 
-    public int performSearch(String searchType, String searchParam, ArrayList<T> list) {
-        return searchingStrategy.search(searchType, searchParam, list);
+    public int performSearch(String searchType, String searchParam, ArrayList<T> list, String dashLine) {
+        return searchingStrategy.search(searchType, searchParam, list, dashLine);
     }
 }
