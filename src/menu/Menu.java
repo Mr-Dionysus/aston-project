@@ -28,7 +28,6 @@ public class Menu {
     ArrayList<RootCrop> rootCrops = new ArrayList<>();
 
     public void start() {
-        System.out.println(MergeSortEvenOdd.getIsEven());
         String input = "";
         String dashLine = "-------------------------------------------------------------------------------";
         String messageInvalidCommand = dashLine + "\n- Введи нормальную команду";
@@ -112,7 +111,7 @@ public class Menu {
 
         switch (input) {
             case "1":
-                list = fillArray(messageInvalidCommand);
+                list = fillArray(messageInvalidCommand, dashLine);
                 return list;
             case "2":
                 break;
@@ -129,7 +128,7 @@ public class Menu {
         return null;
     }
 
-    private <T> ArrayList<T> fillArray(String messageInvalidCommand) {
+    private <T> ArrayList<T> fillArray(String messageInvalidCommand, String dashLine) {
         ArrayList<T> list;
 
         switch (className) {
@@ -148,6 +147,7 @@ public class Menu {
         }
 
         list = readFileContext.executeReadFileStrategy();
+        System.out.println(dashLine);
         list.forEach(System.out::println);
         return list;
     }
@@ -234,7 +234,7 @@ public class Menu {
         switch (doSearch) {
             case "1":
                 Message.writeSearchObject(className, sortBy, dashLine);
-                BinarySearch.isSearchInputValid(list, sortBy, scanner, messageInvalidCommand, dashLine);
+                BinarySearch.classOptionsForSearch(list, className, sortBy, scanner, messageInvalidCommand, dashLine);
                 break;
             case "0":
                 break;

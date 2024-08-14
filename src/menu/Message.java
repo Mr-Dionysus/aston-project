@@ -38,8 +38,7 @@ public class Message {
 
     public static void writeSearchObject(String className, String sortBy, String dashLine) {
         System.out.println(dashLine);
-        System.out.println("- Вы можете найти объект из класса '" + className + "' по значению параметра '" + sortBy + "'.");
-        System.out.println("- Формат: " + className + "," + sortBy + ",100");
+        System.out.println("- Введите значение параметра '" + sortBy.substring(0, 1).toUpperCase() + sortBy.substring(1) + "' из класса " + className + ".");
         System.out.println(dashLine);
     }
 
@@ -115,5 +114,26 @@ public class Message {
     public static void wrongArrLength(String dashLine) {
         System.out.println(dashLine);
         System.out.println("- Число должно располагаться в диапазоне от 1 до 10");
+    }
+
+    public static void wrongFormatNum(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Данная строка не подходит для числового формата.");
+    }
+
+    public static void emptyString(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Вы ввели пустую строку.");
+    }
+
+    public static void cantFindObject(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Объекта с этими данными в массиве нет");
+    }
+
+    public static <T> void searchResultWithIndex(int index, T searchResult, String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("Index: " + index);
+        System.out.println(searchResult);
     }
 }
