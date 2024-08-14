@@ -15,11 +15,11 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
     private static boolean isEven = true;
     private static String sortType = "";
 
-    public static boolean getIsEven() {
+    public static boolean getEven() {
         return isEven;
     }
 
-    public static void setIsEven(boolean isEven) {
+    public static void setEven(boolean isEven) {
         MergeSortEvenOdd.isEven = isEven;
     }
 
@@ -33,7 +33,7 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
 
     @Override
     public void sort(List<T> array, Comparator<? super T> comparator) {
-        sort(array, comparator, MergeSortEvenOdd.getSortType(), MergeSortEvenOdd.getIsEven());
+        sort(array, comparator, MergeSortEvenOdd.getSortType(), MergeSortEvenOdd.getEven());
     }
 
     public void sort(List<T> array, Comparator<? super T> comparator, String type, boolean isEven) {
