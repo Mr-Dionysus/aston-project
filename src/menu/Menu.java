@@ -185,7 +185,13 @@ public class Menu {
                 System.out.printf("Заполняем %d корнеплод...%n", i);
             }
             // Добавить полученный объект в лист
-            list.add((T) fillManuallyContext.executeFillManually());
+            T newObj = (T) fillManuallyContext.executeFillManually();
+
+            if (newObj == null) {
+                return null;
+            }
+
+            list.add(newObj);
         }
         return list;
     }

@@ -63,7 +63,6 @@ public class BookFillManually implements FillManuallyStrategy {
 
                 if (pages == -1) {
                     Message.emptyString();
-                    status = false;
                     return null;
                 } else if (pages == 0) {
                     return null;
