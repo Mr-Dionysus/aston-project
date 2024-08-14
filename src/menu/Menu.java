@@ -180,7 +180,9 @@ public class Menu {
                 System.out.println(messageInvalidCommand);
         }
         list = readFileContext.executeReadFileStrategy();
-        list.forEach(System.out::println);
+        if (list != null) {
+            list.forEach(System.out::println);
+        }
 
         return list;
     }
