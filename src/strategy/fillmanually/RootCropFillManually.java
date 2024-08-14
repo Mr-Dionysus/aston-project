@@ -1,6 +1,7 @@
 package strategy.fillmanually;
 
 import exceptions.ValidateException;
+import exceptions.Validation;
 import models.RootCrop;
 
 import java.util.Scanner;
@@ -11,13 +12,13 @@ public class RootCropFillManually implements FillManuallyStrategy {
         RootCrop.Builder rootCropBuilder = new RootCrop.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
-        String line;
+        String input;
 
         while (!status) {
             try {
                 System.out.print("Введите тип корнеплода: ");
-                line = scanner.next();
-                rootCropBuilder.type(line);
+                input = Validation.removeSymbolsNums(scanner.nextLine());
+                rootCropBuilder.type(input);
                 status = true;
             } catch (ValidateException e) {
                 System.out.println("Неверные данные");
@@ -28,8 +29,8 @@ public class RootCropFillManually implements FillManuallyStrategy {
         while (!status) {
             try {
                 System.out.print("Введите вес корнеплода: ");
-                line = scanner.next();
-                double weight = Double.parseDouble(line);
+                input = Validation.removeSymbolsWithoutDotLettersSpaces(scanner.nextLine());
+                double weight = Double.parseDouble(input);
                 rootCropBuilder.weight(weight);
                 status = true;
             } catch (ValidateException | NumberFormatException e) {
@@ -41,8 +42,8 @@ public class RootCropFillManually implements FillManuallyStrategy {
         while (!status) {
             try {
                 System.out.print("Введите цвет корнеплода: ");
-                line = scanner.next();
-                rootCropBuilder.color(line);
+                input = Validation.removeSymbolsNums(scanner.nextLine());
+                rootCropBuilder.color(input);
                 status = true;
             } catch (ValidateException e) {
                 System.out.println("Неверные данные");

@@ -38,7 +38,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
         }
     }
 
-    public static String mergeSortArr(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, ArrayList rootCrops, String messageInvalidCommand, String dashLine) {
+    public static String mergeSortArr(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, ArrayList rootCrops, String dashLine) {
         Comparator<Car> carComparator;
         Comparator<Book> bookComparator;
         Comparator<RootCrop> rootCropComparator;
@@ -47,7 +47,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
             case "car":
                 Message.carMergeSortOptions(dashLine);
 
-                String input = scanner.next();
+                String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
 
                 switch (input) {
                     case "1":
@@ -80,7 +80,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                     case "0":
                         break;
                     default:
-                        System.out.println(messageInvalidCommand);
+                        Message.invalidCommand(dashLine);
                         break;
                 }
 
@@ -89,7 +89,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
             case "book":
                 Message.bookMergeSortOptions(dashLine);
 
-                input = scanner.next();
+                input = scanner.next().replaceAll("[^\\w\\s]|_", "");
 
                 switch (input) {
                     case "1":
@@ -122,7 +122,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                     case "0":
                         break;
                     default:
-                        System.out.println(messageInvalidCommand);
+                        Message.invalidCommand(dashLine);
                         break;
                 }
 
@@ -164,14 +164,14 @@ public class MergeSort<T> implements SortingStrategy<T> {
                     case "0":
                         break;
                     default:
-                        System.out.println(messageInvalidCommand);
+                        Message.invalidCommand(dashLine);
                         break;
                 }
 
                 return input;
 
             default:
-                System.out.println(messageInvalidCommand);
+                Message.invalidCommand(dashLine);
                 break;
         }
 

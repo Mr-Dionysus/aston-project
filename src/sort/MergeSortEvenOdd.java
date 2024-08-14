@@ -23,9 +23,13 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
         MergeSortEvenOdd.isEven = isEven;
     }
 
-    public static String getSortType(){ return sortType ;}
+    public static String getSortType() {
+        return sortType;
+    }
 
-    public static void setSortType(String sortType){ MergeSortEvenOdd.sortType = sortType;}
+    public static void setSortType(String sortType) {
+        MergeSortEvenOdd.sortType = sortType;
+    }
 
     @Override
     public void sort(List<T> array, Comparator<? super T> comparator) {
@@ -180,13 +184,13 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
     }
 
 
-    public static void mergeSortedArrEvenOdd(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, String messageInvalidCommand, String dashLine) {
+    public static void mergeSortedArrEvenOdd(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, String dashLine) {
         sortingContext.setSortingStrategy(new MergeSortEvenOdd());
 
         switch (className) {
             case "car":
                 Message.chooseSortParamMergeSortEvenOdd(dashLine);
-                switchSortParamsMergeSort(cars, scanner, sortingContext, messageInvalidCommand, dashLine);
+                switchSortParamsMergeSort(cars, scanner, sortingContext, dashLine);
                 break;
 
             case "book":
@@ -203,13 +207,13 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
                 break;
 
             default:
-                System.out.println(messageInvalidCommand);
+                Message.invalidCommand(dashLine);
                 break;
         }
     }
 
-    public static <T> String switchSortParamsMergeSort(ArrayList<T> cars, Scanner scanner, SortingContext sortingContext, String messageInvalidCommand, String dashLine) {
-        String input = scanner.next();
+    public static <T> String switchSortParamsMergeSort(ArrayList<T> cars, Scanner scanner, SortingContext sortingContext, String dashLine) {
+        String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
         Comparator carComparator;
 
         switch (input) {
@@ -223,7 +227,7 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
             case "0":
                 return input;
             default:
-                System.out.println(messageInvalidCommand);
+                Message.invalidCommand(dashLine);
                 input = "0";
                 return input;
         }

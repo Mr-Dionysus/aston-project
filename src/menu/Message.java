@@ -136,4 +136,9 @@ public class Message {
         System.out.println("Index: " + index);
         System.out.println(searchResult);
     }
+
+    public static void invalidCommand(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Неверная команда");
+    }
 }

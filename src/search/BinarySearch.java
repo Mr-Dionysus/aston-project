@@ -7,45 +7,8 @@ import models.RootCrop;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class BinarySearch<T> implements SearchingStrategy<T> {
-    public static <T> T classOptionsForSearch(ArrayList<T> list, String className, String sortBy, Scanner scanner, String messageInvalidCommand, String dashLine) {
-        scanner.nextLine();
-        String searchParam = scanner.nextLine().toLowerCase();
-
-        if (searchParam.isEmpty()) {
-            Message.emptyString(dashLine);
-            return null;
-        }
-       
-        switch (className) {
-            case "car", "book", "rootcrop":
-                BinarySearch.searchResultObject(searchParam, sortBy, list, dashLine);
-                break;
-
-            default:
-                System.out.println(messageInvalidCommand);
-                break;
-        }
-        return null;
-    }
-
-    public static <T> T searchResultObject(String searchParam, String sortBy, ArrayList<T> list, String dashLine) {
-        SearchingContext<T> searchingContext = new SearchingContext<>(new BinarySearch<>());
-        int index = searchingContext.performSearch(sortBy, searchParam, list, dashLine);
-        T searchResult;
-
-        if (index < 0 || index > list.size()) {
-            Message.cantFindObject(dashLine);
-            return null;
-        } else {
-            searchResult = list.get(index);
-            Message.searchResultWithIndex(index, searchResult, dashLine);
-            return searchResult;
-        }
-    }
-
     @Override
     public int search(String searchType, String searchParam, ArrayList<T> list, String dashLine) {
         if (list.isEmpty()) {

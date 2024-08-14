@@ -1,6 +1,7 @@
 package strategy.fillmanually;
 
 import exceptions.ValidateException;
+import exceptions.Validation;
 import models.Book;
 
 import java.util.Scanner;
@@ -11,13 +12,13 @@ public class BookFillManually implements FillManuallyStrategy {
         Book.Builder bookBuilder = new Book.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
-        String line;
+        String input;
 
         while (!status) {
             try {
                 System.out.print("Введите автора книги: ");
-                line = scanner.next();
-                bookBuilder.author(line);
+                input = Validation.removeSymbolsNums(scanner.nextLine());
+                bookBuilder.author(input);
                 status = true;
             } catch (ValidateException e) {
                 System.out.println("Неверные данные");
@@ -28,8 +29,8 @@ public class BookFillManually implements FillManuallyStrategy {
         while (!status) {
             try {
                 System.out.print("Введите название книги: ");
-                line = scanner.next();
-                bookBuilder.name(line);
+                input = Validation.removeSymbols(scanner.nextLine());
+                bookBuilder.name(input);
                 status = true;
             } catch (ValidateException e) {
                 System.out.println("Неверные данные");
@@ -40,8 +41,8 @@ public class BookFillManually implements FillManuallyStrategy {
         while (!status) {
             try {
                 System.out.print("Введите количество страниц в книге от 1 до 1000: ");
-                line = scanner.next();
-                int pages = Integer.parseInt(line);
+                input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
+                int pages = Integer.parseInt(input);
                 bookBuilder.pages(pages);
                 status = true;
             } catch (ValidateException | NumberFormatException e) {

@@ -1,6 +1,7 @@
 package strategy.fillmanually;
 
 import exceptions.ValidateException;
+import exceptions.Validation;
 import models.Car;
 
 import java.util.Scanner;
@@ -11,13 +12,13 @@ public class CarFillManually implements FillManuallyStrategy {
         Car.Builder carBuilder = new Car.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
-        String line;
+        String input;
 
         while (!status) {
             try {
-                System.out.print("Введите количество лошадей: ");
-                line = scanner.next();
-                int power = Integer.parseInt(line);
+                System.out.print("Введите количество лошадей, минимум - 66: ");
+                input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
+                int power = Validation.carPower(input, dashLine);
                 carBuilder.power(power);
                 status = true;
             } catch (ValidateException e) {
@@ -29,8 +30,8 @@ public class CarFillManually implements FillManuallyStrategy {
         while (!status) {
             try {
                 System.out.print("Введите название машины: ");
-                line = scanner.next();
-                carBuilder.model(line);
+                input = Validation.removeSymbols(scanner.nextLine());
+                carBuilder.model(input);
                 status = true;
             } catch (ValidateException e) {
                 System.out.println("Неверные данные");
@@ -40,9 +41,9 @@ public class CarFillManually implements FillManuallyStrategy {
 
         while (!status) {
             try {
-                System.out.print("Введите год выпуска: ");
-                line = scanner.next();
-                int year = Integer.parseInt(line);
+                System.out.print("Введите год выпуска в промежутке 1886 - 2024: ");
+                input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
+                int year = Integer.parseInt(input);
                 carBuilder.year(year);
                 status = true;
             } catch (ValidateException e) {
