@@ -234,7 +234,7 @@ public class Menu {
         switch (doSearch) {
             case "1":
                 Message.writeSearchObject(className, sortBy, dashLine);
-                BinarySearch.searchResultObject(list, sortBy, scanner, messageInvalidCommand, dashLine);
+                BinarySearch.isSearchInputValid(list, sortBy, scanner, messageInvalidCommand, dashLine);
                 break;
             case "0":
                 break;

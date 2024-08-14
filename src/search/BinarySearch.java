@@ -24,7 +24,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         } else if (example instanceof RootCrop) {
             return searchInRootCrops(searchType, searchParam, (ArrayList<RootCrop>) list, dashLine);
         }
-        
+
         return -1;
     }
 
@@ -114,69 +114,20 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         return -(low + 1);
     }
 
-    public static <T> T searchResultObject(ArrayList<T> list, String sortBy, Scanner scanner, String messageInvalidCommand, String dashLine) {
+    public static <T> T isSearchInputValid(ArrayList<T> list, String sortBy, Scanner scanner, String messageInvalidCommand, String dashLine) {
         String searchString = scanner.next().toLowerCase();
         String[] searchArr = searchString.split(",");
-        String searchClass = searchArr[0];
 
         if (searchArr.length != 3) {
             System.out.println(messageInvalidCommand);
         } else {
-            String searchType = searchArr[1];
-            String searchParam = searchArr[2];
-            T searchResult;
-
-            String messageInvalidSearchType = messageInvalidCommand + "\n- Ты написал тип '" + searchType + "', которого нет у класса '" + searchClass + "'.";
-            String messageSortByNotEqualToSearchType = messageInvalidCommand + "\n- Ты написал параметр '" + searchType + "', хотя сейчас ты можешь искать только по параметру '" + sortBy + "'.";
-
-            boolean isCarFindable = (searchType.equals("power") && searchType.equals(sortBy) || searchType.equals("model") && searchType.equals(sortBy) || searchType.equals("year") && searchType.equals(sortBy));
-            boolean isBookFindable = (searchType.equals("author") && searchType.equals(sortBy) || searchType.equals("name") && searchType.equals(sortBy) || searchType.equals("pages") && searchType.equals(sortBy));
-            boolean isRootCropFindable = (searchType.equals("type") && searchType.equals(sortBy) || searchType.equals("weight") && searchType.equals(sortBy) || searchType.equals("color") && searchType.equals(sortBy));
-
-            switch (searchClass) {
-                case "car":
-                    if (isCarFindable) {
-                        searchResult = BinarySearch.searchResultIndex(searchType, searchParam, list, dashLine);
-                        return searchResult;
-                    } else if (!searchType.equals(sortBy)) {
-                        System.out.println(messageSortByNotEqualToSearchType);
-                    } else {
-                        System.out.println(messageInvalidSearchType);
-                    }
-                    break;
-
-                case "book":
-                    if (isBookFindable) {
-                        searchResult = BinarySearch.searchResultIndex(searchType, searchParam, list, dashLine);
-                        return searchResult;
-                    } else if (!searchType.equals(sortBy)) {
-                        System.out.println(messageSortByNotEqualToSearchType);
-                    } else {
-                        System.out.println(messageInvalidSearchType);
-                    }
-                    break;
-
-                case "rootcrop":
-                    if (isRootCropFindable) {
-                        searchResult = BinarySearch.searchResultIndex(searchType, searchParam, list, dashLine);
-                        return searchResult;
-                    } else if (!searchType.equals(sortBy)) {
-                        System.out.println(messageSortByNotEqualToSearchType);
-                    } else {
-                        System.out.println(messageInvalidSearchType);
-                    }
-                    break;
-
-                default:
-                    System.out.println(messageInvalidCommand);
-                    return null;
-            }
+            switchClassOptionsForSearch(searchArr, list, sortBy, messageInvalidCommand, dashLine);
         }
 
         return null;
     }
 
-    public static <T> T searchResultIndex(String searchType, String searchParam, ArrayList<T> list, String dashLine) {
+    public static <T> T searchResultObject(String searchType, String searchParam, ArrayList<T> list, String dashLine) {
         SearchingContext<T> searchingContext = new SearchingContext<>(new BinarySearch<>());
         int index = searchingContext.performSearch(searchType, searchParam, list, dashLine);
         String messageCantFindElement = dashLine + "\nОбъекта с этими данными в массиве нет";
@@ -193,6 +144,57 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
             System.out.println(searchResult);
 
             return searchResult;
+        }
+    }
+
+    public static <T> void switchClassOptionsForSearch(String[] searchArr, ArrayList<T> list, String sortBy, String messageInvalidCommand, String dashLine) {
+        String searchClass = searchArr[0];
+        String searchType = searchArr[1];
+        String searchParam = searchArr[2];
+
+        String messageInvalidSearchType = messageInvalidCommand + "\n- Ты написал тип '" + searchType + "', которого нет у класса '" + searchClass + "'.";
+        String messageSortByNotEqualToSearchType = messageInvalidCommand + "\n- Ты написал параметр '" + searchType + "', хотя сейчас ты можешь искать только по параметру '" + sortBy + "'.";
+
+        System.out.println(sortBy);
+        System.out.println(searchType);
+        boolean isCarFindable = (searchType.equals("power") && searchType.equals(sortBy) || searchType.equals("model") && searchType.equals(sortBy) || searchType.equals("year") && searchType.equals(sortBy));
+        boolean isBookFindable = (searchType.equals("author") && searchType.equals(sortBy) || searchType.equals("name") && searchType.equals(sortBy) || searchType.equals("pages") && searchType.equals(sortBy));
+        boolean isRootCropFindable = (searchType.equals("type") && searchType.equals(sortBy) || searchType.equals("weight") && searchType.equals(sortBy) || searchType.equals("color") && searchType.equals(sortBy));
+
+        switch (searchClass) {
+            case "car":
+                if (isCarFindable) {
+                    BinarySearch.searchResultObject(searchType, searchParam, list, dashLine);
+                } else if (!searchType.equals(sortBy)) {
+                    System.out.println(messageSortByNotEqualToSearchType);
+                } else {
+                    System.out.println(messageInvalidSearchType);
+                }
+                break;
+
+            case "book":
+                if (isBookFindable) {
+                    BinarySearch.searchResultObject(searchType, searchParam, list, dashLine);
+                } else if (!searchType.equals(sortBy)) {
+                    System.out.println(messageSortByNotEqualToSearchType);
+                } else {
+                    System.out.println(messageInvalidSearchType);
+                }
+                break;
+
+            case "rootcrop":
+                if (isRootCropFindable) {
+                    BinarySearch.searchResultObject(searchType, searchParam, list, dashLine);
+                } else if (!searchType.equals(sortBy)) {
+                    System.out.println(messageSortByNotEqualToSearchType);
+                } else {
+                    System.out.println(messageInvalidSearchType);
+                }
+                break;
+
+            default:
+                System.out.println(messageInvalidCommand);
+                break;
         }
     }
 }
