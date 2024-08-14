@@ -11,15 +11,15 @@ public class CarFillManually<T> implements FillManuallyStrategy {
 		Car.Builder carBuilder = new Car.Builder();
 		boolean status = false;
 		Scanner scanner = new Scanner(System.in);
-		String line;
+		String input;
 		int power;
 		int year;
 
 		while (!status) {
 			System.out.print("Введите количество лошадей: ");
-			line = scanner.nextLine();
-			if (line.matches("^[0-9]+$")) {
-				power = Integer.parseInt(line);
+			input = scanner.nextLine();
+			if (input.matches("^[0-9]+$")) {
+				power = Integer.parseInt(input);
 				carBuilder.power(power);
 				status = true;
 			} else {
@@ -30,17 +30,17 @@ public class CarFillManually<T> implements FillManuallyStrategy {
 
 		while (!status) {
 			System.out.print("Введите название машины: ");
-			line = scanner.nextLine();
-			carBuilder.model(line);
+			input = scanner.nextLine();
+			carBuilder.model(input);
 			status = true;
 		}
 		status = false;
 
 		while (!status) {
 			System.out.print("Введите год выпуска: ");
-			line = scanner.next();
-			if(line.matches("^[0-9]+$")) {
-				year = Integer.parseInt(line);
+			input = scanner.next();
+			if(input.matches("^[0-9]+$")) {
+				year = Integer.parseInt(input);
 				carBuilder.year(year);
 				status = true;
 			}else {
