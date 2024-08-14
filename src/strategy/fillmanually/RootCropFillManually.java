@@ -2,6 +2,7 @@ package strategy.fillmanually;
 
 import exceptions.ValidateException;
 import exceptions.Validation;
+import menu.Message;
 import models.RootCrop;
 
 import java.util.Scanner;
@@ -16,37 +17,58 @@ public class RootCropFillManually implements FillManuallyStrategy {
 
         while (!status) {
             try {
-                System.out.print("Введите тип корнеплода: ");
+                Message.writeRootCropType();
                 input = Validation.removeSymbolsNums(scanner.nextLine());
+
+                if (input.isEmpty()) {
+                    Message.emptyString(dashLine);
+                    return null;
+                } else if (input.equals("stop")) {
+                    return null;
+                }
+
                 rootCropBuilder.type(input);
                 status = true;
             } catch (ValidateException e) {
-                System.out.println("Неверные данные");
+                Message.invalidCommand(dashLine);
             }
         }
         status = false;
 
         while (!status) {
             try {
-                System.out.print("Введите вес корнеплода: ");
+                Message.writeRootCropWeight();
                 input = Validation.removeSymbolsWithoutDotLettersSpaces(scanner.nextLine());
-                double weight = Double.parseDouble(input);
+                double weight = Validation.rootCropWeight(input, dashLine);
+
+                if (weight == -1 || weight == 0) {
+                    return null;
+                }
+
                 rootCropBuilder.weight(weight);
                 status = true;
             } catch (ValidateException | NumberFormatException e) {
-                System.out.println("Неверные данные");
+                Message.invalidCommand(dashLine);
             }
         }
         status = false;
 
         while (!status) {
             try {
-                System.out.print("Введите цвет корнеплода: ");
+                Message.writeRootCropColor();
                 input = Validation.removeSymbolsNums(scanner.nextLine());
+
+                if (input.isEmpty()) {
+                    Message.emptyString(dashLine);
+                    return null;
+                } else if (input.equals("stop")) {
+                    return null;
+                }
+
                 rootCropBuilder.color(input);
                 status = true;
             } catch (ValidateException e) {
-                System.out.println("Неверные данные");
+                Message.invalidCommand(dashLine);
             }
         }
 

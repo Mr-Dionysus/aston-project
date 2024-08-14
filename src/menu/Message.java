@@ -141,4 +141,62 @@ public class Message {
         System.out.println(dashLine);
         System.out.println("- Неверная команда");
     }
+
+    public static void stopWordZero() {
+        System.out.println("- Введите '0' если хотите остановиться.");
+    }
+
+    public static void stopWordStop() {
+        System.out.println("- Введите 'stop' если хотите остановиться.");
+    }
+
+    public static void writeCarPower() {
+        stopWordZero();
+        System.out.print("- Введите количество лошадей, минимум - 66: ");
+    }
+
+    public static void writeCarModel() {
+        stopWordZero();
+        System.out.print("- Введите название машины: ");
+    }
+
+    public static void writeCarYear() {
+        stopWordZero();
+        System.out.print("- Введите год выпуска в промежутке 1886 - 2024: ");
+    }
+
+    public static void writeBookAuthor() {
+        stopWordStop();
+        System.out.print("- Введите автора книги: ");
+    }
+
+    public static void writeBookName() {
+        stopWordZero();
+        System.out.print("- Введите название книги: ");
+    }
+
+    public static void writeBookPages() {
+        stopWordZero();
+        System.out.print("- Введите количество страниц в книге от 1 до 1000: ");
+    }
+
+    public static void writeRootCropType() {
+        stopWordStop();
+        System.out.print("- Введите тип корнеплода: ");
+    }
+
+    public static void writeRootCropColor() {
+        stopWordStop();
+        System.out.print("- Введите цвет корнеплода: ");
+    }
+
+    public static void writeRootCropWeight() {
+        stopWordZero();
+        System.out.print("- Введите вес корнеплода: ");
+    }
+
+    public static void errTooMuchDots(String dashLine) {
+        System.out.println(dashLine);
+        System.out.println("- Ты написал больше 1 возможной точки");
+    }
 }

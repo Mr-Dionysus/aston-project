@@ -17,6 +17,7 @@ import strategy.readfile.ReadFileContext;
 import strategy.readfile.RootCropReadFile;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Menu {
@@ -32,10 +33,12 @@ public class Menu {
     ArrayList<Book> books = new ArrayList<>();
     ArrayList<RootCrop> rootCrops = new ArrayList<>();
 
+
     public void start() {
         String input;
         String dashLine = "-".repeat(50);
 
+        outside:
         while (true) {
             // Выбор класса объектов
             Message.chooseClassOption(dashLine);
@@ -53,22 +56,35 @@ public class Menu {
                 case "car":
                     MergeSortEvenOdd.setSortType("Year");
                     cars = fillArrOptions(dashLine);
+                    // Закрыть программу если пользователь так решил или ввел неверно первый объект
+                    if (cars == null || cars.getFirst() == null) {
+                        break outside;
+                    } else if (cars.contains(null)) {
+                        cars.removeIf(Objects::isNull);
+                    }
                     break;
                 case "book":
                     MergeSortEvenOdd.setSortType("Pages");
                     books = fillArrOptions(dashLine);
+
+                    if (books == null || books.getFirst() == null) {
+                        break outside;
+                    } else if (books.contains(null)) {
+                        books.removeIf(Objects::isNull);
+                    }
                     break;
                 case "rootcrop":
                     rootCrops = fillArrOptions(dashLine);
+
+                    if (rootCrops == null || rootCrops.getFirst() == null) {
+                        break outside;
+                    } else if (rootCrops.contains(null)) {
+                        rootCrops.removeIf(Objects::isNull);
+                    }
                     break;
                 default:
                     Message.invalidCommand(dashLine);
                     break;
-            }
-
-            // Стоп, если пользователь выбрал "0"
-            if (cars == null || books == null || rootCrops == null) {
-                break;
             }
             // ----------------------------------------------------
             //Выбор метода сортировки

@@ -4,6 +4,13 @@ import menu.Message;
 
 public class Validation {
     public static int carPower(String input, String dashLine) {
+        if (input.isEmpty()) {
+            Message.emptyString(dashLine);
+            return -1;
+        } else if (input.equals("0")) {
+            return 0;
+        }
+
         int power = Integer.parseInt(input);
 
         if (power >= 66) {
@@ -19,6 +26,12 @@ public class Validation {
     }
 
     public static int carYear(String input, String dashLine) {
+        if (input.isEmpty()) {
+            return -1;
+        } else if (input.equals("0")) {
+            return 0;
+        }
+
         int year = Integer.parseInt(input);
 
         if (year >= 1886 && year <= 2024) {
@@ -30,6 +43,60 @@ public class Validation {
         } else if (year > 2024) {
             System.out.println(dashLine);
             System.out.println("- Пока что мы не перешагнули за 2024 год");
+            return -1;
+        } else {
+            Message.invalidCommand(dashLine);
+            return -1;
+        }
+    }
+
+    public static int bookPages(String input, String dashLine) {
+        if (input.isEmpty()) {
+            return -1;
+        } else if (input.equals("0")) {
+            return 0;
+        }
+
+        int pages = Integer.parseInt(input);
+
+        if (pages >= 1 && pages <= 1000) {
+            return pages;
+        } else if (pages < 1) {
+            System.out.println(dashLine);
+            System.out.println("- Еще не существует книг со страницами менее 1");
+            return -1;
+        } else if (pages > 1000) {
+            System.out.println(dashLine);
+            System.out.println("- Мы еще не встречали книги со страницами более 1000");
+            return -1;
+        } else {
+            Message.invalidCommand(dashLine);
+            return -1;
+        }
+    }
+
+    public static double rootCropWeight(String input, String dashLine) {
+        if (input.isEmpty()) {
+            Message.emptyString(dashLine);
+            return -1;
+        } else if (input.equals("0")) {
+            return 0;
+        }
+
+        long dots = input.chars().filter(ch -> ch == '.').count();
+
+        if (dots > 1) {
+            Message.errTooMuchDots(dashLine);
+            return -1;
+        }
+
+        double weight = Double.parseDouble(input);
+
+        if (weight > 0) {
+            return weight;
+        } else if (weight < 0) {
+            System.out.println(dashLine);
+            System.out.println("- Пока еще мы не встречали корнеплодов с отсутствующим или отрицательным весом");
             return -1;
         } else {
             Message.invalidCommand(dashLine);

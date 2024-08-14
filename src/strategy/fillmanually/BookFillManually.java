@@ -2,6 +2,7 @@ package strategy.fillmanually;
 
 import exceptions.ValidateException;
 import exceptions.Validation;
+import menu.Message;
 import models.Book;
 
 import java.util.Scanner;
@@ -16,37 +17,62 @@ public class BookFillManually implements FillManuallyStrategy {
 
         while (!status) {
             try {
-                System.out.print("Введите автора книги: ");
+                Message.writeBookAuthor();
                 input = Validation.removeSymbolsNums(scanner.nextLine());
+
+                if (input.isEmpty()) {
+                    Message.emptyString(dashLine);
+                    return null;
+                } else if (input.equals("stop")) {
+                    return null;
+                }
+
                 bookBuilder.author(input);
                 status = true;
             } catch (ValidateException e) {
-                System.out.println("Неверные данные");
+                Message.invalidCommand(dashLine);
             }
         }
         status = false;
 
         while (!status) {
             try {
-                System.out.print("Введите название книги: ");
+                Message.writeBookName();
                 input = Validation.removeSymbols(scanner.nextLine());
+
+                if (input.isEmpty()) {
+                    Message.emptyString(dashLine);
+                    return null;
+                } else if (input.equals("0")) {
+                    return null;
+                }
+
                 bookBuilder.name(input);
                 status = true;
             } catch (ValidateException e) {
-                System.out.println("Неверные данные");
+                Message.invalidCommand(dashLine);
             }
         }
         status = false;
 
         while (!status) {
             try {
-                System.out.print("Введите количество страниц в книге от 1 до 1000: ");
+                Message.writeBookPages();
                 input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
-                int pages = Integer.parseInt(input);
+                int pages = Validation.bookPages(input, dashLine);
+
+                if (pages == -1) {
+                    Message.emptyString(dashLine);
+                    status = false;
+                    return null;
+                } else if (pages == 0) {
+                    return null;
+                }
+
                 bookBuilder.pages(pages);
                 status = true;
             } catch (ValidateException | NumberFormatException e) {
-                System.out.println("Неверные данные");
+                Message.invalidCommand(dashLine);
             }
         }
 

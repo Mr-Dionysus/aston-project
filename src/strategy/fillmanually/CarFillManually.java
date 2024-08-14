@@ -2,6 +2,7 @@ package strategy.fillmanually;
 
 import exceptions.ValidateException;
 import exceptions.Validation;
+import menu.Message;
 import models.Car;
 
 import java.util.Scanner;
@@ -16,38 +17,56 @@ public class CarFillManually implements FillManuallyStrategy {
 
         while (!status) {
             try {
-                System.out.print("Введите количество лошадей, минимум - 66: ");
+                Message.writeCarPower();
                 input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
                 int power = Validation.carPower(input, dashLine);
+
+                if (power == -1 || power == 0) {
+                    return null;
+                }
+
                 carBuilder.power(power);
                 status = true;
             } catch (ValidateException e) {
-                System.out.println("Неверные данные");
+                Message.invalidCommand(dashLine);
             }
         }
         status = false;
 
         while (!status) {
             try {
-                System.out.print("Введите название машины: ");
+                Message.writeCarModel();
                 input = Validation.removeSymbols(scanner.nextLine());
+
+                if (input.isEmpty()) {
+                    Message.emptyString(dashLine);
+                    return null;
+                } else if (input.equals("0")) {
+                    return null;
+                }
+
                 carBuilder.model(input);
                 status = true;
             } catch (ValidateException e) {
-                System.out.println("Неверные данные");
+                Message.invalidCommand(dashLine);
             }
         }
         status = false;
 
         while (!status) {
             try {
-                System.out.print("Введите год выпуска в промежутке 1886 - 2024: ");
+                Message.writeCarYear();
                 input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
-                int year = Integer.parseInt(input);
+                int year = Validation.carYear(input, dashLine);
+
+                if (year == -1 || year == 0) {
+                    return null;
+                }
+
                 carBuilder.year(year);
                 status = true;
             } catch (ValidateException e) {
-                System.out.println("Неверные данные");
+                Message.invalidCommand(dashLine);
             }
         }
 
