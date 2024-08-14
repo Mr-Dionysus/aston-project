@@ -31,7 +31,6 @@ public class Menu {
     ArrayList<Car> cars = new ArrayList<>();
     ArrayList<Book> books = new ArrayList<>();
     ArrayList<RootCrop> rootCrops = new ArrayList<>();
-    ArrayList list = new ArrayList();
 
     public void start() {
         String input = "";
@@ -173,7 +172,7 @@ public class Menu {
     }
 
     private <T> ArrayList<T> fillArray(String messageInvalidCommand, String dashLine) {
-        ArrayList<T> list = null;
+        ArrayList<T> list;
         switch (className) {
             case "book":
                 readFileContext.setReadFileStrategy(new BookReadFile());
