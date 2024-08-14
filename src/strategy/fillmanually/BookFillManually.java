@@ -5,9 +5,9 @@ import models.Book;
 
 import java.util.Scanner;
 
-public class BookFillManually implements FillManuallyStrategy{
+public class BookFillManually implements FillManuallyStrategy {
     @Override
-    public <T> T fillManually() {
+    public <T> T fillManually(String dashLine) {
         Book.Builder bookBuilder = new Book.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);

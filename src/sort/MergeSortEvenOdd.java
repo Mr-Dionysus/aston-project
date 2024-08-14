@@ -214,6 +214,7 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
 
         switch (input) {
             case "1":
+                MergeSortEvenOdd.setSortType("Power");
                 carComparator = Comparator.comparingInt(Car::getPower);
                 break;
             case "2":

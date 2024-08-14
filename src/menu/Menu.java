@@ -158,15 +158,16 @@ public class Menu {
         }
         for (int i = 1; i <= arrayLength; i++) {
             if (className.equals("book")) {
+                System.out.println(dashLine);
                 System.out.printf("Заполняем %d книгу\n", i);
-            }
-            if (className.equals("car")) {
+            } else if (className.equals("car")) {
+                System.out.println(dashLine);
                 System.out.printf("Заполняем %d машину\n", i);
-            }
-            if (className.equals("rootcrop")) {
+            } else if (className.equals("rootcrop")) {
+                System.out.println(dashLine);
                 System.out.printf("Заполняем %d корнеплод\n", i);
             }
-            list.add((T) fillManuallyContext.executeFillManually());
+            list.add((T) fillManuallyContext.executeFillManually(dashLine));
         }
         return list;
     }
