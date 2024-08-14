@@ -19,7 +19,6 @@ public class Message {
     public static void shameOnYou() {
         Message.dashLine();
         System.out.println("- Тьфу на тебя");
-        Message.dashLine();
     }
 
     public static void chooseFillArrOption() {
@@ -58,6 +57,7 @@ public class Message {
         System.out.println("1 - Мощность");
         System.out.println("2 - Модель");
         System.out.println("3 - Год");
+        System.out.println("0 - Выход");
         Message.dashLine();
     }
 
@@ -67,6 +67,7 @@ public class Message {
         System.out.println("1 - Автор");
         System.out.println("2 - Название");
         System.out.println("3 - Количество страниц");
+        System.out.println("0 - Выход");
         Message.dashLine();
     }
 
@@ -76,6 +77,7 @@ public class Message {
         System.out.println("1 - Тип");
         System.out.println("2 - Вес");
         System.out.println("3 - Цвет");
+        System.out.println("0 - Выход");
         Message.dashLine();
     }
 
@@ -118,6 +120,7 @@ public class Message {
     public static void wrongArrLength() {
         Message.dashLine();
         System.out.println("- Число должно располагаться в диапазоне от 1 до 10");
+        Message.dashLine();
     }
 
     public static void wrongFormatNum() {
@@ -155,16 +158,19 @@ public class Message {
     }
 
     public static void writeCarPower() {
+        Message.dashLine();
         stopWordZero();
         System.out.print("- Введите количество лошадей, минимум - 66: ");
     }
 
     public static void writeCarModel() {
+        Message.dashLine();
         stopWordZero();
         System.out.print("- Введите название машины: ");
     }
 
     public static void writeCarYear() {
+        Message.dashLine();
         stopWordZero();
         System.out.print("- Введите год выпуска в промежутке 1886 - 2024: ");
     }

@@ -23,9 +23,8 @@ public class Search {
         }
     }
 
-    public static <T> void youWantSomeSearch(Scanner scanner, String className, ArrayList<T> list, String sortBy) {
+    public static <T> String youWantSomeSearch(Scanner scanner, String className, ArrayList<T> list, String sortBy) {
         String doSearch = scanner.next().replaceAll("[^\\w\\s]|_", "");
-        list.forEach(System.out::println);
 
         switch (doSearch) {
             case "1":
@@ -33,11 +32,12 @@ public class Search {
                 Search.classOptionsForSearch(list, className, sortBy, scanner);
                 break;
             case "0":
-                break;
+                return "0";
             default:
                 Message.invalidCommand();
-                break;
+                return "0";
         }
+        return "0";
     }
 
     public static <T> T classOptionsForSearch(ArrayList<T> list, String className, String sortBy, Scanner scanner) {

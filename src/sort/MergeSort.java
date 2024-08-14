@@ -78,10 +78,12 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         input = "year";
                         break;
                     case "0":
-                        break;
+                        input = "0";
+                        return input;
                     default:
                         Message.invalidCommand();
-                        break;
+                        input = "0";
+                        return input;
                 }
 
                 return input;

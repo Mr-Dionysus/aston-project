@@ -43,20 +43,18 @@ public class Menu {
             Message.chooseClassOption();
             className = classOptions();
             input = className;
-
+            // Выход если пользователь введет 0
             if (input.equals("0")) {
                 break;
             }
-            // ----------------------------------------------------
             // Выбор метода заполнения
             Message.chooseFillArrOption();
-
             switch (className) {
                 case "car":
                     MergeSortEvenOdd.setSortType("Year");
                     cars = fillArrOptions();
-                    // Закрыть программу если пользователь так решил или ввел неверно первый объект
-                    if (cars == null || cars.getFirst() == null) {
+                    // Закрыть программу если пользователь так решил или ввел неверно объект в массиве длиной 1
+                    if (cars == null || cars.getFirst() == null && cars.size() == 1) {
                         break outside;
                     } else if (cars.contains(null)) {
                         cars.removeIf(Objects::isNull);
@@ -65,8 +63,8 @@ public class Menu {
                 case "book":
                     MergeSortEvenOdd.setSortType("Pages");
                     books = fillArrOptions();
-
-                    if (books == null || books.getFirst() == null) {
+                    // Закрыть программу если пользователь так решил или ввел неверно объект в массиве длиной 1
+                    if (books == null || books.getFirst() == null && books.size() == 1) {
                         break outside;
                     } else if (books.contains(null)) {
                         books.removeIf(Objects::isNull);
@@ -74,8 +72,8 @@ public class Menu {
                     break;
                 case "rootcrop":
                     rootCrops = fillArrOptions();
-
-                    if (rootCrops == null || rootCrops.getFirst() == null) {
+                    // Закрыть программу если пользователь так решил или ввел неверно объект в массиве длиной 1
+                    if (rootCrops == null || rootCrops.getFirst() == null && rootCrops.size() == 1) {
                         break outside;
                     } else if (rootCrops.contains(null)) {
                         rootCrops.removeIf(Objects::isNull);
@@ -118,13 +116,13 @@ public class Menu {
                 break;
             case "9":
                 Message.shameOnYou();
-                break;
+                return "0";
             case "0":
                 input = "0";
                 break;
             default:
                 Message.invalidCommand();
-                break;
+                return "0";
         }
 
         return input;
@@ -173,13 +171,13 @@ public class Menu {
         for (int i = 1; i <= arrayLength; i++) {
             if (className.equals("book")) {
                 Message.dashLine();
-                System.out.printf("Заполняем %d книгу\n", i);
+                System.out.printf("Заполняем %d книгу...%n", i);
             } else if (className.equals("car")) {
                 Message.dashLine();
-                System.out.printf("Заполняем %d машину\n", i);
+                System.out.printf("Заполняем %d машину...%n", i);
             } else if (className.equals("rootcrop")) {
                 Message.dashLine();
-                System.out.printf("Заполняем %d корнеплод\n", i);
+                System.out.printf("Заполняем %d корнеплод...%n", i);
             }
             list.add((T) fillManuallyContext.executeFillManually());
         }
@@ -273,6 +271,7 @@ public class Menu {
                 status = setArrayLength(length);
             } catch (NumberFormatException e) {
                 Message.invalidCommand();
+                Message.wrongArrLength();
             }
         }
     }

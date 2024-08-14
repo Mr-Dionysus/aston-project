@@ -106,25 +106,21 @@ public class Validation {
 
     public static String removeSymbolsNums(String input) {
         input = input.replaceAll("[^\\w\\s]|\\d|_", "");
-        System.out.println(input);
         return input;
     }
 
     public static String removeSymbols(String input) {
         input = input.replaceAll("[^\\w\\s]|_", "");
-        System.out.println(input);
         return input;
     }
 
     public static String removeSymbolsLettersSpaces(String input) {
         input = input.replaceAll("[a-zA-Z]|[^\\w\\s\\d]|[ _]", "");
-        System.out.println(input);
         return input;
     }
 
     public static String removeSymbolsWithoutDotLettersSpaces(String input) {
         input = input.replaceAll("[a-zA-Z]|[^\\w\\s\\d.]|[ _]", "");
-        System.out.println(input);
         return input;
     }
 }
