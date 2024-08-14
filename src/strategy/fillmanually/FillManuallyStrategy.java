@@ -1,5 +1,5 @@
 package strategy.fillmanually;
 
 public interface FillManuallyStrategy {
-    <T> T fillManually(String dashLine);
+    <T> T fillManually();
 }

@@ -36,13 +36,12 @@ public class Menu {
 
     public void start() {
         String input;
-        String dashLine = "-".repeat(50);
 
         outside:
         while (true) {
             // Выбор класса объектов
-            Message.chooseClassOption(dashLine);
-            className = classOptions(dashLine);
+            Message.chooseClassOption();
+            className = classOptions();
             input = className;
 
             if (input.equals("0")) {
@@ -50,12 +49,12 @@ public class Menu {
             }
             // ----------------------------------------------------
             // Выбор метода заполнения
-            Message.chooseFillArrOption(dashLine);
+            Message.chooseFillArrOption();
 
             switch (className) {
                 case "car":
                     MergeSortEvenOdd.setSortType("Year");
-                    cars = fillArrOptions(dashLine);
+                    cars = fillArrOptions();
                     // Закрыть программу если пользователь так решил или ввел неверно первый объект
                     if (cars == null || cars.getFirst() == null) {
                         break outside;
@@ -65,7 +64,7 @@ public class Menu {
                     break;
                 case "book":
                     MergeSortEvenOdd.setSortType("Pages");
-                    books = fillArrOptions(dashLine);
+                    books = fillArrOptions();
 
                     if (books == null || books.getFirst() == null) {
                         break outside;
@@ -74,7 +73,7 @@ public class Menu {
                     }
                     break;
                 case "rootcrop":
-                    rootCrops = fillArrOptions(dashLine);
+                    rootCrops = fillArrOptions();
 
                     if (rootCrops == null || rootCrops.getFirst() == null) {
                         break outside;
@@ -83,28 +82,28 @@ public class Menu {
                     }
                     break;
                 default:
-                    Message.invalidCommand(dashLine);
+                    Message.invalidCommand();
                     break;
             }
             // ----------------------------------------------------
             //Выбор метода сортировки
-            Message.chooseSortOption(dashLine);
-            sortBy = sortOptions(dashLine);
+            Message.chooseSortOption();
+            sortBy = sortOptions();
 
             if (sortBy.equals("0")) {
                 continue;
             }
 
-            Message.chooseYouWantSomeSearch(dashLine);
-            Search.switchClassForSearch(scanner, className, sortBy, cars, books, rootCrops, dashLine);
+            Message.chooseYouWantSomeSearch();
+            Search.switchClassForSearch(scanner, className, sortBy, cars, books, rootCrops);
         }
 
-        Message.goodbye(dashLine);
+        Message.goodbye();
         scanner.close();
     }
 
     // Выбор класса для заполнения
-    private String classOptions(String dashLine) {
+    private String classOptions() {
         String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
 
         switch (input) {
@@ -118,47 +117,47 @@ public class Menu {
                 input = "rootcrop";
                 break;
             case "9":
-                Message.shameOnYou(dashLine);
+                Message.shameOnYou();
                 break;
             case "0":
                 input = "0";
                 break;
             default:
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
                 break;
         }
 
         return input;
     }
 
-    private <T> ArrayList<T> fillArrOptions(String dashLine) {
+    private <T> ArrayList<T> fillArrOptions() {
         ArrayList<T> list = null;
         String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
 
         switch (input) {
             case "1":
-                list = fillArray(dashLine);
+                list = fillArray();
                 return list;
             case "2":
-                inputLength(dashLine);
-                list = fillArrayRand(arrayLength, dashLine);
+                inputLength();
+                list = fillArrayRand(arrayLength);
                 return list;
             case "3":
                 // SSV
-                inputLength(dashLine);
-                list = fillArrayManually(dashLine);
+                inputLength();
+                list = fillArrayManually();
                 break;
             case "0":
                 break;
             default:
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
                 break;
         }
 
         return list;
     }
 
-    private <T> ArrayList<T> fillArrayManually(String dashLine) {
+    private <T> ArrayList<T> fillArrayManually() {
         ArrayList<T> list = new ArrayList<>();
         switch (className) {
             case "book":
@@ -173,21 +172,21 @@ public class Menu {
         }
         for (int i = 1; i <= arrayLength; i++) {
             if (className.equals("book")) {
-                System.out.println(dashLine);
+                Message.dashLine();
                 System.out.printf("Заполняем %d книгу\n", i);
             } else if (className.equals("car")) {
-                System.out.println(dashLine);
+                Message.dashLine();
                 System.out.printf("Заполняем %d машину\n", i);
             } else if (className.equals("rootcrop")) {
-                System.out.println(dashLine);
+                Message.dashLine();
                 System.out.printf("Заполняем %d корнеплод\n", i);
             }
-            list.add((T) fillManuallyContext.executeFillManually(dashLine));
+            list.add((T) fillManuallyContext.executeFillManually());
         }
         return list;
     }
 
-    private <T> ArrayList<T> fillArray(String dashLine) {
+    private <T> ArrayList<T> fillArray() {
         ArrayList<T> list;
         switch (className) {
             case "book":
@@ -200,68 +199,68 @@ public class Menu {
                 readFileContext.setReadFileStrategy(new RootCropReadFile());
                 break;
             default:
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
         }
         list = readFileContext.executeReadFileStrategy();
-        System.out.println(dashLine);
+        Message.dashLine();
         list.forEach(System.out::println);
 
         return list;
     }
 
-    private <T> ArrayList<T> fillArrayRand(int arrayLength, String dashLine) {
+    private <T> ArrayList<T> fillArrayRand(int arrayLength) {
         ArrayList<T> list;
 
         switch (className) {
             case "book":
                 list = (ArrayList<T>) Book.createObjects(arrayLength);
-                System.out.println(dashLine);
+                Message.dashLine();
                 list.forEach(System.out::println);
                 return list;
             case "car":
                 list = (ArrayList<T>) Car.createObjects(arrayLength);
-                System.out.println(dashLine);
+                Message.dashLine();
                 list.forEach(System.out::println);
                 return list;
             case "rootcrop":
                 list = (ArrayList<T>) RootCrop.createObjects(arrayLength);
-                System.out.println(dashLine);
+                Message.dashLine();
                 list.forEach(System.out::println);
                 return list;
             default:
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
                 return null;
         }
     }
 
-    private String sortOptions(String dashLine) {
+    private String sortOptions() {
         String input = scanner.next();
 
         switch (input) {
             case "1":
-                input = MergeSort.mergeSortArr(className, scanner, sortingContext, cars, books, rootCrops, dashLine);
+                input = MergeSort.mergeSortArr(className, scanner, sortingContext, cars, books, rootCrops);
                 return input;
             case "2":
                 MergeSortEvenOdd.setIsEven(true);
-                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books, dashLine);
+                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books);
                 input = "0";
                 return input;
             case "3":
                 MergeSortEvenOdd.setIsEven(false);
-                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books, dashLine);
+                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books);
                 input = "0";
                 return input;
             case "0":
                 return input;
             default:
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
                 input = "0";
                 return input;
         }
     }
 
-    private void inputLength(String dashLine) {
-        Message.writeArrLength(dashLine);
+    private void inputLength() {
+        Message.writeArrLength();
 
         boolean status = false;
         int length;
@@ -271,21 +270,21 @@ public class Menu {
             input = scanner.next();
             try {
                 length = Integer.parseInt(input);
-                status = setArrayLength(dashLine, length);
+                status = setArrayLength(length);
             } catch (NumberFormatException e) {
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
             }
         }
     }
 
-    private boolean setArrayLength(String dashLine, int arrayLength) {
+    private boolean setArrayLength(int arrayLength) {
         boolean status = false;
 
         if (0 < arrayLength && arrayLength <= 10) {
             this.arrayLength = arrayLength;
             status = true;
         } else {
-            Message.wrongArrLength(dashLine);
+            Message.wrongArrLength();
         }
 
         return status;

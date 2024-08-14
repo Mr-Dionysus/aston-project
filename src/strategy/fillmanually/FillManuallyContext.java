@@ -10,7 +10,7 @@ public class FillManuallyContext<T> {
         this.fillManuallyStrategy = fillManuallyStrategy;
     }
 
-    public T executeFillManually(String dashLine) {
-        return fillManuallyStrategy.fillManually(dashLine);
+    public T executeFillManually() {
+        return fillManuallyStrategy.fillManually();
     }
 }

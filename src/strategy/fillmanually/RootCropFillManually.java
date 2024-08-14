@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class RootCropFillManually implements FillManuallyStrategy {
     @Override
-    public <T> T fillManually(String dashLine) {
+    public <T> T fillManually() {
         RootCrop.Builder rootCropBuilder = new RootCrop.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
@@ -21,7 +21,7 @@ public class RootCropFillManually implements FillManuallyStrategy {
                 input = Validation.removeSymbolsNums(scanner.nextLine());
 
                 if (input.isEmpty()) {
-                    Message.emptyString(dashLine);
+                    Message.emptyString();
                     return null;
                 } else if (input.equals("stop")) {
                     return null;
@@ -30,7 +30,7 @@ public class RootCropFillManually implements FillManuallyStrategy {
                 rootCropBuilder.type(input);
                 status = true;
             } catch (ValidateException e) {
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
             }
         }
         status = false;
@@ -39,7 +39,7 @@ public class RootCropFillManually implements FillManuallyStrategy {
             try {
                 Message.writeRootCropWeight();
                 input = Validation.removeSymbolsWithoutDotLettersSpaces(scanner.nextLine());
-                double weight = Validation.rootCropWeight(input, dashLine);
+                double weight = Validation.rootCropWeight(input);
 
                 if (weight == -1 || weight == 0) {
                     return null;
@@ -48,7 +48,7 @@ public class RootCropFillManually implements FillManuallyStrategy {
                 rootCropBuilder.weight(weight);
                 status = true;
             } catch (ValidateException | NumberFormatException e) {
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
             }
         }
         status = false;
@@ -59,7 +59,7 @@ public class RootCropFillManually implements FillManuallyStrategy {
                 input = Validation.removeSymbolsNums(scanner.nextLine());
 
                 if (input.isEmpty()) {
-                    Message.emptyString(dashLine);
+                    Message.emptyString();
                     return null;
                 } else if (input.equals("stop")) {
                     return null;
@@ -68,7 +68,7 @@ public class RootCropFillManually implements FillManuallyStrategy {
                 rootCropBuilder.color(input);
                 status = true;
             } catch (ValidateException e) {
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
             }
         }
 

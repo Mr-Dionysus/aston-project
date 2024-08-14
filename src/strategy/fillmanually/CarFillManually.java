@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class CarFillManually implements FillManuallyStrategy {
     @Override
-    public <T> T fillManually(String dashLine) {
+    public <T> T fillManually() {
         Car.Builder carBuilder = new Car.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
@@ -19,7 +19,7 @@ public class CarFillManually implements FillManuallyStrategy {
             try {
                 Message.writeCarPower();
                 input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
-                int power = Validation.carPower(input, dashLine);
+                int power = Validation.carPower(input);
 
                 if (power == -1 || power == 0) {
                     return null;
@@ -28,7 +28,7 @@ public class CarFillManually implements FillManuallyStrategy {
                 carBuilder.power(power);
                 status = true;
             } catch (ValidateException e) {
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
             }
         }
         status = false;
@@ -39,7 +39,7 @@ public class CarFillManually implements FillManuallyStrategy {
                 input = Validation.removeSymbols(scanner.nextLine());
 
                 if (input.isEmpty()) {
-                    Message.emptyString(dashLine);
+                    Message.emptyString();
                     return null;
                 } else if (input.equals("0")) {
                     return null;
@@ -48,7 +48,7 @@ public class CarFillManually implements FillManuallyStrategy {
                 carBuilder.model(input);
                 status = true;
             } catch (ValidateException e) {
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
             }
         }
         status = false;
@@ -57,7 +57,7 @@ public class CarFillManually implements FillManuallyStrategy {
             try {
                 Message.writeCarYear();
                 input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
-                int year = Validation.carYear(input, dashLine);
+                int year = Validation.carYear(input);
 
                 if (year == -1 || year == 0) {
                     return null;
@@ -66,7 +66,7 @@ public class CarFillManually implements FillManuallyStrategy {
                 carBuilder.year(year);
                 status = true;
             } catch (ValidateException e) {
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
             }
         }
 

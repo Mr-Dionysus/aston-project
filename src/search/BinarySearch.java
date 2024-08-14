@@ -10,23 +10,23 @@ import java.util.Comparator;
 
 public class BinarySearch<T> implements SearchingStrategy<T> {
     @Override
-    public int search(String searchType, String searchParam, ArrayList<T> list, String dashLine) {
+    public int search(String searchType, String searchParam, ArrayList<T> list) {
         if (list.isEmpty()) {
             return -1;
         }
         T example = list.getFirst();
 
         if (example instanceof Car) {
-            return searchInCars(searchType, searchParam, (ArrayList<Car>) list, dashLine);
+            return searchInCars(searchType, searchParam, (ArrayList<Car>) list);
         } else if (example instanceof Book) {
-            return searchInBooks(searchType, searchParam, (ArrayList<Book>) list, dashLine);
+            return searchInBooks(searchType, searchParam, (ArrayList<Book>) list);
         } else if (example instanceof RootCrop) {
-            return searchInRootCrops(searchType, searchParam, (ArrayList<RootCrop>) list, dashLine);
+            return searchInRootCrops(searchType, searchParam, (ArrayList<RootCrop>) list);
         }
         return -1;
     }
 
-    private int searchInCars(String searchType, String searchParam, ArrayList<Car> list, String dashLine) {
+    private int searchInCars(String searchType, String searchParam, ArrayList<Car> list) {
         int index;
         Comparator<Car> carComparator;
 
@@ -35,7 +35,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Integer.parseInt(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum(dashLine);
+                    Message.wrongFormatNum();
                     return -1;
                 }
 
@@ -50,7 +50,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Integer.parseInt(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum(dashLine);
+                    Message.wrongFormatNum();
                     return -1;
                 }
 
@@ -62,7 +62,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         }
     }
 
-    private int searchInBooks(String searchType, String searchParam, ArrayList<Book> list, String dashLine) {
+    private int searchInBooks(String searchType, String searchParam, ArrayList<Book> list) {
         int index;
         Comparator<Book> bookComparator;
 
@@ -79,7 +79,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Integer.parseInt(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum(dashLine);
+                    Message.wrongFormatNum();
                     return -1;
                 }
 
@@ -91,7 +91,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         }
     }
 
-    private int searchInRootCrops(String searchType, String searchParam, ArrayList<RootCrop> list, String dashLine) {
+    private int searchInRootCrops(String searchType, String searchParam, ArrayList<RootCrop> list) {
         int index;
         Comparator<RootCrop> rootCropComparator;
 
@@ -104,7 +104,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Double.parseDouble(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum(dashLine);
+                    Message.wrongFormatNum();
                     return -1;
                 }
 

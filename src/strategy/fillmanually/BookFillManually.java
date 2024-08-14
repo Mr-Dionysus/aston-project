@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class BookFillManually implements FillManuallyStrategy {
     @Override
-    public <T> T fillManually(String dashLine) {
+    public <T> T fillManually() {
         Book.Builder bookBuilder = new Book.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
@@ -21,7 +21,7 @@ public class BookFillManually implements FillManuallyStrategy {
                 input = Validation.removeSymbolsNums(scanner.nextLine());
 
                 if (input.isEmpty()) {
-                    Message.emptyString(dashLine);
+                    Message.emptyString();
                     return null;
                 } else if (input.equals("stop")) {
                     return null;
@@ -30,7 +30,7 @@ public class BookFillManually implements FillManuallyStrategy {
                 bookBuilder.author(input);
                 status = true;
             } catch (ValidateException e) {
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
             }
         }
         status = false;
@@ -41,7 +41,7 @@ public class BookFillManually implements FillManuallyStrategy {
                 input = Validation.removeSymbols(scanner.nextLine());
 
                 if (input.isEmpty()) {
-                    Message.emptyString(dashLine);
+                    Message.emptyString();
                     return null;
                 } else if (input.equals("0")) {
                     return null;
@@ -50,7 +50,7 @@ public class BookFillManually implements FillManuallyStrategy {
                 bookBuilder.name(input);
                 status = true;
             } catch (ValidateException e) {
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
             }
         }
         status = false;
@@ -59,10 +59,10 @@ public class BookFillManually implements FillManuallyStrategy {
             try {
                 Message.writeBookPages();
                 input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
-                int pages = Validation.bookPages(input, dashLine);
+                int pages = Validation.bookPages(input);
 
                 if (pages == -1) {
-                    Message.emptyString(dashLine);
+                    Message.emptyString();
                     status = false;
                     return null;
                 } else if (pages == 0) {
@@ -72,7 +72,7 @@ public class BookFillManually implements FillManuallyStrategy {
                 bookBuilder.pages(pages);
                 status = true;
             } catch (ValidateException | NumberFormatException e) {
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
             }
         }
 

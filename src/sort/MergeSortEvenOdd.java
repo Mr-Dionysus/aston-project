@@ -184,35 +184,35 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
     }
 
 
-    public static void mergeSortedArrEvenOdd(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, String dashLine) {
+    public static void mergeSortedArrEvenOdd(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books) {
         sortingContext.setSortingStrategy(new MergeSortEvenOdd());
 
         switch (className) {
             case "car":
-                Message.chooseSortParamMergeSortEvenOdd(dashLine);
-                switchSortParamsMergeSort(cars, scanner, sortingContext, dashLine);
+                Message.chooseSortParamMergeSortEvenOdd();
+                switchSortParamsMergeSort(cars, scanner, sortingContext);
                 break;
 
             case "book":
-                Message.sortByEvenOrOddPages(dashLine);
+                Message.sortByEvenOrOddPages();
                 Comparator<Book> bookComparator = Comparator.comparingInt(Book::getPages);
                 sortingContext.performSort(books, bookComparator);
 
-                System.out.println(dashLine);
+                Message.dashLine();
                 books.forEach(System.out::println);
                 break;
 
             case "rootcrop":
-                Message.cantBeEvenOrOdd(dashLine);
+                Message.cantBeEvenOrOdd();
                 break;
 
             default:
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
                 break;
         }
     }
 
-    public static <T> String switchSortParamsMergeSort(ArrayList<T> cars, Scanner scanner, SortingContext sortingContext, String dashLine) {
+    public static <T> String switchSortParamsMergeSort(ArrayList<T> cars, Scanner scanner, SortingContext sortingContext) {
         String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
         Comparator carComparator;
 
@@ -227,14 +227,14 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
             case "0":
                 return input;
             default:
-                Message.invalidCommand(dashLine);
+                Message.invalidCommand();
                 input = "0";
                 return input;
         }
 
         sortingContext.performSort(cars, carComparator);
 
-        System.out.println(dashLine);
+        Message.dashLine();
         cars.forEach(System.out::println);
         return input;
     }
