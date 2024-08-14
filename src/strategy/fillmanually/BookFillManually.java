@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class BookFillManually implements FillManuallyStrategy {
     @Override
-    public <T> T fillManually(String dashLine) {
+    public <T> T fillManually() {
         Book.Builder bookBuilder = new Book.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);

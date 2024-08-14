@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class RootCropFillManually implements FillManuallyStrategy {
     @Override
-    public <T> T fillManually(String dashLine) {
+    public <T> T fillManually() {
         RootCrop.Builder rootCropBuilder = new RootCrop.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);

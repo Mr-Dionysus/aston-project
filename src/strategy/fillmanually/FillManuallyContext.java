@@ -11,6 +11,6 @@ public class FillManuallyContext<T> {
     }
 
     public T executeFillManually(String dashLine) {
-        return fillManuallyStrategy.fillManually(dashLine);
+        return fillManuallyStrategy.fillManually();
     }
 }

@@ -5,7 +5,7 @@ import models.Car;
 
 import java.util.Scanner;
 
-public class CarFillManually implements FillManuallyStrategy {
+public class CarFillManually<T> implements FillManuallyStrategy {
 	@Override
 	public <T> T fillManually() {
 		Car.Builder carBuilder = new Car.Builder();
