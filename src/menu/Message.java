@@ -19,6 +19,7 @@ public class Message {
     public static void shameOnYou() {
         Message.dashLine();
         System.out.println("- Тьфу на тебя");
+        Message.dashLine();
     }
 
     public static void chooseFillArrOption() {
@@ -57,7 +58,6 @@ public class Message {
         System.out.println("1 - Мощность");
         System.out.println("2 - Модель");
         System.out.println("3 - Год");
-        System.out.println("0 - Выход");
         Message.dashLine();
     }
 
@@ -67,7 +67,6 @@ public class Message {
         System.out.println("1 - Автор");
         System.out.println("2 - Название");
         System.out.println("3 - Количество страниц");
-        System.out.println("0 - Выход");
         Message.dashLine();
     }
 
@@ -77,7 +76,6 @@ public class Message {
         System.out.println("1 - Тип");
         System.out.println("2 - Вес");
         System.out.println("3 - Цвет");
-        System.out.println("0 - Выход");
         Message.dashLine();
     }
 
@@ -120,7 +118,6 @@ public class Message {
     public static void wrongArrLength() {
         Message.dashLine();
         System.out.println("- Число должно располагаться в диапазоне от 1 до 10");
-        Message.dashLine();
     }
 
     public static void wrongFormatNum() {
@@ -176,31 +173,37 @@ public class Message {
     }
 
     public static void writeBookAuthor() {
+        Message.dashLine();
         stopWordStop();
         System.out.print("- Введите автора книги: ");
     }
 
     public static void writeBookName() {
+        Message.dashLine();
         stopWordZero();
         System.out.print("- Введите название книги: ");
     }
 
     public static void writeBookPages() {
+        Message.dashLine();
         stopWordZero();
         System.out.print("- Введите количество страниц в книге от 1 до 1000: ");
     }
 
     public static void writeRootCropType() {
+        Message.dashLine();
         stopWordStop();
         System.out.print("- Введите тип корнеплода: ");
     }
 
     public static void writeRootCropColor() {
+        Message.dashLine();
         stopWordStop();
         System.out.print("- Введите цвет корнеплода: ");
     }
 
     public static void writeRootCropWeight() {
+        Message.dashLine();
         stopWordZero();
         System.out.print("- Введите вес корнеплода: ");
     }

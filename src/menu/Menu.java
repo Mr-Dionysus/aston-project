@@ -21,7 +21,7 @@ import java.util.Objects;
 import java.util.Scanner;
 
 public class Menu {
-    public static int arrayLength;
+    private int arrayLength;
     private final Scanner scanner = new Scanner(System.in);
     private final SortingContext sortingContext = new SortingContext(null);
     private final ReadFileContext readFileContext = new ReadFileContext();
@@ -45,14 +45,16 @@ public class Menu {
             if (input.equals("0")) {
                 break;
             }
+            // ----------------------------------------------------
             // Выбор метода заполнения
             Message.chooseFillArrOption();
+
             switch (className) {
                 case "car":
                     MergeSortEvenOdd.setSortType("Year");
-                    cars = fillArrOptions(scanner, className, readFileContext, fillManuallyContext);
-                    // Закрыть программу если пользователь так решил или ввел неверно объект в массиве длиной 1
-                    if (cars == null || cars.getFirst() == null && cars.size() == 1) {
+                    cars = fillArrOptions();
+                    // Закрыть программу если пользователь так решил или ввел неверно первый объект
+                    if (cars == null || cars.getFirst() == null) {
                         break outside;
                     } else if (cars.contains(null)) {
                         cars.removeIf(Objects::isNull);
@@ -60,18 +62,18 @@ public class Menu {
                     break;
                 case "book":
                     MergeSortEvenOdd.setSortType("Pages");
-                    books = fillArrOptions(scanner, className, readFileContext, fillManuallyContext);
+                    books = fillArrOptions();
                     // Закрыть программу если пользователь так решил или ввел неверно объект в массиве длиной 1
-                    if (books == null || books.getFirst() == null && books.size() == 1) {
+                    if (books == null || books.getFirst() == null) {
                         break outside;
                     } else if (books.contains(null)) {
                         books.removeIf(Objects::isNull);
                     }
                     break;
                 case "rootcrop":
-                    rootCrops = fillArrOptions(scanner, className, readFileContext, fillManuallyContext);
+                    rootCrops = fillArrOptions();
                     // Закрыть программу если пользователь так решил или ввел неверно объект в массиве длиной 1
-                    if (rootCrops == null || rootCrops.getFirst() == null && rootCrops.size() == 1) {
+                    if (rootCrops == null || rootCrops.getFirst() == null) {
                         break outside;
                     } else if (rootCrops.contains(null)) {
                         rootCrops.removeIf(Objects::isNull);
@@ -126,56 +128,24 @@ public class Menu {
         return input;
     }
 
-    // Выбор между вариантами сортировок
-    private String sortOptions() {
-        String input = scanner.next();
-
-        switch (input) {
-            // Запуск обычного MergeSort
-            case "1":
-                input = MergeSort.mergeSortArr(className, scanner, sortingContext, cars, books, rootCrops);
-                return input;
-            // Запуск четного MergeSort
-            case "2":
-                MergeSortEvenOdd.setEven(true);
-                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books);
-                input = "0";
-                return input;
-            // Запуск нечетного MergeSort
-            case "3":
-                MergeSortEvenOdd.setEven(false);
-                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books);
-                input = "0";
-                return input;
-            case "0":
-                return input;
-            default:
-                Message.invalidCommand();
-                input = "0";
-                return input;
-        }
-    }
-
-
-    // Выбор способа заполнения массива
-    public static <T> ArrayList<T> fillArrOptions(Scanner scanner, String className, ReadFileContext readFileContext, FillManuallyContext fillManuallyContext) {
+    private <T> ArrayList<T> fillArrOptions() {
         ArrayList<T> list = null;
         String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
 
         switch (input) {
             // Заполнить массив через файл
             case "1":
-                list = fillArrayFromFile(className, readFileContext);
+                list = fillArray();
                 return list;
             // Заполнить массив случайным образом
             case "2":
-                inputLength(scanner);
-                list = fillArrayRand(arrayLength, className);
+                inputLength();
+                list = fillArrayRand(arrayLength);
                 return list;
             // Заполнить массив через консоль
             case "3":
-                inputLength(scanner);
-                list = fillArrayManually(className, fillManuallyContext);
+                inputLength();
+                list = fillArrayManually();
                 break;
             case "0":
                 break;
@@ -188,7 +158,7 @@ public class Menu {
     }
 
     // Ручное заполнение массива
-    public static <T> ArrayList<T> fillArrayManually(String className, FillManuallyContext fillManuallyContext) {
+    private <T> ArrayList<T> fillArrayManually() {
         ArrayList<T> list = new ArrayList<>();
 
         switch (className) {
@@ -221,7 +191,7 @@ public class Menu {
     }
 
     // Чтение объектов из файла
-    public static <T> ArrayList<T> fillArrayFromFile(String className, ReadFileContext readFileContext) {
+    private <T> ArrayList<T> fillArray() {
         ArrayList<T> list;
         switch (className) {
             case "book":
@@ -244,7 +214,7 @@ public class Menu {
     }
 
     // Заполнение массива случайными значениями
-    public static <T> ArrayList<T> fillArrayRand(int arrayLength, String className) {
+    private <T> ArrayList<T> fillArrayRand(int arrayLength) {
         ArrayList<T> list;
 
         switch (className) {
@@ -269,8 +239,38 @@ public class Menu {
         }
     }
 
+    // Выбор между вариантами сортировок
+    private String sortOptions() {
+        String input = scanner.next();
+
+        switch (input) {
+            // Запуск обычного MergeSort
+            case "1":
+                input = MergeSort.mergeSortArr(className, scanner, sortingContext, cars, books, rootCrops);
+                return input;
+            // Запуск четного MergeSort
+            case "2":
+                MergeSortEvenOdd.setEven(true);
+                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books);
+                input = "0";
+                return input;
+            // Запуск нечетного MergeSort
+            case "3":
+                MergeSortEvenOdd.setEven(false);
+                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books);
+                input = "0";
+                return input;
+            case "0":
+                return input;
+            default:
+                Message.invalidCommand();
+                input = "0";
+                return input;
+        }
+    }
+
     // Получение длины массива
-    public static void inputLength(Scanner scanner) {
+    private void inputLength() {
         Message.writeArrLength();
         boolean status = false;
         int length;
@@ -289,12 +289,11 @@ public class Menu {
     }
 
     // Установка длины массива
-    public static boolean setArrayLength(int arrayLength) {
+    private boolean setArrayLength(int arrayLength) {
         boolean status = false;
 
         if (0 < arrayLength && arrayLength <= 10) {
-            setArrayLength(arrayLength);
-            Menu.arrayLength = arrayLength;
+            this.arrayLength = arrayLength;
             status = true;
         } else {
             Message.wrongArrLength();
