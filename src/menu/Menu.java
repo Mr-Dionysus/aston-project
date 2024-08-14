@@ -8,7 +8,9 @@ import sort.MergeSort;
 import sort.MergeSortEvenOdd;
 import sort.SortingContext;
 import strategy.fillmanually.BookFillManually;
+import strategy.fillmanually.CarFillManually;
 import strategy.fillmanually.FillManuallyContext;
+import strategy.fillmanually.RootCropFillManually;
 import strategy.readfile.BookReadFile;
 import strategy.readfile.CarReadFile;
 import strategy.readfile.ReadFileContext;
@@ -149,13 +151,22 @@ public class Menu {
                 fillManuallyContext.setFillManuallyStrategy(new BookFillManually());
                 break;
             case "car":
-//
+                fillManuallyContext.setFillManuallyStrategy(new CarFillManually());
                 break;
-            case "rootcrop"://
+            case "rootcrop":
+                fillManuallyContext.setFillManuallyStrategy(new RootCropFillManually());
                 break;
         }
         for (int i = 1; i <= arrayLength; i++) {
-            System.out.printf("Заполняем %d книгу\n", i);
+            if (className.equals("book")) {
+                System.out.printf("Заполняем %d книгу\n", i);
+            }
+            if (className.equals("car")) {
+                System.out.printf("Заполняем %d машину\n", i);
+            }
+            if (className.equals("rootcrop")) {
+                System.out.printf("Заполняем %d корнеплод\n", i);
+            }
             list.add((T) fillManuallyContext.executeFillManually());
         }
         return list;

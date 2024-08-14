@@ -11,11 +11,11 @@ public class BookFillManually implements FillManuallyStrategy{
         Book.Builder bookBuilder = new Book.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
-        String line = "";
+        String line;
 
         while (!status) {
-            System.out.print("Введи автора книги: ");
             try {
+                System.out.print("Введите автора книги: ");
                 line = scanner.next();
                 bookBuilder.author(line);
                 status = true;
@@ -26,8 +26,8 @@ public class BookFillManually implements FillManuallyStrategy{
         status = false;
 
         while (!status) {
-            System.out.print("Введите название книги: ");
             try {
+                System.out.print("Введите название книги: ");
                 line = scanner.next();
                 bookBuilder.name(line);
                 status = true;
@@ -38,8 +38,8 @@ public class BookFillManually implements FillManuallyStrategy{
         status = false;
 
         while (!status) {
-            System.out.print("Введите количество страниц в книге от 1 до 1000: ");
             try {
+                System.out.print("Введите количество страниц в книге от 1 до 1000: ");
                 line = scanner.next();
                 int pages = Integer.parseInt(line);
                 bookBuilder.pages(pages);

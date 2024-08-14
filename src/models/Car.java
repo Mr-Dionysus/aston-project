@@ -1,89 +1,104 @@
 package models;
 
-import strategy.CarReadFile;
-import strategy.ReadFileStrategy;
+//import strategy.CarReadFile;
+//import strategy.ReadFileStrategy;
+
+import exceptions.ValidateException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 public class Car {
-    private final int power;
-    private final String model;
-    private final int year;
+	private final int power;
+	private final String model;
+	private final int year;
 
-    private static final ReadFileStrategy readFileStrategy = new CarReadFile();
-    static String[] models = {"Lada Granta", "Kia Rio", "Toyota Camry","Ford Mustang","Honda Civic","Tesla Model S",
-            "BMW X5","Mercedes-Benz E-Class","Subaru Outback","Jeep Wrangler","Audi Q7","Nissan Altima",
-            "Volkswagen Golf","Porsche 911","Kia Sorento","Dodge Charger","Cadillac Escalade","Lexus RX"};
-    Car(Builder builder) {
-        this.power = builder.power;
-        this.model = builder.model;
-        this.year = builder.year;
-    }
+//		private static final ReadFileStrategy readFileStrategy = new CarReadFile();
+	static String[] models = {"Lada Granta", "Kia Rio", "Toyota Camry", "Ford Mustang", "Honda Civic", "Tesla Model S",
+			"BMW X5", "Mercedes-Benz E-Class", "Subaru Outback", "Jeep Wrangler", "Audi Q7", "Nissan Altima",
+			"Volkswagen Golf", "Porsche 911", "Kia Sorento", "Dodge Charger", "Cadillac Escalade", "Lexus RX"};
 
-    public int getPower() {
-        return power;
-    }
+	Car(Builder builder) {
+		this.power = builder.power;
+		this.model = builder.model;
+		this.year = builder.year;
+	}
 
-    public String getModel() {
-        return model;
-    }
+	public int getPower() {
+		return power;
+	}
 
-    public int getYear() {
-        return year;
-    }
+	public String getModel() {
+		return model;
+	}
 
-    @Override
-    public String toString() {
-        return "Power: " + this.power + " | Model: " + this.model + " | Year: " + this.year;
-    }
+	public int getYear() {
+		return year;
+	}
 
-    public static class Builder {
-        private int power;
-        private String model;
-        private int year;
+	@Override
+	public String toString() {
+		return "Power: " + this.power + " | Model: " + this.model + " | Year: " + this.year;
+	}
 
-        public Builder power(int power) {
-            this.power = power;
-            return this;
-        }
+	public static class Builder {
+		private int power;
+		private String model;
+		private int year;
 
-        public Builder model(String model) {
-            this.model = model;
-            return this;
-        }
+		public Builder power(int power) {
+			if (power > 0 && power <= 1000) {
+				this.power = power;
+			} else {
+				throw new ValidateException("Ошибка валидации");
+			}
+			return this;
+		}
 
-        public Builder year(int year) {
-            this.year = year;
-            return this;
-        }
+		public Builder model(String model) {
+			if (!model.isEmpty() && !model.matches("-?\\d+")) {
+				this.model = model;
+			} else {
+				throw new ValidateException("Ошибка валидации");
+			}
+			return this;
+		}
 
-        public Car build() {
-            return new Car(this);
-        }
-    }
+		public Builder year(int year) {
+			if (year > 0 && year <= 2024) {
+				this.year = year;
+			} else {
+				throw new ValidateException("Ошибка валидации");
+			}
+			return this;
+		}
 
-    public static ArrayList<Car> createObjects(int length){
-        ArrayList<Car> carList = new ArrayList<>();
+		public Car build() {
+			return new Car(this);
+		}
+	}
 
-        for (int i = 0; i < length; i++){
-            carList.add(new Car.Builder().power(randomPower()).model(randomModel()).year(randomYear()).build());
-        }
-        return carList;
-    }
+	public static ArrayList<Car> createObjects(int length) {
+		ArrayList<Car> carList = new ArrayList<>();
 
-    static Random random = new Random();
+		for (int i = 0; i < length; i++) {
+			carList.add(new Car.Builder().power(randomPower()).model(randomModel()).year(randomYear()).build());
+		}
+		return carList;
+	}
 
-    private static int randomYear() {
-        return random.nextInt(1990,2024);
-    }
+	static Random random = new Random();
 
-    private static int randomPower() {
-        return random.nextInt(1,1000);
-    }
+	private static int randomYear() {
+		return random.nextInt(1990, 2024);
+	}
 
-    private static String randomModel() {
-        return models[random.nextInt(1,models.length)];
-    }
+	private static int randomPower() {
+		return random.nextInt(1, 1000);
+	}
+
+	private static String randomModel() {
+		return models[random.nextInt(1, models.length)];
+	}
 }
