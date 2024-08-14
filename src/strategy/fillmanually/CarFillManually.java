@@ -12,40 +12,37 @@ public class CarFillManually implements FillManuallyStrategy {
 		boolean status = false;
 		Scanner scanner = new Scanner(System.in);
 		String line;
+		int power;
 
 		while (!status) {
-			try {
-				System.out.print("Введите количество лошадей: ");
-				line = scanner.next();
-				int power = Integer.parseInt(line);
+			System.out.print("Введите количество лошадей: ");
+			line = scanner.nextLine();
+			if (line.matches("^[0-9]+$")) {
+				power = Integer.parseInt(line);
 				carBuilder.power(power);
 				status = true;
-			} catch (ValidateException e) {
+			} else {
 				System.out.println("Неверные данные");
 			}
 		}
 		status = false;
 
 		while (!status) {
-			try {
-				System.out.print("Введите название машины: ");
-				line = scanner.next();
-				carBuilder.model(line);
-				status = true;
-			} catch (ValidateException e) {
-				System.out.println("Неверные данные");
-			}
+			System.out.print("Введите название машины: ");
+			line = scanner.nextLine();
+			carBuilder.model(line);
+			status = true;
 		}
 		status = false;
 
 		while (!status) {
-			try {
-				System.out.print("Введите год выпуска: ");
-				line = scanner.next();
+			System.out.print("Введите год выпуска: ");
+			line = scanner.next();
+			if(line.matches("^[0-9]+$")) {
 				int year = Integer.parseInt(line);
 				carBuilder.year(year);
 				status = true;
-			} catch (ValidateException e) {
+			}else {
 				System.out.println("Неверные данные");
 			}
 		}
