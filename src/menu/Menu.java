@@ -1,12 +1,20 @@
 package menu;
 
-import models.*;
+import models.Book;
+import models.Car;
+import models.RootCrop;
 import search.BinarySearch;
 import sort.MergeSort;
 import sort.MergeSortEvenOdd;
 import sort.SortingContext;
-import strategy.fillmanually.*;
-import strategy.readfile.*;
+import strategy.fillmanually.BookFillManually;
+import strategy.fillmanually.CarFillManually;
+import strategy.fillmanually.FillManuallyContext;
+import strategy.fillmanually.RootCropFillManually;
+import strategy.readfile.BookReadFile;
+import strategy.readfile.CarReadFile;
+import strategy.readfile.ReadFileContext;
+import strategy.readfile.RootCropReadFile;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -80,7 +88,8 @@ public class Menu {
         Message.goodbye(dashLine);
         scanner.close();
     }
-// Выбор класса для заполнения
+
+    // Выбор класса для заполнения
     private String classOptions(String messageInvalidCommand, String dashLine) {
         String input = scanner.next();
 
@@ -218,31 +227,13 @@ public class Menu {
                 input = MergeSort.mergeSortArr(className, scanner, sortingContext, cars, books, rootCrops, messageInvalidCommand, dashLine);
                 return input;
             case "2":
-                System.out.println(dashLine);
-                System.out.println("- Вы хотите сделать четную или нечетную сортировку?");
-                System.out.println("1 - Четную");
-                System.out.println("2 - Нечетную");
-                System.out.println("0 = Выход");
-                System.out.println(dashLine);
-
-                input = scanner.next();
-
-                switch (input) {
-                    case "1":
-                        MergeSortEvenOdd.setIsEven(true);
-                        break;
-                    case "2":
-                        MergeSortEvenOdd.setIsEven(false);
-                        break;
-                    case "0":
-                        input = "0";
-                        return input;
-                    default:
-                        System.out.println(messageInvalidCommand);
-                        return input;
-                }
-
-                MergeSortEvenOdd.mergeSortedArrEvenOdd(MergeSortEvenOdd.getIsEven(), className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
+                MergeSortEvenOdd.setIsEven(true);
+                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
+                input = "0";
+                return input;
+            case "3":
+                MergeSortEvenOdd.setIsEven(false);
+                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
                 input = "0";
                 return input;
             case "0":

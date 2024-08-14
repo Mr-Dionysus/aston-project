@@ -18,7 +18,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
             Message.emptyString(dashLine);
             return null;
         }
-
+       
         switch (className) {
             case "car", "book", "rootcrop":
                 BinarySearch.searchResultObject(searchParam, sortBy, list, dashLine);

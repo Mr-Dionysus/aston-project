@@ -1,7 +1,5 @@
 package models;
 
-import exceptions.ValidateException;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -42,29 +40,32 @@ public class RootCrop {
         private String color;
 
         public Builder type(String type) {
-            if (!type.isEmpty() && !type.matches("-?\\d+")) {
-                this.type = type;
-            } else {
-                throw new ValidateException("Ошибка валидации");
-            }
+            //            if (!type.isEmpty() && !type.matches("-?\\d+")) {
+            //                this.type = type;
+            //            } else {
+            //                throw new ValidateException("Ошибка валидации");
+            //            }
+            this.type = type;
             return this;
         }
 
         public Builder weight(Double weight) {
-            if (weight > 0.0 && weight <= 1000.0) {
-                this.weight = weight;
-            } else {
-                throw new ValidateException("Ошибка валидации");
-            }
+            //            if (weight > 0.0 && weight <= 1000.0) {
+            //                this.weight = weight;
+            //            } else {
+            //                throw new ValidateException("Ошибка валидации");
+            //            }
+            this.weight = weight;
             return this;
         }
 
         public Builder color(String color) {
-            if (!color.isEmpty() && !color.matches("-?\\d+")) {
-                this.color = color;
-            } else {
-                throw new ValidateException("Ошибка валидации");
-            }
+            //            if (!color.isEmpty() && !color.matches("-?\\d+")) {
+            //                this.color = color;
+            //            } else {
+            //                throw new ValidateException("Ошибка валидации");
+            //            }
+            this.color = color;
             return this;
         }
 
