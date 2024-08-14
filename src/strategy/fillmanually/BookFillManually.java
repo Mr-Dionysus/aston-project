@@ -11,42 +11,33 @@ public class BookFillManually implements FillManuallyStrategy {
         Book.Builder bookBuilder = new Book.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
-        String line;
+        String input;
+        int pages;
 
         while (!status) {
-            try {
-                System.out.print("Введите автора книги: ");
-                line = scanner.next();
-                bookBuilder.author(line);
-                status = true;
-            } catch (ValidateException e) {
-                System.out.println("Неверные данные");
-            }
+            System.out.print("Введите автора книги: ");
+            input = scanner.next();
+            bookBuilder.author(input);
+            status = true;
         }
         status = false;
 
         while (!status) {
-            try {
-                System.out.print("Введите название книги: ");
-                line = scanner.next();
-                bookBuilder.name(line);
-                status = true;
-            } catch (ValidateException e) {
-                System.out.println("Неверные данные");
-            }
+            System.out.print("Введите название книги: ");
+            input = scanner.next();
+            bookBuilder.name(input);
+            status = true;
         }
         status = false;
 
         while (!status) {
-            try {
-                System.out.print("Введите количество страниц в книге от 1 до 1000: ");
-                line = scanner.next();
-                int pages = Integer.parseInt(line);
+            System.out.print("Введите количество страниц в книге от 1 до 1000: ");
+            input = scanner.next();
+            if (input.matches("^[0-9]+$") && Integer.parseInt(input) > 0 && Integer.parseInt(input) <=1000) {
+                pages = Integer.parseInt(input);
                 bookBuilder.pages(pages);
                 status = true;
-            } catch (ValidateException | NumberFormatException e) {
-                System.out.println("Неверные данные");
-            }
+            }else {System.out.println("Неверные данные");}
         }
 
         return (T) bookBuilder.build();
