@@ -13,6 +13,7 @@ public class CarFillManually implements FillManuallyStrategy {
 		Scanner scanner = new Scanner(System.in);
 		String line;
 		int power;
+		int year;
 
 		while (!status) {
 			System.out.print("Введите количество лошадей: ");
@@ -39,7 +40,7 @@ public class CarFillManually implements FillManuallyStrategy {
 			System.out.print("Введите год выпуска: ");
 			line = scanner.next();
 			if(line.matches("^[0-9]+$")) {
-				int year = Integer.parseInt(line);
+				year = Integer.parseInt(line);
 				carBuilder.year(year);
 				status = true;
 			}else {
