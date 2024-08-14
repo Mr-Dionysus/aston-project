@@ -6,50 +6,48 @@ import models.Car;
 import java.util.Scanner;
 
 public class CarFillManually implements FillManuallyStrategy {
-    @Override
-    public <T> T fillManually(String dashLine) {
-        Car.Builder carBuilder = new Car.Builder();
-        boolean status = false;
-        Scanner scanner = new Scanner(System.in);
-        String line;
+	@Override
+	public <T> T fillManually() {
+		Car.Builder carBuilder = new Car.Builder();
+		boolean status = false;
+		Scanner scanner = new Scanner(System.in);
+		String line;
+		int power;
+		int year;
 
-        while (!status) {
-            try {
-                System.out.print("Введите количество лошадей: ");
-                line = scanner.next();
-                int power = Integer.parseInt(line);
-                carBuilder.power(power);
-                status = true;
-            } catch (ValidateException e) {
-                System.out.println("Неверные данные");
-            }
-        }
-        status = false;
+		while (!status) {
+			System.out.print("Введите количество лошадей: ");
+			line = scanner.nextLine();
+			if (line.matches("^[0-9]+$")) {
+				power = Integer.parseInt(line);
+				carBuilder.power(power);
+				status = true;
+			} else {
+				System.out.println("Неверные данные");
+			}
+		}
+		status = false;
 
-        while (!status) {
-            try {
-                System.out.print("Введите название машины: ");
-                line = scanner.next();
-                carBuilder.model(line);
-                status = true;
-            } catch (ValidateException e) {
-                System.out.println("Неверные данные");
-            }
-        }
-        status = false;
+		while (!status) {
+			System.out.print("Введите название машины: ");
+			line = scanner.nextLine();
+			carBuilder.model(line);
+			status = true;
+		}
+		status = false;
 
-        while (!status) {
-            try {
-                System.out.print("Введите год выпуска: ");
-                line = scanner.next();
-                int year = Integer.parseInt(line);
-                carBuilder.year(year);
-                status = true;
-            } catch (ValidateException e) {
-                System.out.println("Неверные данные");
-            }
-        }
+		while (!status) {
+			System.out.print("Введите год выпуска: ");
+			line = scanner.next();
+			if(line.matches("^[0-9]+$")) {
+				year = Integer.parseInt(line);
+				carBuilder.year(year);
+				status = true;
+			}else {
+				System.out.println("Неверные данные");
+			}
+		}
 
-        return (T) carBuilder.build();
-    }
+		return (T) carBuilder.build();
+	}
 }
