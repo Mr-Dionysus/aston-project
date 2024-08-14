@@ -20,7 +20,7 @@ public class RootCrop {
     }
 
     public String getType() {
-        return type;
+        return type.toLowerCase();
     }
 
     public double getWeight() {
@@ -28,7 +28,7 @@ public class RootCrop {
     }
 
     public String getColor() {
-        return color;
+        return color.toLowerCase();
     }
 
     @Override

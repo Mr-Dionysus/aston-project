@@ -24,11 +24,11 @@ public class Book {
     }
 
     public String getAuthor() {
-        return author;
+        return author.toLowerCase();
     }
 
     public String getName() {
-        return name;
+        return name.toLowerCase();
     }
 
     public int getPages() {

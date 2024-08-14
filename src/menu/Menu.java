@@ -26,13 +26,12 @@ public class Menu {
     ArrayList list = new ArrayList();
 
     public void start() {
-        System.out.println(MergeSortEvenOdd.getIsEven());
         String input = "";
         String dashLine = "-------------------------------------------------------------------------------";
         String messageInvalidCommand = dashLine + "\n- Введи нормальную команду";
 
-        while (!"0".equals(input)) {
-            // Выбор класса для заполнения
+        while (true) {
+            // Выбор класса объектов
             Message.chooseClassOption(dashLine);
             className = classOptions(messageInvalidCommand, dashLine);
             input = className;
@@ -115,15 +114,15 @@ public class Menu {
 
         switch (input) {
             case "1":
-                list = fillArray(messageInvalidCommand);
+                list = fillArray(messageInvalidCommand, dashLine);
                 return list;
             case "2":
-                inputLength(dashLine);
-                list = fillArrayRand(arrayLength, messageInvalidCommand);
+                inputLength(messageInvalidCommand, dashLine);
+                list = fillArrayRand(arrayLength, messageInvalidCommand, dashLine);
                 return list;
             case "3":
                 // SSV
-                inputLength(dashLine);
+                inputLength(messageInvalidCommand, dashLine);
                 list = fillArrayManually(dashLine);
                 break;
             case "0":
@@ -164,7 +163,7 @@ public class Menu {
         return list;
     }
 
-    private <T> ArrayList<T> fillArray(String messageInvalidCommand) {
+    private <T> ArrayList<T> fillArray(String messageInvalidCommand, String dashLine) {
         ArrayList<T> list = null;
         switch (className) {
             case "book":
@@ -180,25 +179,29 @@ public class Menu {
                 System.out.println(messageInvalidCommand);
         }
         list = readFileContext.executeReadFileStrategy();
+        System.out.println(dashLine);
         list.forEach(System.out::println);
 
         return list;
     }
 
-    private <T> ArrayList<T> fillArrayRand(int arrayLength, String messageInvalidCommand) {
+    private <T> ArrayList<T> fillArrayRand(int arrayLength, String messageInvalidCommand, String dashLine) {
         ArrayList<T> list;
 
         switch (className) {
             case "book":
                 list = (ArrayList<T>) Book.createObjects(arrayLength);
+                System.out.println(dashLine);
                 list.forEach(System.out::println);
                 return list;
             case "car":
                 list = (ArrayList<T>) Car.createObjects(arrayLength);
+                System.out.println(dashLine);
                 list.forEach(System.out::println);
                 return list;
             case "rootcrop":
                 list = (ArrayList<T>) RootCrop.createObjects(arrayLength);
+                System.out.println(dashLine);
                 list.forEach(System.out::println);
                 return list;
             default:
@@ -239,7 +242,7 @@ public class Menu {
                         return input;
                 }
 
-                MergeSort.arrMergeSortEvenOdd(MergeSortEvenOdd.getIsEven(), className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
+                MergeSortEvenOdd.mergeSortedArrEvenOdd(MergeSortEvenOdd.getIsEven(), className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
                 input = "0";
                 return input;
             case "0":
@@ -251,14 +254,12 @@ public class Menu {
         }
     }
 
-    private void inputLength(String dashLine) {
-        System.out.println(dashLine);
-        System.out.println("- Введите количество элементов массива от 1 до 10:");
-        System.out.println(dashLine);
+    private void inputLength(String messageInvalidCommand, String dashLine) {
+        Message.writeArrLength(dashLine);
 
         boolean status = false;
-        int length = 0;
-        String input = "";
+        int length;
+        String input;
 
         while (!status) {
             input = scanner.next();
@@ -266,8 +267,7 @@ public class Menu {
                 length = Integer.parseInt(input);
                 status = setArrayLength(dashLine, length);
             } catch (NumberFormatException e) {
-                System.out.println(dashLine);
-                System.out.println("- Неверный ввод");
+                System.out.println(messageInvalidCommand);
             }
         }
     }
@@ -279,8 +279,7 @@ public class Menu {
             this.arrayLength = arrayLength;
             status = true;
         } else {
-            System.out.println(dashLine);
-            System.out.println("- Число должно располагаться в диапазоне от 1 до 10");
+            Message.wrongArrLength(dashLine);
         }
 
         return status;
@@ -310,12 +309,11 @@ public class Menu {
         switch (doSearch) {
             case "1":
                 Message.writeSearchObject(className, sortBy, dashLine);
-                BinarySearch.searchResultObject(list, sortBy, scanner, messageInvalidCommand, dashLine);
+                BinarySearch.classOptionsForSearch(list, className, sortBy, scanner, messageInvalidCommand, dashLine);
                 break;
             case "0":
                 break;
             default:
-                System.out.println(dashLine);
                 System.out.println(messageInvalidCommand);
                 break;
         }
