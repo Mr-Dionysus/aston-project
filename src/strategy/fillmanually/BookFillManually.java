@@ -16,7 +16,7 @@ public class BookFillManually implements FillManuallyStrategy {
 
         while (!status) {
             System.out.print("Введите автора книги: ");
-            input = scanner.next();
+            input = scanner.nextLine();
             bookBuilder.author(input);
             status = true;
         }
@@ -24,7 +24,7 @@ public class BookFillManually implements FillManuallyStrategy {
 
         while (!status) {
             System.out.print("Введите название книги: ");
-            input = scanner.next();
+            input = scanner.nextLine();
             bookBuilder.name(input);
             status = true;
         }
@@ -32,7 +32,7 @@ public class BookFillManually implements FillManuallyStrategy {
 
         while (!status) {
             System.out.print("Введите количество страниц в книге от 1 до 1000: ");
-            input = scanner.next();
+            input = scanner.nextLine();
             if (input.matches("^[0-9]+$") && Integer.parseInt(input) > 0 && Integer.parseInt(input) <=1000) {
                 pages = Integer.parseInt(input);
                 bookBuilder.pages(pages);

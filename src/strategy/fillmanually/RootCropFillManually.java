@@ -11,42 +11,33 @@ public class RootCropFillManually implements FillManuallyStrategy {
         RootCrop.Builder rootCropBuilder = new RootCrop.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
-        String line;
+        String input;
+        double weight;
 
         while (!status) {
-            try {
                 System.out.print("Введите тип корнеплода: ");
-                line = scanner.next();
-                rootCropBuilder.type(line);
+                input = scanner.nextLine();
+                rootCropBuilder.type(input);
                 status = true;
-            } catch (ValidateException e) {
-                System.out.println("Неверные данные");
-            }
         }
         status = false;
 
         while (!status) {
-            try {
                 System.out.print("Введите вес корнеплода: ");
-                line = scanner.next();
-                double weight = Double.parseDouble(line);
-                rootCropBuilder.weight(weight);
-                status = true;
-            } catch (ValidateException | NumberFormatException e) {
-                System.out.println("Неверные данные");
-            }
+                input = scanner.nextLine();
+                if (input.matches("^[0-9]+(\\.[0-9]*$)?")) {
+                    weight = Double.parseDouble(input);
+                    rootCropBuilder.weight(weight);
+                    status = true;
+                }else{System.out.println("Неверные данные");}
         }
         status = false;
 
         while (!status) {
-            try {
                 System.out.print("Введите цвет корнеплода: ");
-                line = scanner.next();
-                rootCropBuilder.color(line);
+                input = scanner.nextLine();
+                rootCropBuilder.color(input);
                 status = true;
-            } catch (ValidateException e) {
-                System.out.println("Неверные данные");
-            }
         }
 
         return (T) rootCropBuilder.build();
