@@ -28,7 +28,7 @@ public class CarFillManually implements FillManuallyStrategy {
 
 		while (!status) {
 			try {
-				System.out.println("Введите название машины: ");
+				System.out.print("Введите название машины: ");
 				line = scanner.next();
 				carBuilder.model(line);
 				status = true;
@@ -40,7 +40,7 @@ public class CarFillManually implements FillManuallyStrategy {
 
 		while (!status) {
 			try {
-				System.out.println("Введите год выпуска: ");
+				System.out.print("Введите год выпуска: ");
 				line = scanner.next();
 				int year = Integer.parseInt(line);
 				carBuilder.year(year);

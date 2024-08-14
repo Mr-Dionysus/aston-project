@@ -1,20 +1,12 @@
 package menu;
 
-import models.Book;
-import models.Car;
-import models.RootCrop;
+import models.*;
 import search.BinarySearch;
 import sort.MergeSort;
 import sort.MergeSortEvenOdd;
 import sort.SortingContext;
-import strategy.fillmanually.BookFillManually;
-import strategy.fillmanually.CarFillManually;
-import strategy.fillmanually.FillManuallyContext;
-import strategy.fillmanually.RootCropFillManually;
-import strategy.readfile.BookReadFile;
-import strategy.readfile.CarReadFile;
-import strategy.readfile.ReadFileContext;
-import strategy.readfile.RootCropReadFile;
+import strategy.fillmanually.*;
+import strategy.readfile.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;

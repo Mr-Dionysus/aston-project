@@ -15,7 +15,7 @@ public class RootCropFillManually implements FillManuallyStrategy {
 
 		while (!status) {
 			try {
-				System.out.println("Введите тип корнеплода");
+				System.out.print("Введите тип корнеплода: ");
 				line = scanner.next();
 				rootCropBuilder.type(line);
 				status = true;
@@ -27,12 +27,12 @@ public class RootCropFillManually implements FillManuallyStrategy {
 
 		while (!status) {
 			try {
-				System.out.println("Введите вес корнеплода: ");
+				System.out.print("Введите вес корнеплода: ");
 				line = scanner.next();
 				double weight = Double.parseDouble(line);
 				rootCropBuilder.weight(weight);
 				status = true;
-			} catch (ValidateException e) {
+			} catch (ValidateException | NumberFormatException e) {
 				System.out.println("Неверные данные");
 			}
 		}
@@ -40,7 +40,7 @@ public class RootCropFillManually implements FillManuallyStrategy {
 
 		while (!status) {
 			try {
-				System.out.println("Введите цвет корнеплода: ");
+				System.out.print("Введите цвет корнеплода: ");
 				line = scanner.next();
 				rootCropBuilder.color(line);
 				status = true;
