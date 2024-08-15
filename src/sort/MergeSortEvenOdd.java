@@ -15,21 +15,25 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
     private static boolean isEven = true;
     private static String sortType = "";
 
-    public static boolean getIsEven() {
+    public static boolean getEven() {
         return isEven;
     }
 
-    public static void setIsEven(boolean isEven) {
+    public static void setEven(boolean isEven) {
         MergeSortEvenOdd.isEven = isEven;
     }
 
-    public static String getSortType(){ return sortType ;}
+    public static String getSortType() {
+        return sortType;
+    }
 
-    public static void setSortType(String sortType){ MergeSortEvenOdd.sortType = sortType;}
+    public static void setSortType(String sortType) {
+        MergeSortEvenOdd.sortType = sortType;
+    }
 
     @Override
     public void sort(List<T> array, Comparator<? super T> comparator) {
-        sort(array, comparator, MergeSortEvenOdd.getSortType(), MergeSortEvenOdd.getIsEven());
+        sort(array, comparator, MergeSortEvenOdd.getSortType(), MergeSortEvenOdd.getEven());
     }
 
     public void sort(List<T> array, Comparator<? super T> comparator, String type, boolean isEven) {
@@ -180,36 +184,36 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
     }
 
 
-    public static void mergeSortedArrEvenOdd(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, String messageInvalidCommand, String dashLine) {
+    public static void mergeSortedArrEvenOdd(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books) {
         sortingContext.setSortingStrategy(new MergeSortEvenOdd());
 
         switch (className) {
             case "car":
-                Message.chooseSortParamMergeSortEvenOdd(dashLine);
-                switchSortParamsMergeSort(cars, scanner, sortingContext, messageInvalidCommand, dashLine);
+                Message.chooseSortParamMergeSortEvenOdd();
+                switchSortParamsMergeSort(cars, scanner, sortingContext);
                 break;
 
             case "book":
-                Message.sortByEvenOrOddPages(dashLine);
+                Message.sortByEvenOrOddPages();
                 Comparator<Book> bookComparator = Comparator.comparingInt(Book::getPages);
                 sortingContext.performSort(books, bookComparator);
 
-                System.out.println(dashLine);
+                Message.dashLine();
                 books.forEach(System.out::println);
                 break;
 
             case "rootcrop":
-                Message.cantBeEvenOrOdd(dashLine);
+                Message.cantBeEvenOrOdd();
                 break;
 
             default:
-                System.out.println(messageInvalidCommand);
+                Message.invalidCommand();
                 break;
         }
     }
 
-    public static <T> String switchSortParamsMergeSort(ArrayList<T> cars, Scanner scanner, SortingContext sortingContext, String messageInvalidCommand, String dashLine) {
-        String input = scanner.next();
+    public static <T> String switchSortParamsMergeSort(ArrayList<T> cars, Scanner scanner, SortingContext sortingContext) {
+        String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
         Comparator carComparator;
 
         switch (input) {
@@ -223,14 +227,14 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
             case "0":
                 return input;
             default:
-                System.out.println(messageInvalidCommand);
+                Message.invalidCommand();
                 input = "0";
                 return input;
         }
 
         sortingContext.performSort(cars, carComparator);
 
-        System.out.println(dashLine);
+        Message.dashLine();
         cars.forEach(System.out::println);
         return input;
     }

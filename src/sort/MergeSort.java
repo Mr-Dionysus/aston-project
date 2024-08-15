@@ -38,16 +38,16 @@ public class MergeSort<T> implements SortingStrategy<T> {
         }
     }
 
-    public static String mergeSortArr(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, ArrayList rootCrops, String messageInvalidCommand, String dashLine) {
+    public static String mergeSortArr(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, ArrayList rootCrops) {
         Comparator<Car> carComparator;
         Comparator<Book> bookComparator;
         Comparator<RootCrop> rootCropComparator;
 
         switch (className) {
             case "car":
-                Message.carMergeSortOptions(dashLine);
+                Message.carMergeSortOptions();
 
-                String input = scanner.next();
+                String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
 
                 switch (input) {
                     case "1":
@@ -55,7 +55,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         carComparator = Comparator.comparingInt(Car::getPower);
                         sortingContext.performSort(cars, carComparator);
 
-                        System.out.println(dashLine);
+                        Message.dashLine();
                         cars.forEach(System.out::println);
                         input = "power";
                         break;
@@ -64,7 +64,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         carComparator = Comparator.comparing(Car::getModel);
                         sortingContext.performSort(cars, carComparator);
 
-                        System.out.println(dashLine);
+                        Message.dashLine();
                         cars.forEach(System.out::println);
                         input = "model";
                         break;
@@ -73,23 +73,23 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         carComparator = Comparator.comparingInt(Car::getYear);
                         sortingContext.performSort(cars, carComparator);
 
-                        System.out.println(dashLine);
+                        Message.dashLine();
                         cars.forEach(System.out::println);
                         input = "year";
                         break;
                     case "0":
                         break;
                     default:
-                        System.out.println(messageInvalidCommand);
+                        Message.invalidCommand();
                         break;
                 }
 
                 return input;
 
             case "book":
-                Message.bookMergeSortOptions(dashLine);
+                Message.bookMergeSortOptions();
 
-                input = scanner.next();
+                input = scanner.next().replaceAll("[^\\w\\s]|_", "");
 
                 switch (input) {
                     case "1":
@@ -97,7 +97,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         bookComparator = Comparator.comparing(Book::getAuthor);
                         sortingContext.performSort(books, bookComparator);
 
-                        System.out.println(dashLine);
+                        Message.dashLine();
                         books.forEach(System.out::println);
                         input = "author";
                         break;
@@ -106,7 +106,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         bookComparator = Comparator.comparing(Book::getName);
                         sortingContext.performSort(books, bookComparator);
 
-                        System.out.println(dashLine);
+                        Message.dashLine();
                         books.forEach(System.out::println);
                         input = "name";
                         break;
@@ -115,21 +115,21 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         bookComparator = Comparator.comparingInt(Book::getPages);
                         sortingContext.performSort(books, bookComparator);
 
-                        System.out.println(dashLine);
+                        Message.dashLine();
                         books.forEach(System.out::println);
                         input = "pages";
                         break;
                     case "0":
                         break;
                     default:
-                        System.out.println(messageInvalidCommand);
+                        Message.invalidCommand();
                         break;
                 }
 
                 return input;
 
             case "rootcrop":
-                Message.rootCropMergeSortOptions(dashLine);
+                Message.rootCropMergeSortOptions();
 
                 input = scanner.next();
 
@@ -139,7 +139,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         rootCropComparator = Comparator.comparing(RootCrop::getType);
                         sortingContext.performSort(rootCrops, rootCropComparator);
 
-                        System.out.println(dashLine);
+                        Message.dashLine();
                         rootCrops.forEach(System.out::println);
                         input = "type";
                         break;
@@ -148,7 +148,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         rootCropComparator = Comparator.comparingDouble(RootCrop::getWeight);
                         sortingContext.performSort(rootCrops, rootCropComparator);
 
-                        System.out.println(dashLine);
+                        Message.dashLine();
                         rootCrops.forEach(System.out::println);
                         input = "weight";
                         break;
@@ -157,21 +157,21 @@ public class MergeSort<T> implements SortingStrategy<T> {
                         rootCropComparator = Comparator.comparing(RootCrop::getColor);
                         sortingContext.performSort(rootCrops, rootCropComparator);
 
-                        System.out.println(dashLine);
+                        Message.dashLine();
                         rootCrops.forEach(System.out::println);
                         input = "color";
                         break;
                     case "0":
                         break;
                     default:
-                        System.out.println(messageInvalidCommand);
+                        Message.invalidCommand();
                         break;
                 }
 
                 return input;
 
             default:
-                System.out.println(messageInvalidCommand);
+                Message.invalidCommand();
                 break;
         }
 

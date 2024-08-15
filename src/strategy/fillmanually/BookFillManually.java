@@ -1,6 +1,8 @@
 package strategy.fillmanually;
 
 import exceptions.ValidateException;
+import exceptions.Validation;
+import menu.Message;
 import models.Book;
 
 import java.util.Scanner;
@@ -12,32 +14,65 @@ public class BookFillManually implements FillManuallyStrategy {
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
         String input;
-        int pages;
 
         while (!status) {
-            System.out.print("Введите автора книги: ");
-            input = scanner.nextLine();
-            bookBuilder.author(input);
-            status = true;
+            try {
+                Message.writeBookAuthor();
+                input = Validation.removeSymbolsNums(scanner.nextLine());
+
+                if (input.isEmpty()) {
+                    Message.emptyString();
+                    return null;
+                } else if (input.equals("stop")) {
+                    return null;
+                }
+
+                bookBuilder.author(input);
+                status = true;
+            } catch (ValidateException e) {
+                Message.invalidCommand();
+            }
         }
         status = false;
 
         while (!status) {
-            System.out.print("Введите название книги: ");
-            input = scanner.nextLine();
-            bookBuilder.name(input);
-            status = true;
+            try {
+                Message.writeBookName();
+                input = Validation.removeSymbols(scanner.nextLine());
+
+                if (input.isEmpty()) {
+                    Message.emptyString();
+                    return null;
+                } else if (input.equals("0")) {
+                    return null;
+                }
+
+                bookBuilder.name(input);
+                status = true;
+            } catch (ValidateException e) {
+                Message.invalidCommand();
+            }
         }
         status = false;
 
         while (!status) {
-            System.out.print("Введите количество страниц в книге от 1 до 1000: ");
-            input = scanner.nextLine();
-            if (input.matches("^[0-9]+$") && Integer.parseInt(input) > 0 && Integer.parseInt(input) <=1000) {
-                pages = Integer.parseInt(input);
+            try {
+                Message.writeBookPages();
+                input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
+                int pages = Validation.bookPages(input);
+
+                if (pages == -1) {
+                    Message.emptyString();
+                    return null;
+                } else if (pages == 0) {
+                    return null;
+                }
+
                 bookBuilder.pages(pages);
                 status = true;
-            }else {System.out.println("Неверные данные");}
+            } catch (ValidateException | NumberFormatException e) {
+                Message.invalidCommand();
+            }
         }
 
         return (T) bookBuilder.build();

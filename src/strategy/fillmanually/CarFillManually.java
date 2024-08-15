@@ -1,53 +1,75 @@
 package strategy.fillmanually;
 
 import exceptions.ValidateException;
+import exceptions.Validation;
+import menu.Message;
 import models.Car;
 
 import java.util.Scanner;
 
-public class CarFillManually<T> implements FillManuallyStrategy {
-	@Override
-	public <T> T fillManually() {
-		Car.Builder carBuilder = new Car.Builder();
-		boolean status = false;
-		Scanner scanner = new Scanner(System.in);
-		String input;
-		int power;
-		int year;
+public class CarFillManually implements FillManuallyStrategy {
+    @Override
+    public <T> T fillManually() {
+        Car.Builder carBuilder = new Car.Builder();
+        boolean status = false;
+        Scanner scanner = new Scanner(System.in);
+        String input;
 
-		while (!status) {
-			System.out.print("Введите количество лошадей: ");
-			input = scanner.nextLine();
-			if (input.matches("^[0-9]+$")) {
-				power = Integer.parseInt(input);
-				carBuilder.power(power);
-				status = true;
-			} else {
-				System.out.println("Неверные данные");
-			}
-		}
-		status = false;
+        while (!status) {
+            try {
+                Message.writeCarPower();
+                input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
+                int power = Validation.carPower(input);
 
-		while (!status) {
-			System.out.print("Введите название машины: ");
-			input = scanner.nextLine();
-			carBuilder.model(input);
-			status = true;
-		}
-		status = false;
+                if (power == -1 || power == 0) {
+                    return null;
+                }
 
-		while (!status) {
-			System.out.print("Введите год выпуска: ");
-			input = scanner.next();
-			if(input.matches("^[0-9]+$")) {
-				year = Integer.parseInt(input);
-				carBuilder.year(year);
-				status = true;
-			}else {
-				System.out.println("Неверные данные");
-			}
-		}
+                carBuilder.power(power);
+                status = true;
+            } catch (ValidateException e) {
+                Message.invalidCommand();
+            }
+        }
+        status = false;
 
-		return (T) carBuilder.build();
-	}
+        while (!status) {
+            try {
+                Message.writeCarModel();
+                input = Validation.removeSymbols(scanner.nextLine());
+
+                if (input.isEmpty()) {
+                    Message.emptyString();
+                    return null;
+                } else if (input.equals("0")) {
+                    return null;
+                }
+
+                carBuilder.model(input);
+                status = true;
+            } catch (ValidateException e) {
+                Message.invalidCommand();
+            }
+        }
+        status = false;
+
+        while (!status) {
+            try {
+                Message.writeCarYear();
+                input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
+                int year = Validation.carYear(input);
+
+                if (year == -1 || year == 0) {
+                    return null;
+                }
+
+                carBuilder.year(year);
+                status = true;
+            } catch (ValidateException e) {
+                Message.invalidCommand();
+            }
+        }
+
+        return (T) carBuilder.build();
+    }
 }

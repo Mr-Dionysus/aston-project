@@ -7,63 +7,26 @@ import models.RootCrop;
 
 import java.util.ArrayList;
 import java.util.Comparator;
-import java.util.Scanner;
 
 public class BinarySearch<T> implements SearchingStrategy<T> {
-    public static <T> T classOptionsForSearch(ArrayList<T> list, String className, String sortBy, Scanner scanner, String messageInvalidCommand, String dashLine) {
-        scanner.nextLine();
-        String searchParam = scanner.nextLine().toLowerCase();
-
-        if (searchParam.isEmpty()) {
-            Message.emptyString(dashLine);
-            return null;
-        }
-       
-        switch (className) {
-            case "car", "book", "rootcrop":
-                BinarySearch.searchResultObject(searchParam, sortBy, list, dashLine);
-                break;
-
-            default:
-                System.out.println(messageInvalidCommand);
-                break;
-        }
-        return null;
-    }
-
-    public static <T> T searchResultObject(String searchParam, String sortBy, ArrayList<T> list, String dashLine) {
-        SearchingContext<T> searchingContext = new SearchingContext<>(new BinarySearch<>());
-        int index = searchingContext.performSearch(sortBy, searchParam, list, dashLine);
-        T searchResult;
-
-        if (index < 0 || index > list.size()) {
-            Message.cantFindObject(dashLine);
-            return null;
-        } else {
-            searchResult = list.get(index);
-            Message.searchResultWithIndex(index, searchResult, dashLine);
-            return searchResult;
-        }
-    }
-
     @Override
-    public int search(String searchType, String searchParam, ArrayList<T> list, String dashLine) {
+    public int search(String searchType, String searchParam, ArrayList<T> list) {
         if (list.isEmpty()) {
             return -1;
         }
         T example = list.getFirst();
 
         if (example instanceof Car) {
-            return searchInCars(searchType, searchParam, (ArrayList<Car>) list, dashLine);
+            return searchInCars(searchType, searchParam, (ArrayList<Car>) list);
         } else if (example instanceof Book) {
-            return searchInBooks(searchType, searchParam, (ArrayList<Book>) list, dashLine);
+            return searchInBooks(searchType, searchParam, (ArrayList<Book>) list);
         } else if (example instanceof RootCrop) {
-            return searchInRootCrops(searchType, searchParam, (ArrayList<RootCrop>) list, dashLine);
+            return searchInRootCrops(searchType, searchParam, (ArrayList<RootCrop>) list);
         }
         return -1;
     }
 
-    private int searchInCars(String searchType, String searchParam, ArrayList<Car> list, String dashLine) {
+    private int searchInCars(String searchType, String searchParam, ArrayList<Car> list) {
         int index;
         Comparator<Car> carComparator;
 
@@ -72,7 +35,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Integer.parseInt(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum(dashLine);
+                    Message.wrongFormatNum();
                     return -1;
                 }
 
@@ -87,7 +50,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Integer.parseInt(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum(dashLine);
+                    Message.wrongFormatNum();
                     return -1;
                 }
 
@@ -99,7 +62,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         }
     }
 
-    private int searchInBooks(String searchType, String searchParam, ArrayList<Book> list, String dashLine) {
+    private int searchInBooks(String searchType, String searchParam, ArrayList<Book> list) {
         int index;
         Comparator<Book> bookComparator;
 
@@ -116,7 +79,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Integer.parseInt(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum(dashLine);
+                    Message.wrongFormatNum();
                     return -1;
                 }
 
@@ -128,7 +91,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         }
     }
 
-    private int searchInRootCrops(String searchType, String searchParam, ArrayList<RootCrop> list, String dashLine) {
+    private int searchInRootCrops(String searchType, String searchParam, ArrayList<RootCrop> list) {
         int index;
         Comparator<RootCrop> rootCropComparator;
 
@@ -141,7 +104,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Double.parseDouble(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum(dashLine);
+                    Message.wrongFormatNum();
                     return -1;
                 }
 
