@@ -54,7 +54,7 @@ public class Menu {
                     MergeSortEvenOdd.setSortType("Year");
                     cars = fillArrOptions();
                     // Закрыть программу если пользователь так решил или ввел неверно первый объект
-                    if (cars == null || cars.getFirst() == null) {
+                    if (cars == null || cars.getFirst() == null && cars.size() == 1) {
                         break outside;
                     } else if (cars.contains(null)) {
                         cars.removeIf(Objects::isNull);
@@ -64,7 +64,7 @@ public class Menu {
                     MergeSortEvenOdd.setSortType("Pages");
                     books = fillArrOptions();
                     // Закрыть программу если пользователь так решил или ввел неверно объект в массиве длиной 1
-                    if (books == null || books.getFirst() == null) {
+                    if (books == null || books.getFirst() == null && books.size() == 1) {
                         break outside;
                     } else if (books.contains(null)) {
                         books.removeIf(Objects::isNull);
@@ -73,7 +73,7 @@ public class Menu {
                 case "rootcrop":
                     rootCrops = fillArrOptions();
                     // Закрыть программу если пользователь так решил или ввел неверно объект в массиве длиной 1
-                    if (rootCrops == null || rootCrops.getFirst() == null) {
+                    if (rootCrops == null || rootCrops.getFirst() == null && rootCrops.size() == 1) {
                         break outside;
                     } else if (rootCrops.contains(null)) {
                         rootCrops.removeIf(Objects::isNull);
@@ -187,7 +187,7 @@ public class Menu {
             // Добавить полученный объект в лист
             T newObj = (T) fillManuallyContext.executeFillManually();
 
-            if (newObj == null) {
+            if (newObj == null && arrayLength == 1) {
                 return null;
             }
 
