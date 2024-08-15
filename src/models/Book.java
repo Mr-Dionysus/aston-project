@@ -1,17 +1,9 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class Book {
     private final String author;
     private final String name;
     private final int pages;
-
-    // Данные для случайной генерации объекта
-    static String[] authors = {"Лев Толстой", "Фёдор Достоевский", "Михаил Булгаков", "Эрнест Хемингуэй", "Стивен Кинг", "Антуан де Сент-Экзюпери", "Александр Дюма", "Артур Конан Дойл", "Агата Кристи", "Фрэнсис Скотт Фицджеральд"};
-
-    static String[] names = {"Война и мир", "Анна Каренина", "Преступление и наказание", "Идиот", "Мастер и Маргарита", "Белая гвардия", "Старик и море", "Смешарики2", "Сияние", "Оно", "Маленький принц", "Планета людей", "Три мушкетёра", "Колобок", "Собака Баскервилей", "Десять негритят", "Ночь нежна"};
 
     Book(Builder builder) {
         this.author = builder.author;
@@ -30,7 +22,6 @@ public class Book {
     public int getPages() {
         return pages;
     }
-
 
     @Override
     public String toString() {
@@ -60,30 +51,5 @@ public class Book {
         public Book build() {
             return new Book(this);
         }
-    }
-
-    // Создание случайной книги
-    public static ArrayList<Book> createObjects(int length) {
-        ArrayList<Book> bookList = new ArrayList<>();
-
-        for (int i = 0; i < length; i++) {
-            bookList.add(new Book.Builder().author(randomAuthor()).name(randomName()).pages(randomPages()).build());
-        }
-
-        return bookList;
-    }
-
-    static Random random = new Random();
-
-    private static String randomAuthor() {
-        return authors[random.nextInt(1, authors.length)];
-    }
-
-    private static String randomName() {
-        return names[random.nextInt(1, names.length)];
-    }
-
-    private static int randomPages() {
-        return random.nextInt(1, 500);
     }
 }

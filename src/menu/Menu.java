@@ -1,20 +1,11 @@
 package menu;
 
-import fillArr.manually.BookFillManually;
-import fillArr.manually.CarFillManually;
-import fillArr.manually.FillManuallyContext;
-import fillArr.manually.RootCropFillManually;
-import fillArr.readFile.BookReadFile;
-import fillArr.readFile.CarReadFile;
-import fillArr.readFile.ReadFileContext;
-import fillArr.readFile.RootCropReadFile;
-import models.Book;
-import models.Car;
-import models.RootCrop;
+import fillArr.manually.*;
+import fillArr.random.*;
+import fillArr.readFile.*;
+import models.*;
+import sort.*;
 import search.Search;
-import sort.MergeSort;
-import sort.MergeSortEvenOdd;
-import sort.SortingContext;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -26,6 +17,7 @@ public class Menu {
     private final SortingContext sortingContext = new SortingContext(null);
     private final ReadFileContext readFileContext = new ReadFileContext();
     private final FillManuallyContext fillManuallyContext = new FillManuallyContext();
+    private final FillRandomContext fillRandomContext = new FillRandomContext<>();
     String className = "";
     String sortBy = "";
     ArrayList<Car> cars = new ArrayList<>();
@@ -222,27 +214,25 @@ public class Menu {
     // Заполнение массива случайными значениями
     private <T> ArrayList<T> fillArrayRand(int arrayLength) {
         ArrayList<T> list;
-
         switch (className) {
             case "book":
-                list = (ArrayList<T>) Book.createObjects(arrayLength);
-                Message.dashLine();
-                list.forEach(System.out::println);
-                return list;
+                fillRandomContext.setFillRandomStrategy(new BookFillRandom());
+                break;
             case "car":
-                list = (ArrayList<T>) Car.createObjects(arrayLength);
-                Message.dashLine();
-                list.forEach(System.out::println);
-                return list;
+                fillRandomContext.setFillRandomStrategy(new CarFillRandom());
+                break;
             case "rootcrop":
-                list = (ArrayList<T>) RootCrop.createObjects(arrayLength);
-                Message.dashLine();
-                list.forEach(System.out::println);
-                return list;
+                fillRandomContext.setFillRandomStrategy(new RootCropFillRandom());
+                break;
             default:
                 Err.invalidCommand();
                 return null;
         }
+        list = fillRandomContext.executeFillRandom(arrayLength);
+        Message.dashLine();
+        list.forEach(System.out::println);
+
+        return list;
     }
 
     // Выбор между вариантами сортировок
