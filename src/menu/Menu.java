@@ -1,14 +1,23 @@
 package menu;
 
-import models.*;
-import search.BinarySearch;
+import fillArr.manually.BookFillManually;
+import fillArr.manually.CarFillManually;
+import fillArr.manually.FillManuallyContext;
+import fillArr.manually.RootCropFillManually;
+import fillArr.readFile.BookReadFile;
+import fillArr.readFile.CarReadFile;
+import fillArr.readFile.ReadFileContext;
+import fillArr.readFile.RootCropReadFile;
+import models.Book;
+import models.Car;
+import models.RootCrop;
+import search.Search;
 import sort.MergeSort;
 import sort.MergeSortEvenOdd;
 import sort.SortingContext;
-import strategy.fillmanually.*;
-import strategy.readfile.*;
 
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class Menu {
@@ -19,71 +28,81 @@ public class Menu {
     private final FillManuallyContext fillManuallyContext = new FillManuallyContext();
     String className = "";
     String sortBy = "";
-
     ArrayList<Car> cars = new ArrayList<>();
     ArrayList<Book> books = new ArrayList<>();
     ArrayList<RootCrop> rootCrops = new ArrayList<>();
-    ArrayList list = new ArrayList();
 
     public void start() {
-        System.out.println(MergeSortEvenOdd.getIsEven());
-        String input = "";
-        String dashLine = "-------------------------------------------------------------------------------";
-        String messageInvalidCommand = dashLine + "\n- Введи нормальную команду";
+        String input;
 
-        while (!"0".equals(input)) {
-            // Выбор класса для заполнения
-            Message.chooseClassOption(dashLine);
-            className = classOptions(messageInvalidCommand, dashLine);
+        outside:
+        while (true) {
+            // Выбор класса объектов
+            Message.chooseClassOption();
+            className = classOptions();
             input = className;
-
+            // Выход если пользователь введет 0
             if (input.equals("0")) {
                 break;
             }
             // ----------------------------------------------------
             // Выбор метода заполнения
-            Message.chooseFillArrOption(dashLine);
+            Message.chooseFillArrOption();
 
             switch (className) {
                 case "car":
                     MergeSortEvenOdd.setSortType("Year");
-                    cars = fillArrOptions(messageInvalidCommand, dashLine);
+                    cars = fillArrOptions();
+                    // Закрыть программу если пользователь так решил или ввел неверно первый объект
+                    if (cars == null || cars.getFirst() == null && cars.size() == 1) {
+                        break outside;
+                    } else if (cars.contains(null)) {
+                        cars.removeIf(Objects::isNull);
+                    }
                     break;
                 case "book":
                     MergeSortEvenOdd.setSortType("Pages");
-                    books = fillArrOptions(messageInvalidCommand, dashLine);
+                    books = fillArrOptions();
+                    // Закрыть программу если пользователь так решил или ввел неверно объект в массиве длиной 1
+                    if (books == null || books.getFirst() == null && books.size() == 1) {
+                        break outside;
+                    } else if (books.contains(null)) {
+                        books.removeIf(Objects::isNull);
+                    }
                     break;
                 case "rootcrop":
-                    rootCrops = fillArrOptions(messageInvalidCommand, dashLine);
+                    rootCrops = fillArrOptions();
+                    // Закрыть программу если пользователь так решил или ввел неверно объект в массиве длиной 1
+                    if (rootCrops == null || rootCrops.getFirst() == null && rootCrops.size() == 1) {
+                        break outside;
+                    } else if (rootCrops.contains(null)) {
+                        rootCrops.removeIf(Objects::isNull);
+                    }
                     break;
                 default:
-                    System.out.println(messageInvalidCommand);
+                    Err.invalidCommand();
                     break;
             }
-
-            // Стоп, если пользователь выбрал "0"
-            if (cars == null || books == null || rootCrops == null) {
-                break;
-            }
             // ----------------------------------------------------
-            //Выбор метода сортировки
-            Message.chooseSortOption(dashLine);
-            sortBy = sortOptions(messageInvalidCommand, dashLine);
+            // Выбор метода сортировки
+            Message.chooseSortOption();
+            sortBy = sortOptions();
 
             if (sortBy.equals("0")) {
                 continue;
             }
-
-            Message.chooseYouWantSomeSearch(dashLine);
-            switchClassForSearch(messageInvalidCommand, dashLine);
+            // Выбор, искать объект или нет
+            Message.chooseYouWantSomeSearch();
+            Search.switchClassForSearch(scanner, className, sortBy, cars, books, rootCrops);
         }
-
-        Message.goodbye(dashLine);
+        // Счастливо
+        Message.goodbye();
         scanner.close();
     }
-// Выбор класса для заполнения
-    private String classOptions(String messageInvalidCommand, String dashLine) {
-        String input = scanner.next();
+
+    // Выбор класса для заполнения
+    private String classOptions() {
+        String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
 
         switch (input) {
             case "1":
@@ -96,48 +115,52 @@ public class Menu {
                 input = "rootcrop";
                 break;
             case "9":
-                Message.shameOnYou(dashLine);
-                break;
+                Message.shameOnYou();
+                return "0";
             case "0":
                 input = "0";
                 break;
             default:
-                System.out.println(messageInvalidCommand);
-                break;
+                Err.invalidCommand();
+                return "0";
         }
 
         return input;
     }
 
-    private <T> ArrayList<T> fillArrOptions(String messageInvalidCommand, String dashLine) {
+    private <T> ArrayList<T> fillArrOptions() {
         ArrayList<T> list = null;
-        String input = scanner.next();
+        String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
 
         switch (input) {
+            // Заполнить массив через файл
             case "1":
-                list = fillArray(messageInvalidCommand);
+                list = fillArray();
                 return list;
+            // Заполнить массив случайным образом
             case "2":
-                inputLength(dashLine);
-                list = fillArrayRand(arrayLength, messageInvalidCommand);
+                inputLength();
+                list = fillArrayRand(arrayLength);
                 return list;
+            // Заполнить массив через консоль
             case "3":
-                // SSV
-                inputLength(dashLine);
-                list = fillArrayManually(dashLine);
+                inputLength();
+                list = fillArrayManually();
                 break;
             case "0":
                 break;
             default:
-                System.out.println(messageInvalidCommand);
+                Err.invalidCommand();
                 break;
         }
 
         return list;
     }
 
-    private <T> ArrayList<T> fillArrayManually(String dashLine) {
+    // Ручное заполнение массива
+    private <T> ArrayList<T> fillArrayManually() {
         ArrayList<T> list = new ArrayList<>();
+
         switch (className) {
             case "book":
                 fillManuallyContext.setFillManuallyStrategy(new BookFillManually());
@@ -149,23 +172,33 @@ public class Menu {
                 fillManuallyContext.setFillManuallyStrategy(new RootCropFillManually());
                 break;
         }
+
         for (int i = 1; i <= arrayLength; i++) {
             if (className.equals("book")) {
-                System.out.printf("Заполняем %d книгу\n", i);
+                Message.dashLine();
+                System.out.printf("Заполняем %d книгу...%n", i);
+            } else if (className.equals("car")) {
+                Message.dashLine();
+                System.out.printf("Заполняем %d машину...%n", i);
+            } else if (className.equals("rootcrop")) {
+                Message.dashLine();
+                System.out.printf("Заполняем %d корнеплод...%n", i);
             }
-            if (className.equals("car")) {
-                System.out.printf("Заполняем %d машину\n", i);
+            // Добавить полученный объект в лист
+            T newObj = (T) fillManuallyContext.executeFillManually();
+
+            if (newObj == null && arrayLength == 1) {
+                return null;
             }
-            if (className.equals("rootcrop")) {
-                System.out.printf("Заполняем %d корнеплод\n", i);
-            }
-            list.add((T) fillManuallyContext.executeFillManually());
+
+            list.add(newObj);
         }
         return list;
     }
 
-    private <T> ArrayList<T> fillArray(String messageInvalidCommand) {
-        ArrayList<T> list = null;
+    // Чтение объектов из файла
+    private <T> ArrayList<T> fillArray() {
+        ArrayList<T> list;
         switch (className) {
             case "book":
                 readFileContext.setReadFileStrategy(new BookReadFile());
@@ -177,149 +210,101 @@ public class Menu {
                 readFileContext.setReadFileStrategy(new RootCropReadFile());
                 break;
             default:
-                System.out.println(messageInvalidCommand);
-        }
-        list = readFileContext.executeReadFileStrategy();
-        if (list != null) {
-            list.forEach(System.out::println);
+                Err.invalidCommand();
         }
 
+        list = readFileContext.executeReadFileStrategy();
+        Message.dashLine();
+        list.forEach(System.out::println);
         return list;
     }
 
-    private <T> ArrayList<T> fillArrayRand(int arrayLength, String messageInvalidCommand) {
+    // Заполнение массива случайными значениями
+    private <T> ArrayList<T> fillArrayRand(int arrayLength) {
         ArrayList<T> list;
 
         switch (className) {
             case "book":
                 list = (ArrayList<T>) Book.createObjects(arrayLength);
+                Message.dashLine();
                 list.forEach(System.out::println);
                 return list;
             case "car":
                 list = (ArrayList<T>) Car.createObjects(arrayLength);
+                Message.dashLine();
                 list.forEach(System.out::println);
                 return list;
             case "rootcrop":
                 list = (ArrayList<T>) RootCrop.createObjects(arrayLength);
+                Message.dashLine();
                 list.forEach(System.out::println);
                 return list;
             default:
-                System.out.println(messageInvalidCommand);
+                Err.invalidCommand();
                 return null;
         }
     }
 
-    private String sortOptions(String messageInvalidCommand, String dashLine) {
+    // Выбор между вариантами сортировок
+    private String sortOptions() {
         String input = scanner.next();
 
         switch (input) {
+            // Запуск обычного MergeSort
             case "1":
-                input = MergeSort.mergeSortArr(className, scanner, sortingContext, cars, books, rootCrops, messageInvalidCommand, dashLine);
+                input = MergeSort.mergeSortArr(className, scanner, sortingContext, cars, books, rootCrops);
                 return input;
+            // Запуск четного MergeSort
             case "2":
-                System.out.println(dashLine);
-                System.out.println("- Вы хотите сделать четную или нечетную сортировку?");
-                System.out.println("1 - Четную");
-                System.out.println("2 - Нечетную");
-                System.out.println("0 = Выход");
-                System.out.println(dashLine);
-
-                input = scanner.next();
-
-                switch (input) {
-                    case "1":
-                        MergeSortEvenOdd.setIsEven(true);
-                        break;
-                    case "2":
-                        MergeSortEvenOdd.setIsEven(false);
-                        break;
-                    case "0":
-                        input = "0";
-                        return input;
-                    default:
-                        System.out.println(messageInvalidCommand);
-                        return input;
-                }
-
-                MergeSort.arrMergeSortEvenOdd(MergeSortEvenOdd.getIsEven(), className, scanner, sortingContext, cars, books, messageInvalidCommand, dashLine);
+                MergeSortEvenOdd.setEven(true);
+                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books);
+                input = "0";
+                return input;
+            // Запуск нечетного MergeSort
+            case "3":
+                MergeSortEvenOdd.setEven(false);
+                MergeSortEvenOdd.mergeSortedArrEvenOdd(className, scanner, sortingContext, cars, books);
                 input = "0";
                 return input;
             case "0":
                 return input;
             default:
-                System.out.println(messageInvalidCommand);
+                Err.invalidCommand();
                 input = "0";
                 return input;
         }
     }
 
-    private void inputLength(String dashLine) {
-        System.out.println(dashLine);
-        System.out.println("- Введите количество элементов массива от 1 до 10:");
-        System.out.println(dashLine);
-
+    // Получение длины массива
+    private void inputLength() {
+        Message.writeArrLength();
         boolean status = false;
-        int length = 0;
-        String input = "";
+        int length;
+        String input;
 
         while (!status) {
             input = scanner.next();
+
             try {
                 length = Integer.parseInt(input);
-                status = setArrayLength(dashLine, length);
+                status = setArrayLength(length);
             } catch (NumberFormatException e) {
-                System.out.println(dashLine);
-                System.out.println("- Неверный ввод");
+                Err.wrongArrLength();
             }
         }
     }
 
-    private boolean setArrayLength(String dashLine, int arrayLength) {
+    // Установка длины массива
+    private boolean setArrayLength(int arrayLength) {
         boolean status = false;
 
         if (0 < arrayLength && arrayLength <= 10) {
             this.arrayLength = arrayLength;
             status = true;
         } else {
-            System.out.println(dashLine);
-            System.out.println("- Число должно располагаться в диапазоне от 1 до 10");
+            Err.wrongArrLength();
         }
 
         return status;
-    }
-
-    private void switchClassForSearch(String messageInvalidCommand, String dashLine) {
-        switch (className) {
-            case "car":
-                youWantSomeSearch(cars, sortBy, messageInvalidCommand, dashLine);
-                break;
-            case "book":
-                youWantSomeSearch(books, sortBy, messageInvalidCommand, dashLine);
-                break;
-            case "rootcrop":
-                youWantSomeSearch(rootCrops, sortBy, messageInvalidCommand, dashLine);
-                break;
-            default:
-                System.out.println(messageInvalidCommand);
-                break;
-        }
-    }
-
-    private <T> void youWantSomeSearch(ArrayList<T> list, String sortBy, String messageInvalidCommand, String dashLine) {
-        String doSearch = scanner.next();
-        list.forEach(System.out::println);
-
-        switch (doSearch) {
-            case "1":
-                Message.writeSearchObject(className, sortBy, dashLine);
-                BinarySearch.searchResultObject(list, sortBy, scanner, messageInvalidCommand, dashLine);
-                break;
-            case "0":
-                break;
-            default:
-                System.out.println(dashLine);
-                System.out.println(messageInvalidCommand);
-                break;
-        }
     }
 }

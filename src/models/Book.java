@@ -3,19 +3,15 @@ package models;
 import java.util.ArrayList;
 import java.util.Random;
 
-import exceptions.ValidateException;
-
 public class Book {
     private final String author;
     private final String name;
     private final int pages;
 
-    static String[] authors = {"Лев Толстой", "Фёдор Достоевский", "Михаил Булгаков", "Эрнест Хемингуэй", "Стивен Кинг",
-            "Антуан де Сент-Экзюпери", "Александр Дюма", "Артур Конан Дойл", "Агата Кристи", "Фрэнсис Скотт Фицджеральд"};
+    // Данные для случайной генерации объекта
+    static String[] authors = {"Лев Толстой", "Фёдор Достоевский", "Михаил Булгаков", "Эрнест Хемингуэй", "Стивен Кинг", "Антуан де Сент-Экзюпери", "Александр Дюма", "Артур Конан Дойл", "Агата Кристи", "Фрэнсис Скотт Фицджеральд"};
 
-    static String[] names = {"Война и мир", "Анна Каренина", "Преступление и наказание", "Идиот", "Мастер и Маргарита",
-            "Белая гвардия", "Старик и море", "Смешарики2", "Сияние", "Оно", "Маленький принц", "Планета людей",
-            "Три мушкетёра", "Колобок", "Собака Баскервилей", "Десять негритят", "Ночь нежна"};
+    static String[] names = {"Война и мир", "Анна Каренина", "Преступление и наказание", "Идиот", "Мастер и Маргарита", "Белая гвардия", "Старик и море", "Смешарики2", "Сияние", "Оно", "Маленький принц", "Планета людей", "Три мушкетёра", "Колобок", "Собака Баскервилей", "Десять негритят", "Ночь нежна"};
 
     Book(Builder builder) {
         this.author = builder.author;
@@ -24,11 +20,11 @@ public class Book {
     }
 
     public String getAuthor() {
-        return author;
+        return author.toLowerCase();
     }
 
     public String getName() {
-        return name;
+        return name.toLowerCase();
     }
 
     public int getPages() {
@@ -47,37 +43,26 @@ public class Book {
         private int pages;
 
         public Builder author(String author) {
-            if (!author.isEmpty() && !author.matches("-?\\d+")) {
-                this.author = author;
-            } else {
-                throw new ValidateException("Ошибка валидации");
-            }
+            this.author = author;
             return this;
         }
 
         public Builder name(String name) {
-            if (!name.isEmpty() && !name.matches("-?\\d+")) {
-                this.name = name;
-            } else {
-                throw new ValidateException("Ошибка валидации");
-            }
+            this.name = name;
             return this;
         }
 
         public Builder pages(int pages) {
-            if (0 < pages && pages <= 1000) {
-                this.pages = pages;
-            } else {
-                throw new ValidateException("Ошибка валидации");
-            }
+            this.pages = pages;
             return this;
         }
 
-        public Book build() throws ValidateException {
+        public Book build() {
             return new Book(this);
         }
     }
 
+    // Создание случайной книги
     public static ArrayList<Book> createObjects(int length) {
         ArrayList<Book> bookList = new ArrayList<>();
 

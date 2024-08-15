@@ -1,4 +1,4 @@
-package strategy.fillmanually;
+package fillArr.manually;
 
 public class FillManuallyContext<T> {
     private FillManuallyStrategy fillManuallyStrategy;

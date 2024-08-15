@@ -1,4 +1,4 @@
-package strategy.readfile;
+package fillArr.readFile;
 
 import java.util.ArrayList;
 

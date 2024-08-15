@@ -1,7 +1,5 @@
 package models;
 
-import exceptions.ValidateException;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -9,7 +7,7 @@ public class RootCrop {
     private final String type;
     private final double weight;
     private final String color;
-
+    // Данные для случайной генерации
     static String[] types = {"Turnip", "Carrot", "Beet", "Radish", "Cabbage", "Potato"};
     static String[] colors = {"yellow", "red", "green", "brown"};
 
@@ -20,7 +18,7 @@ public class RootCrop {
     }
 
     public String getType() {
-        return type;
+        return type.toLowerCase();
     }
 
     public double getWeight() {
@@ -28,12 +26,12 @@ public class RootCrop {
     }
 
     public String getColor() {
-        return color;
+        return color.toLowerCase();
     }
 
     @Override
     public String toString() {
-        return "Type: " + this.type + " | Weight: " + this.weight + " | Color:  " + this.color;
+        return "Type: " + this.type + " | Weight: " + this.weight + " | Color: " + this.color;
     }
 
     public static class Builder {
@@ -42,29 +40,17 @@ public class RootCrop {
         private String color;
 
         public Builder type(String type) {
-            if (!type.isEmpty() && !type.matches("-?\\d+")) {
-                this.type = type;
-            } else {
-                throw new ValidateException("Ошибка валидации");
-            }
+            this.type = type;
             return this;
         }
 
         public Builder weight(Double weight) {
-            if (weight > 0.0 && weight <= 1000.0) {
-                this.weight = weight;
-            } else {
-                throw new ValidateException("Ошибка валидации");
-            }
+            this.weight = weight;
             return this;
         }
 
         public Builder color(String color) {
-            if (!color.isEmpty() && !color.matches("-?\\d+")) {
-                this.color = color;
-            } else {
-                throw new ValidateException("Ошибка валидации");
-            }
+            this.color = color;
             return this;
         }
 
@@ -73,6 +59,7 @@ public class RootCrop {
         }
     }
 
+    // Случайная генерация корнеплода
     public static ArrayList<RootCrop> createObjects(int length) {
         ArrayList<RootCrop> rootCropList = new ArrayList<>();
 

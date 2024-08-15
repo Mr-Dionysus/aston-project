@@ -1,5 +1,6 @@
 package sort;
 
+import menu.Err;
 import menu.Message;
 import models.Book;
 import models.Car;
@@ -11,6 +12,28 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MergeSort<T> implements SortingStrategy<T> {
+    @Override
+    public void sort(List<T> array, Comparator<? super T> comparator) {
+        // Проверка на минимальное количество элементов в массиве (min 2)
+        if (array.size() <= 1) {
+            return;
+        }
+
+        // Находим середину массива
+        int middle = array.size() / 2;
+        // Выделяем левую часть массива от 0 до середины
+        List<T> left = new ArrayList<>(array.subList(0, middle));
+        // Выделяем правую часть массива от середины до конца
+        List<T> right = new ArrayList<>(array.subList(middle, array.size()));
+
+        // Сортируем левую часть массива
+        sort(left, comparator);
+        // Сортируем правую часть массива
+        sort(right, comparator);
+        //Соединяем части в один массив
+        merge(array, left, right, comparator);
+    }
+
     // Метод для слияние двух отсортированных частей (левой и правой)
     private <T> void merge(List<T> array, List<T> left, List<T> right, Comparator<? super T> comparator) {
 		/* i — текущий индекс в левом массиве left
@@ -38,225 +61,156 @@ public class MergeSort<T> implements SortingStrategy<T> {
         }
     }
 
-    public static String mergeSortArr(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, ArrayList rootCrops, String messageInvalidCommand, String dashLine) {
-        Comparator<Car> carComparator;
-        Comparator<Book> bookComparator;
-        Comparator<RootCrop> rootCropComparator;
-
+    // В зависимости от класса будет выбираться подходящий switch с выбором, по какому полю сортировать
+    public static String mergeSortArr(String className, Scanner scanner, SortingContext sortingContext, ArrayList<Car> cars, ArrayList<Book> books, ArrayList<RootCrop> rootCrops) {
         switch (className) {
+            // Выбор сортировки у Car между power, model и year
             case "car":
-                Message.carMergeSortOptions(dashLine);
-
-                String input = scanner.next();
-
-                switch (input) {
-                    case "1":
-                        sortingContext.setSortingStrategy(new MergeSort());
-                        carComparator = Comparator.comparingInt(Car::getPower);
-                        sortingContext.performSort(cars, carComparator);
-
-                        System.out.println(dashLine);
-                        cars.forEach(System.out::println);
-                        input = "power";
-                        break;
-                    case "2":
-                        sortingContext.setSortingStrategy(new MergeSort());
-                        carComparator = Comparator.comparing(Car::getModel);
-                        sortingContext.performSort(cars, carComparator);
-
-                        System.out.println(dashLine);
-                        cars.forEach(System.out::println);
-                        input = "model";
-                        break;
-                    case "3":
-                        sortingContext.setSortingStrategy(new MergeSort());
-                        carComparator = Comparator.comparingInt(Car::getYear);
-                        sortingContext.performSort(cars, carComparator);
-
-                        System.out.println(dashLine);
-                        cars.forEach(System.out::println);
-                        input = "year";
-                        break;
-                    case "0":
-                        break;
-                    default:
-                        System.out.println(messageInvalidCommand);
-                        break;
-                }
-
+                Message.carMergeSortOptions();
+                String input = carMergeSortOptions(scanner, sortingContext, cars);
                 return input;
-
+            // Выбор сортировки у Book между author, name и pages
             case "book":
-                Message.bookMergeSortOptions(dashLine);
-
-                input = scanner.next();
-
-                switch (input) {
-                    case "1":
-                        sortingContext.setSortingStrategy(new MergeSort());
-                        bookComparator = Comparator.comparing(Book::getAuthor);
-                        sortingContext.performSort(books, bookComparator);
-
-                        System.out.println(dashLine);
-                        books.forEach(System.out::println);
-                        input = "author";
-                        break;
-                    case "2":
-                        sortingContext.setSortingStrategy(new MergeSort());
-                        bookComparator = Comparator.comparing(Book::getName);
-                        sortingContext.performSort(books, bookComparator);
-
-                        System.out.println(dashLine);
-                        books.forEach(System.out::println);
-                        input = "name";
-                        break;
-                    case "3":
-                        sortingContext.setSortingStrategy(new MergeSort());
-                        bookComparator = Comparator.comparingInt(Book::getPages);
-                        sortingContext.performSort(books, bookComparator);
-
-                        System.out.println(dashLine);
-                        books.forEach(System.out::println);
-                        input = "pages";
-                        break;
-                    case "0":
-                        break;
-                    default:
-                        System.out.println(messageInvalidCommand);
-                        break;
-                }
-
+                Message.bookMergeSortOptions();
+                input = bookMergeSortOptions(scanner, sortingContext, books);
                 return input;
-
+            // Выбор сортировки у RootCrop между type, weight и color
             case "rootcrop":
-                Message.rootCropMergeSortOptions(dashLine);
-
-                input = scanner.next();
-
-                switch (input) {
-                    case "1":
-                        sortingContext.setSortingStrategy(new MergeSort());
-                        rootCropComparator = Comparator.comparing(RootCrop::getType);
-                        sortingContext.performSort(rootCrops, rootCropComparator);
-
-                        System.out.println(dashLine);
-                        rootCrops.forEach(System.out::println);
-                        input = "type";
-                        break;
-                    case "2":
-                        sortingContext.setSortingStrategy(new MergeSort());
-                        rootCropComparator = Comparator.comparingDouble(RootCrop::getWeight);
-                        sortingContext.performSort(rootCrops, rootCropComparator);
-
-                        System.out.println(dashLine);
-                        rootCrops.forEach(System.out::println);
-                        input = "weight";
-                        break;
-                    case "3":
-                        sortingContext.setSortingStrategy(new MergeSort());
-                        rootCropComparator = Comparator.comparing(RootCrop::getColor);
-                        sortingContext.performSort(rootCrops, rootCropComparator);
-
-                        System.out.println(dashLine);
-                        rootCrops.forEach(System.out::println);
-                        input = "color";
-                        break;
-                    case "0":
-                        break;
-                    default:
-                        System.out.println(messageInvalidCommand);
-                        break;
-                }
-
+                Message.rootCropMergeSortOptions();
+                input = rootCropMergeSortOptions(scanner, sortingContext, rootCrops);
                 return input;
-
             default:
-                System.out.println(messageInvalidCommand);
+                Err.invalidCommand();
                 break;
         }
 
         return "0";
     }
 
-    public static void arrMergeSortEvenOdd(boolean isEven, String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, String messageInvalidCommand, String dashLine) {
-        Comparator<Car> carComparator;
-        Comparator<Book> bookComparator;
+    // Выбор сортировки у Car между power, model и year
+    public static <T> String carMergeSortOptions(Scanner scanner, SortingContext sortingContext, ArrayList<T> cars) {
 
-        if (isEven) {
-            sortingContext.setSortingStrategy(new MergeSortEvenOdd());
-        } else {
-            //Нечетная сортировка
-            sortingContext.setSortingStrategy(new MergeSortEvenOdd());
+        String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
+
+        switch (input) {
+            case "1":
+                sortingContext.setSortingStrategy(new MergeSort());
+                Comparator carComparator = Comparator.comparingInt(Car::getPower);
+                sortingContext.performSort(cars, carComparator);
+
+                Message.dashLine();
+                cars.forEach(System.out::println);
+                input = "power";
+                break;
+            case "2":
+                sortingContext.setSortingStrategy(new MergeSort());
+                carComparator = Comparator.comparing(Car::getModel);
+                sortingContext.performSort(cars, carComparator);
+
+                Message.dashLine();
+                cars.forEach(System.out::println);
+                input = "model";
+                break;
+            case "3":
+                sortingContext.setSortingStrategy(new MergeSort());
+                carComparator = Comparator.comparingInt(Car::getYear);
+                sortingContext.performSort(cars, carComparator);
+
+                Message.dashLine();
+                cars.forEach(System.out::println);
+                input = "year";
+                break;
+            case "0":
+                break;
+            default:
+                Err.invalidCommand();
+                break;
         }
 
-        switch (className) {
-            case "car":
-                Message.chooseMergeSortEvenOddSortParam(dashLine);
-                String input = scanner.next();
+        return input;
+    }
 
-                switch (input) {
-                    case "1":
-                        MergeSortEvenOdd.setSortType("Power");
-                        carComparator = Comparator.comparingInt(Car::getPower);
-                        sortingContext.performSort(cars, carComparator);
+    // Выбор сортировки у Book между author, name и pages
+    public static <T> String bookMergeSortOptions(Scanner scanner, SortingContext sortingContext, ArrayList<T> books) {
+        String input = scanner.next().replaceAll("[^\\w\\s]|_", "");
 
-                        System.out.println(dashLine);
-                        cars.forEach(System.out::println);
-                        break;
-                    case "2":
-                        carComparator = Comparator.comparingInt(Car::getYear);
-                        sortingContext.performSort(cars, carComparator);
+        switch (input) {
+            case "1":
+                sortingContext.setSortingStrategy(new MergeSort());
+                Comparator bookComparator = Comparator.comparing(Book::getAuthor);
+                sortingContext.performSort(books, bookComparator);
 
-                        System.out.println(dashLine);
-                        cars.forEach(System.out::println);
-                        break;
-                    case "0":
-                        break;
-                    default:
-                        System.out.println(messageInvalidCommand);
-                        break;
-                }
+                Message.dashLine();
+                books.forEach(System.out::println);
+                input = "author";
                 break;
+            case "2":
+                sortingContext.setSortingStrategy(new MergeSort());
+                bookComparator = Comparator.comparing(Book::getName);
+                sortingContext.performSort(books, bookComparator);
 
-            case "book":
+                Message.dashLine();
+                books.forEach(System.out::println);
+                input = "name";
+                break;
+            case "3":
+                sortingContext.setSortingStrategy(new MergeSort());
                 bookComparator = Comparator.comparingInt(Book::getPages);
                 sortingContext.performSort(books, bookComparator);
 
-                System.out.println(dashLine);
+                Message.dashLine();
                 books.forEach(System.out::println);
+                input = "pages";
                 break;
-
-            case "rootcrop":
-                System.out.println(dashLine);
-                System.out.println("- К сожалению, дробные числа, такие, как вес, не могут быть четными или нечетными");
-                System.out.println(dashLine);
+            case "0":
                 break;
-
             default:
-                System.out.println(messageInvalidCommand);
+                Err.invalidCommand();
                 break;
         }
+
+        return input;
     }
 
-    @Override
-    public void sort(List<T> array, Comparator<? super T> comparator) {
-        // Проверка на минимальное количество элементов в массиве (min 2)
-        if (array.size() <= 1) {
-            return;
+    // Выбор сортировки у RootCrop между type, weight и color
+    public static <T> String rootCropMergeSortOptions(Scanner scanner, SortingContext sortingContext, ArrayList<T> rootCrops) {
+
+        String input = scanner.next();
+
+        switch (input) {
+            case "1":
+                sortingContext.setSortingStrategy(new MergeSort());
+                Comparator rootCropComparator = Comparator.comparing(RootCrop::getType);
+                sortingContext.performSort(rootCrops, rootCropComparator);
+
+                Message.dashLine();
+                rootCrops.forEach(System.out::println);
+                input = "type";
+                break;
+            case "2":
+                sortingContext.setSortingStrategy(new MergeSort());
+                rootCropComparator = Comparator.comparingDouble(RootCrop::getWeight);
+                sortingContext.performSort(rootCrops, rootCropComparator);
+
+                Message.dashLine();
+                rootCrops.forEach(System.out::println);
+                input = "weight";
+                break;
+            case "3":
+                sortingContext.setSortingStrategy(new MergeSort());
+                rootCropComparator = Comparator.comparing(RootCrop::getColor);
+                sortingContext.performSort(rootCrops, rootCropComparator);
+
+                Message.dashLine();
+                rootCrops.forEach(System.out::println);
+                input = "color";
+                break;
+            case "0":
+                break;
+            default:
+                Err.invalidCommand();
+                break;
         }
-
-        // Находим середину массива
-        int middle = array.size() / 2;
-        // Выделяем левую часть массива от 0 до середины
-        List<T> left = new ArrayList<>(array.subList(0, middle));
-        // Выделяем правую часть массива от середины до конца
-        List<T> right = new ArrayList<>(array.subList(middle, array.size()));
-
-        // Сортируем левую часть массива
-        sort(left, comparator);
-        // Сортируем правую часть массива
-        sort(right, comparator);
-        //Соединяем части в один массив
-        merge(array, left, right, comparator);
+        return input;
     }
 }
