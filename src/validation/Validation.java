@@ -1,4 +1,4 @@
-package exceptions;
+package validation;
 
 import menu.Message;
 
@@ -7,6 +7,7 @@ public class Validation {
         if (input.isEmpty()) {
             Message.emptyString();
             return -1;
+            // Выход, если ввести 0
         } else if (input.equals("0")) {
             return 0;
         }
@@ -28,6 +29,7 @@ public class Validation {
     public static int carYear(String input) {
         if (input.isEmpty()) {
             return -1;
+            // Выход, если ввести 0
         } else if (input.equals("0")) {
             return 0;
         }
@@ -53,6 +55,7 @@ public class Validation {
     public static int bookPages(String input) {
         if (input.isEmpty()) {
             return -1;
+            // Выход, если ввести 0
         } else if (input.equals("0")) {
             return 0;
         }
@@ -79,10 +82,11 @@ public class Validation {
         if (input.isEmpty()) {
             Message.emptyString();
             return -1;
+            // Выход, если ввести 0
         } else if (input.equals("0")) {
             return 0;
         }
-
+        // Сделать невозможным наличие в строке более 1 точки. Необходимо для дробного числа
         long dots = input.chars().filter(ch -> ch == '.').count();
 
         if (dots > 1) {

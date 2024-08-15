@@ -15,7 +15,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
             return -1;
         }
         T example = list.getFirst();
-
+        // Выбор метода в зависимости от класса первого объекта в листе
         if (example instanceof Car) {
             return searchInCars(searchType, searchParam, (ArrayList<Car>) list);
         } else if (example instanceof Book) {
@@ -26,6 +26,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         return -1;
     }
 
+    // Поиск в машинах в зависимости от имеющегося типа параметра
     private int searchInCars(String searchType, String searchParam, ArrayList<Car> list) {
         int index;
         Comparator<Car> carComparator;
@@ -62,6 +63,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         }
     }
 
+    // Поиск в книгах в зависимости от имеющегося типа параметра
     private int searchInBooks(String searchType, String searchParam, ArrayList<Book> list) {
         int index;
         Comparator<Book> bookComparator;
@@ -91,6 +93,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
         }
     }
 
+    // Поиск в корнеплодах в зависимости от имеющегося типа параметра
     private int searchInRootCrops(String searchType, String searchParam, ArrayList<RootCrop> list) {
         int index;
         Comparator<RootCrop> rootCropComparator;
@@ -122,12 +125,15 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
 
     @SuppressWarnings("ReassignedVariable")
     private static <T> int indexedBinarySearch(ArrayList<? extends T> list, T key, Comparator<? super T> comparator) {
+        // Берется первый и последний индексы
         int low = 0;
         int high = list.size() - 1;
 
         while (low <= high) {
+            // Более быстрое деление на 2 (сдвиг битов вправо)
             int mid = (low + high) >>> 1;
             T midVal = list.get(mid);
+            // Сравнивается midVal (средний объект в листе) и key (переданный объект с дефолтными значениями параметров и одним искомым значением параметра) через переданный компаратор
             int cmp = comparator.compare(midVal, key);
 
             if (cmp < 0)

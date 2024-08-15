@@ -1,5 +1,13 @@
 package menu;
 
+import fillArr.manually.BookFillManually;
+import fillArr.manually.CarFillManually;
+import fillArr.manually.FillManuallyContext;
+import fillArr.manually.RootCropFillManually;
+import fillArr.readFile.BookReadFile;
+import fillArr.readFile.CarReadFile;
+import fillArr.readFile.ReadFileContext;
+import fillArr.readFile.RootCropReadFile;
 import models.Book;
 import models.Car;
 import models.RootCrop;
@@ -7,14 +15,6 @@ import search.Search;
 import sort.MergeSort;
 import sort.MergeSortEvenOdd;
 import sort.SortingContext;
-import strategy.fillmanually.BookFillManually;
-import strategy.fillmanually.CarFillManually;
-import strategy.fillmanually.FillManuallyContext;
-import strategy.fillmanually.RootCropFillManually;
-import strategy.readfile.BookReadFile;
-import strategy.readfile.CarReadFile;
-import strategy.readfile.ReadFileContext;
-import strategy.readfile.RootCropReadFile;
 
 import java.util.ArrayList;
 import java.util.Objects;

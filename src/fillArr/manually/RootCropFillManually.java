@@ -1,23 +1,23 @@
-package strategy.fillmanually;
+package fillArr.manually;
 
-import exceptions.ValidateException;
-import exceptions.Validation;
 import menu.Message;
-import models.Book;
+import models.RootCrop;
+import validation.Validation;
+import validation.ValidationException;
 
 import java.util.Scanner;
 
-public class BookFillManually implements FillManuallyStrategy {
+public class RootCropFillManually implements FillManuallyStrategy {
     @Override
     public <T> T fillManually() {
-        Book.Builder bookBuilder = new Book.Builder();
+        RootCrop.Builder rootCropBuilder = new RootCrop.Builder();
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
         String input;
 
         while (!status) {
             try {
-                Message.writeBookAuthor();
+                Message.writeRootCropType();
                 input = Validation.removeSymbolsNums(scanner.nextLine());
 
                 if (input.isEmpty()) {
@@ -27,9 +27,9 @@ public class BookFillManually implements FillManuallyStrategy {
                     return null;
                 }
 
-                bookBuilder.author(input);
+                rootCropBuilder.type(input);
                 status = true;
-            } catch (ValidateException e) {
+            } catch (ValidationException e) {
                 Message.invalidCommand();
             }
         }
@@ -37,44 +37,41 @@ public class BookFillManually implements FillManuallyStrategy {
 
         while (!status) {
             try {
-                Message.writeBookName();
-                input = Validation.removeSymbols(scanner.nextLine());
+                Message.writeRootCropWeight();
+                input = Validation.removeSymbolsWithoutDotLettersSpaces(scanner.nextLine());
+                double weight = Validation.rootCropWeight(input);
+
+                if (weight == -1 || weight == 0) {
+                    return null;
+                }
+
+                rootCropBuilder.weight(weight);
+                status = true;
+            } catch (ValidationException | NumberFormatException e) {
+                Message.invalidCommand();
+            }
+        }
+        status = false;
+
+        while (!status) {
+            try {
+                Message.writeRootCropColor();
+                input = Validation.removeSymbolsNums(scanner.nextLine());
 
                 if (input.isEmpty()) {
                     Message.emptyString();
                     return null;
-                } else if (input.equals("0")) {
+                } else if (input.equals("stop")) {
                     return null;
                 }
 
-                bookBuilder.name(input);
+                rootCropBuilder.color(input);
                 status = true;
-            } catch (ValidateException e) {
-                Message.invalidCommand();
-            }
-        }
-        status = false;
-
-        while (!status) {
-            try {
-                Message.writeBookPages();
-                input = Validation.removeSymbolsLettersSpaces(scanner.nextLine());
-                int pages = Validation.bookPages(input);
-
-                if (pages == -1) {
-                    Message.emptyString();
-                    return null;
-                } else if (pages == 0) {
-                    return null;
-                }
-
-                bookBuilder.pages(pages);
-                status = true;
-            } catch (ValidateException | NumberFormatException e) {
+            } catch (ValidationException e) {
                 Message.invalidCommand();
             }
         }
 
-        return (T) bookBuilder.build();
+        return (T) rootCropBuilder.build();
     }
 }

@@ -1,9 +1,9 @@
-package strategy.fillmanually;
+package fillArr.manually;
 
-import exceptions.ValidateException;
-import exceptions.Validation;
 import menu.Message;
 import models.Car;
+import validation.Validation;
+import validation.ValidationException;
 
 import java.util.Scanner;
 
@@ -14,7 +14,7 @@ public class CarFillManually implements FillManuallyStrategy {
         boolean status = false;
         Scanner scanner = new Scanner(System.in);
         String input;
-
+        // Ввод мощности
         while (!status) {
             try {
                 Message.writeCarPower();
@@ -27,12 +27,13 @@ public class CarFillManually implements FillManuallyStrategy {
 
                 carBuilder.power(power);
                 status = true;
-            } catch (ValidateException e) {
+            } catch (ValidationException e) {
                 Message.invalidCommand();
             }
         }
-        status = false;
 
+        status = false;
+        // Ввод модели
         while (!status) {
             try {
                 Message.writeCarModel();
@@ -47,12 +48,13 @@ public class CarFillManually implements FillManuallyStrategy {
 
                 carBuilder.model(input);
                 status = true;
-            } catch (ValidateException e) {
+            } catch (ValidationException e) {
                 Message.invalidCommand();
             }
         }
-        status = false;
 
+        status = false;
+        // Ввод года
         while (!status) {
             try {
                 Message.writeCarYear();
@@ -65,7 +67,7 @@ public class CarFillManually implements FillManuallyStrategy {
 
                 carBuilder.year(year);
                 status = true;
-            } catch (ValidateException e) {
+            } catch (ValidationException e) {
                 Message.invalidCommand();
             }
         }

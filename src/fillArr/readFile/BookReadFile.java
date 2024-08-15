@@ -1,4 +1,4 @@
-package strategy.readfile;
+package fillArr.readFile;
 
 import models.Book;
 
@@ -10,21 +10,23 @@ import java.util.ArrayList;
 public class BookReadFile implements ReadFileStrategy {
     @Override
     public ArrayList<Book> readFile() {
-        ArrayList<Book> bookList = new ArrayList<>();
-        String line;
+        ArrayList<Book> books = new ArrayList<>();
+        String input;
+        // Чтение данных из файла
         try (BufferedReader reader = new BufferedReader(new FileReader("resources/books.txt"))) {
-            while ((line = reader.readLine()) != null) {
-                String[] values = line.split(":", 3);
+            while ((input = reader.readLine()) != null) {
+                String[] values = input.split(":", 3);
                 String author = values[0];
                 String name = values[1];
                 int pages = Integer.parseInt(values[2]);
                 Book book = new Book.Builder().author(author).name(name).pages(pages).build();
-                bookList.add(book);
+                books.add(book);
             }
         } catch (IOException e) {
             System.out.println("Exception\n");
-            bookList = null;
+            books = null;
         }
-        return bookList;
+
+        return books;
     }
 }

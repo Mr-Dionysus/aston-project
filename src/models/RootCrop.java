@@ -7,7 +7,7 @@ public class RootCrop {
     private final String type;
     private final double weight;
     private final String color;
-
+    // Данные для случайной генерации
     static String[] types = {"Turnip", "Carrot", "Beet", "Radish", "Cabbage", "Potato"};
     static String[] colors = {"yellow", "red", "green", "brown"};
 
@@ -74,6 +74,7 @@ public class RootCrop {
         }
     }
 
+    // Случайная генерация корнеплода
     public static ArrayList<RootCrop> createObjects(int length) {
         ArrayList<RootCrop> rootCropList = new ArrayList<>();
 

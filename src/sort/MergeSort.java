@@ -11,6 +11,28 @@ import java.util.List;
 import java.util.Scanner;
 
 public class MergeSort<T> implements SortingStrategy<T> {
+    @Override
+    public void sort(List<T> array, Comparator<? super T> comparator) {
+        // Проверка на минимальное количество элементов в массиве (min 2)
+        if (array.size() <= 1) {
+            return;
+        }
+
+        // Находим середину массива
+        int middle = array.size() / 2;
+        // Выделяем левую часть массива от 0 до середины
+        List<T> left = new ArrayList<>(array.subList(0, middle));
+        // Выделяем правую часть массива от середины до конца
+        List<T> right = new ArrayList<>(array.subList(middle, array.size()));
+
+        // Сортируем левую часть массива
+        sort(left, comparator);
+        // Сортируем правую часть массива
+        sort(right, comparator);
+        //Соединяем части в один массив
+        merge(array, left, right, comparator);
+    }
+
     // Метод для слияние двух отсортированных частей (левой и правой)
     private <T> void merge(List<T> array, List<T> left, List<T> right, Comparator<? super T> comparator) {
 		/* i — текущий индекс в левом массиве left
@@ -38,12 +60,14 @@ public class MergeSort<T> implements SortingStrategy<T> {
         }
     }
 
+    // В зависимости от класса будет выбираться подходящий switch с выбором, по какому полю сортировать
     public static String mergeSortArr(String className, Scanner scanner, SortingContext sortingContext, ArrayList cars, ArrayList books, ArrayList rootCrops) {
         Comparator<Car> carComparator;
         Comparator<Book> bookComparator;
         Comparator<RootCrop> rootCropComparator;
 
         switch (className) {
+            // Выбор сортировки у Car между power, model и year
             case "car":
                 Message.carMergeSortOptions();
 
@@ -85,7 +109,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                 }
 
                 return input;
-
+            // Выбор сортировки у Book между author, name и pages
             case "book":
                 Message.bookMergeSortOptions();
 
@@ -127,7 +151,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                 }
 
                 return input;
-
+            // Выбор сортировки у RootCrop между type, weight и color
             case "rootcrop":
                 Message.rootCropMergeSortOptions();
 
@@ -176,28 +200,5 @@ public class MergeSort<T> implements SortingStrategy<T> {
         }
 
         return "0";
-    }
-
-
-    @Override
-    public void sort(List<T> array, Comparator<? super T> comparator) {
-        // Проверка на минимальное количество элементов в массиве (min 2)
-        if (array.size() <= 1) {
-            return;
-        }
-
-        // Находим середину массива
-        int middle = array.size() / 2;
-        // Выделяем левую часть массива от 0 до середины
-        List<T> left = new ArrayList<>(array.subList(0, middle));
-        // Выделяем правую часть массива от середины до конца
-        List<T> right = new ArrayList<>(array.subList(middle, array.size()));
-
-        // Сортируем левую часть массива
-        sort(left, comparator);
-        // Сортируем правую часть массива
-        sort(right, comparator);
-        //Соединяем части в один массив
-        merge(array, left, right, comparator);
     }
 }

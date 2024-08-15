@@ -1,7 +1,5 @@
 package models;
 
-import exceptions.ValidateException;
-
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -10,6 +8,7 @@ public class Book {
     private final String name;
     private final int pages;
 
+    // Данные для случайной генерации объекта
     static String[] authors = {"Лев Толстой", "Фёдор Достоевский", "Михаил Булгаков", "Эрнест Хемингуэй", "Стивен Кинг", "Антуан де Сент-Экзюпери", "Александр Дюма", "Артур Конан Дойл", "Агата Кристи", "Фрэнсис Скотт Фицджеральд"};
 
     static String[] names = {"Война и мир", "Анна Каренина", "Преступление и наказание", "Идиот", "Мастер и Маргарита", "Белая гвардия", "Старик и море", "Смешарики2", "Сияние", "Оно", "Маленький принц", "Планета людей", "Три мушкетёра", "Колобок", "Собака Баскервилей", "Десять негритят", "Ночь нежна"};
@@ -73,11 +72,12 @@ public class Book {
             return this;
         }
 
-        public Book build() throws ValidateException {
+        public Book build() {
             return new Book(this);
         }
     }
 
+    // Создание случайной книги
     public static ArrayList<Book> createObjects(int length) {
         ArrayList<Book> bookList = new ArrayList<>();
 

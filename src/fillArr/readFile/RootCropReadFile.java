@@ -1,4 +1,4 @@
-package strategy.readfile;
+package fillArr.readFile;
 
 import models.RootCrop;
 
@@ -10,21 +10,22 @@ import java.util.ArrayList;
 public class RootCropReadFile implements ReadFileStrategy {
     @Override
     public ArrayList<RootCrop> readFile() {
-        ArrayList<RootCrop> rootCropList = new ArrayList<>();
-        String line;
+        ArrayList<RootCrop> rootCrops = new ArrayList<>();
+        String input;
+        // Чтение данных из файла
         try (BufferedReader reader = new BufferedReader(new FileReader("resources/rootcrops.txt"))) {
-            while ((line = reader.readLine()) != null) {
-                String[] values = line.split(":", 3);
+            while ((input = reader.readLine()) != null) {
+                String[] values = input.split(":", 3);
                 String type = values[0];
                 double weight = Double.parseDouble(values[1]);
                 String color = values[2];
                 RootCrop rootCrop = new RootCrop.Builder().type(type).weight(weight).color(color).build();
-                rootCropList.add(rootCrop);
+                rootCrops.add(rootCrop);
             }
         } catch (IOException e) {
             System.out.println("Exception\n");
-            rootCropList = null;
+            rootCrops = null;
         }
-        return rootCropList;
+        return rootCrops;
     }
 }

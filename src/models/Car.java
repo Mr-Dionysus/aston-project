@@ -7,7 +7,7 @@ public class Car {
     private final int power;
     private final String model;
     private final int year;
-
+    // Данные для случайной генерации объекта
     static String[] models = {"Lada Granta", "Kia Rio", "Toyota Camry", "Ford Mustang", "Honda Civic", "Tesla Model S", "BMW X5", "Mercedes-Benz E-Class", "Subaru Outback", "Jeep Wrangler", "Audi Q7", "Nissan Altima", "Volkswagen Golf", "Porsche 911", "Kia Sorento", "Dodge Charger", "Cadillac Escalade", "Lexus RX"};
 
     Car(Builder builder) {
@@ -73,6 +73,7 @@ public class Car {
         }
     }
 
+    // Создание случайной машины
     public static ArrayList<Car> createObjects(int length) {
         ArrayList<Car> carList = new ArrayList<>();
 
