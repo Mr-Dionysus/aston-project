@@ -1,6 +1,6 @@
 package search;
 
-import menu.Message;
+import menu.Err;
 import models.Book;
 import models.Car;
 import models.RootCrop;
@@ -36,7 +36,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Integer.parseInt(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum();
+                    Err.wrongFormatNum();
                     return -1;
                 }
 
@@ -51,7 +51,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Integer.parseInt(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum();
+                    Err.wrongFormatNum();
                     return -1;
                 }
 
@@ -81,7 +81,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Integer.parseInt(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum();
+                    Err.wrongFormatNum();
                     return -1;
                 }
 
@@ -107,7 +107,7 @@ public class BinarySearch<T> implements SearchingStrategy<T> {
                 try {
                     Double.parseDouble(searchParam);
                 } catch (NumberFormatException e) {
-                    Message.wrongFormatNum();
+                    Err.wrongFormatNum();
                     return -1;
                 }
 

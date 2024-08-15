@@ -1,5 +1,6 @@
 package sort;
 
+import menu.Err;
 import menu.Message;
 import models.Book;
 import models.Car;
@@ -104,7 +105,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                     case "0":
                         break;
                     default:
-                        Message.invalidCommand();
+                        Err.invalidCommand();
                         break;
                 }
 
@@ -146,7 +147,7 @@ public class MergeSort<T> implements SortingStrategy<T> {
                     case "0":
                         break;
                     default:
-                        Message.invalidCommand();
+                        Err.invalidCommand();
                         break;
                 }
 
@@ -188,14 +189,14 @@ public class MergeSort<T> implements SortingStrategy<T> {
                     case "0":
                         break;
                     default:
-                        Message.invalidCommand();
+                        Err.invalidCommand();
                         break;
                 }
 
                 return input;
 
             default:
-                Message.invalidCommand();
+                Err.invalidCommand();
                 break;
         }
 

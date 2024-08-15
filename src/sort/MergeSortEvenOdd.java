@@ -1,5 +1,6 @@
 package sort;
 
+import menu.Err;
 import menu.Message;
 import models.Book;
 import models.Car;
@@ -203,11 +204,11 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
                 break;
 
             case "rootcrop":
-                Message.cantBeEvenOrOdd();
+                Err.cantBeEvenOrOdd();
                 break;
 
             default:
-                Message.invalidCommand();
+                Err.invalidCommand();
                 break;
         }
     }
@@ -228,7 +229,7 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
             case "0":
                 return input;
             default:
-                Message.invalidCommand();
+                Err.invalidCommand();
                 input = "0";
                 return input;
         }

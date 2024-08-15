@@ -43,31 +43,16 @@ public class Book {
         private int pages;
 
         public Builder author(String author) {
-            //            if (!author.isEmpty() && !author.matches("-?\\d+")) {
-            //                this.author = author;
-            //            } else {
-            //                throw new ValidateException("Ошибка валидации");
-            //            }
             this.author = author;
             return this;
         }
 
         public Builder name(String name) {
-            //            if (!name.isEmpty() && !name.matches("-?\\d+")) {
-            //                this.name = name;
-            //            } else {
-            //                throw new ValidateException("Ошибка валидации");
-            //            }
             this.name = name;
             return this;
         }
 
         public Builder pages(int pages) {
-            //            if (0 < pages && pages <= 1000) {
-            //                this.pages = pages;
-            //            } else {
-            //                throw new ValidateException("Ошибка валидации");
-            //            }
             this.pages = pages;
             return this;
         }

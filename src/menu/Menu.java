@@ -80,7 +80,7 @@ public class Menu {
                     }
                     break;
                 default:
-                    Message.invalidCommand();
+                    Err.invalidCommand();
                     break;
             }
             // ----------------------------------------------------
@@ -121,7 +121,7 @@ public class Menu {
                 input = "0";
                 break;
             default:
-                Message.invalidCommand();
+                Err.invalidCommand();
                 return "0";
         }
 
@@ -150,7 +150,7 @@ public class Menu {
             case "0":
                 break;
             default:
-                Message.invalidCommand();
+                Err.invalidCommand();
                 break;
         }
 
@@ -210,7 +210,7 @@ public class Menu {
                 readFileContext.setReadFileStrategy(new RootCropReadFile());
                 break;
             default:
-                Message.invalidCommand();
+                Err.invalidCommand();
         }
 
         list = readFileContext.executeReadFileStrategy();
@@ -240,7 +240,7 @@ public class Menu {
                 list.forEach(System.out::println);
                 return list;
             default:
-                Message.invalidCommand();
+                Err.invalidCommand();
                 return null;
         }
     }
@@ -269,7 +269,7 @@ public class Menu {
             case "0":
                 return input;
             default:
-                Message.invalidCommand();
+                Err.invalidCommand();
                 input = "0";
                 return input;
         }
@@ -289,7 +289,7 @@ public class Menu {
                 length = Integer.parseInt(input);
                 status = setArrayLength(length);
             } catch (NumberFormatException e) {
-                Message.wrongArrLength();
+                Err.wrongArrLength();
             }
         }
     }
@@ -302,7 +302,7 @@ public class Menu {
             this.arrayLength = arrayLength;
             status = true;
         } else {
-            Message.wrongArrLength();
+            Err.wrongArrLength();
         }
 
         return status;

@@ -39,31 +39,16 @@ public class Car {
         private int year;
 
         public Builder power(int power) {
-            //            if (power > 0 && power <= 1000) {
-            //                this.power = power;
-            //            } else {
-            //                throw new ValidateException("Ошибка валидации");
-            //            }
             this.power = power;
             return this;
         }
 
         public Builder model(String model) {
-            //            if (!model.isEmpty() && !model.matches("-?\\d+")) {
-            //                this.model = model;
-            //            } else {
-            //                throw new ValidateException("Ошибка валидации");
-            //            }
             this.model = model;
             return this;
         }
 
         public Builder year(int year) {
-            //            if (year > 1800 && year <= 2024 || year == 0) {
-            //                this.year = year;
-            //            } else {
-            //                throw new ValidateException("Ошибка валидации");
-            //            }
             this.year = year;
             return this;
         }

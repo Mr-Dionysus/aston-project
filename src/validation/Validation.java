@@ -1,11 +1,12 @@
 package validation;
 
+import menu.Err;
 import menu.Message;
 
 public class Validation {
     public static int carPower(String input) {
         if (input.isEmpty()) {
-            Message.emptyString();
+            Err.emptyString();
             return -1;
             // Выход, если ввести 0
         } else if (input.equals("0")) {
@@ -21,7 +22,7 @@ public class Validation {
             System.out.println("- Вы ввели меньшее число, чем минимальное количество лошадей в машинах США - 66");
             return -1;
         } else {
-            Message.invalidCommand();
+            Err.invalidCommand();
             return -1;
         }
     }
@@ -47,7 +48,7 @@ public class Validation {
             System.out.println("- Пока что мы не перешагнули за 2024 год");
             return -1;
         } else {
-            Message.invalidCommand();
+            Err.invalidCommand();
             return -1;
         }
     }
@@ -73,14 +74,14 @@ public class Validation {
             System.out.println("- Мы еще не встречали книги со страницами более 1000");
             return -1;
         } else {
-            Message.invalidCommand();
+            Err.invalidCommand();
             return -1;
         }
     }
 
     public static double rootCropWeight(String input) {
         if (input.isEmpty()) {
-            Message.emptyString();
+            Err.emptyString();
             return -1;
             // Выход, если ввести 0
         } else if (input.equals("0")) {
@@ -90,7 +91,7 @@ public class Validation {
         long dots = input.chars().filter(ch -> ch == '.').count();
 
         if (dots > 1) {
-            Message.errTooMuchDots();
+            Err.tooMuchDots();
             return -1;
         }
 
@@ -103,7 +104,7 @@ public class Validation {
             System.out.println("- Пока еще мы не встречали корнеплодов с отсутствующим или отрицательным весом");
             return -1;
         } else {
-            Message.invalidCommand();
+            Err.invalidCommand();
             return -1;
         }
     }

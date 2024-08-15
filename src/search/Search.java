@@ -1,5 +1,6 @@
 package search;
 
+import menu.Err;
 import menu.Message;
 import validation.Validation;
 
@@ -20,7 +21,7 @@ public class Search {
                 Search.youWantSomeSearch(scanner, className, rootCrops, sortBy);
                 break;
             default:
-                Message.invalidCommand();
+                Err.invalidCommand();
                 break;
         }
     }
@@ -39,7 +40,7 @@ public class Search {
             case "0":
                 break;
             default:
-                Message.invalidCommand();
+                Err.invalidCommand();
                 break;
         }
     }
@@ -50,7 +51,7 @@ public class Search {
         String searchParam = scanner.nextLine().toLowerCase();
 
         if (searchParam.isEmpty()) {
-            Message.emptyString();
+            Err.emptyString();
             return null;
         }
 
@@ -60,7 +61,7 @@ public class Search {
                 break;
 
             default:
-                Message.invalidCommand();
+                Err.invalidCommand();
                 break;
         }
         return null;
@@ -73,7 +74,7 @@ public class Search {
         T searchResult;
 
         if (index < 0 || index > list.size()) {
-            Message.cantFindObject();
+            Err.cantFindObject();
             return null;
         } else {
             searchResult = list.get(index);
