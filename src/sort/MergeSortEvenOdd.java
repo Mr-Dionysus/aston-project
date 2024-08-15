@@ -223,6 +223,7 @@ public class MergeSortEvenOdd<T> implements SortingStrategy<T> {
                 carComparator = Comparator.comparingInt(Car::getPower);
                 break;
             case "2":
+                MergeSortEvenOdd.setSortType("Year");
                 carComparator = Comparator.comparingInt(Car::getYear);
                 break;
             case "0":
