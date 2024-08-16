@@ -1,6 +1,7 @@
 package fillArr.readFile;
 
 import models.Car;
+import validation.Validation;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -16,10 +17,19 @@ public class CarReadFile implements ReadFileStrategy {
         try (BufferedReader reader = new BufferedReader(new FileReader("resources/cars.txt"))) {
             while ((input = reader.readLine()) != null) {
                 String[] values = input.split(":", 3);
-                int power = Integer.parseInt(values[0]);
-                String model = values[1];
-                int year = Integer.parseInt(values[2]);
+                String powerString = Validation.removeSymbolsLettersSpaces(values[0]);
+                int power = Validation.carPower(powerString);
+
+                String model = Validation.removeSymbols(values[1]);
+
+                String yearString = Validation.removeSymbolsWithoutDotLettersSpaces(values[2]);
+                int year = Validation.carYear(yearString);
                 Car car = new Car.Builder().power(power).model(model).year(year).build();
+
+                if (power == -1 || year == -1) {
+                    car = null;
+                }
+
                 cars.add(car);
             }
         } catch (IOException e) {

@@ -28,12 +28,12 @@ public class Search {
 
     // Выбор, хочет пользователь искать объект или нет
     public static <T> void youWantSomeSearch(Scanner scanner, String className, ArrayList<T> list, String sortBy) {
-        String doSearch = Validation.removeSymbols(scanner.next());
-        list.forEach(System.out::println);
+        String doSearch = Validation.removeSymbolsLettersSpaces(scanner.next());
 
         switch (doSearch) {
             case "1":
                 // Ввести значение искомого параметра в зависимости от имеющихся: название класса и поле, по которому была сортировка
+                list.forEach(System.out::println);
                 Message.writeSearchObject(className, sortBy);
                 Search.classOptionsForSearch(list, className, sortBy, scanner);
                 break;
