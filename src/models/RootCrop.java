@@ -1,8 +1,5 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.Random;
-
 public class RootCrop {
     private final String type;
     private final double weight;
